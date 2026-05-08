@@ -21,6 +21,7 @@ The dashboard uses **hash-based routing**, not anchor scrolling. Each nav button
 - `#/zoho`        — Zoho CRM snapshot
 - `#/apollo`      — Apollo dedup funnel
 - `#/categorize`  — Ready / Clay / Reject categorization
+- `#/tat`         — Turnaround time (compute · human · vendor · sending)
 - `#/emails`      — 10 pilot drafts
 - `#/rerun`       — Re-run instructions, skill, scripts, send pacing
 
@@ -28,18 +29,27 @@ Every page also has a Previous / Next pager at the bottom for sequential review.
 
 ## Deploy to GitHub Pages
 
+Repo name: **`crm-apollo-funnel`**
+
 ```bash
 cd /home/bngsys/Projects/enrichment/dashboard
 git init -b main
 git add .
-git commit -m "Outreach pipeline pilot dashboard"
-git remote add origin git@github.com:<owner>/<repo>.git
-git push -u origin main
+git commit -m "CRM × Apollo outreach funnel dashboard"
+
+# Create the repo on GitHub first (gh CLI shown — or do it via the web UI):
+gh repo create crm-apollo-funnel --private --source=. --remote=origin --push
+
+# Or, if creating via web UI:
+# git remote add origin git@github.com:<owner>/crm-apollo-funnel.git
+# git push -u origin main
 ```
 
-Then in the repo settings → **Pages** → Source = `Deploy from a branch` → Branch = `main` / `/ (root)` → Save.
+Then in repo Settings → **Pages** → Source = `Deploy from a branch` → Branch = `main` / `/ (root)` → Save.
 
-The site will be available at `https://<owner>.github.io/<repo>/` within ~1 minute.
+The site will be live at `https://<owner>.github.io/crm-apollo-funnel/` within ~1 minute.
+
+> If you keep the repo private, GitHub Pages requires a paid plan. For internal partner review without a paid plan, either make it public (it has no secrets — all data is aggregate counts and public-facing leadership names already on usaindiacfo.com) or use the **Pages → Restrict access to private** option on a paid plan.
 
 ## Files
 

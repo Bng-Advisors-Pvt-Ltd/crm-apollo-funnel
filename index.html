@@ -74,6 +74,7 @@ tailwind.config = {
       <a href="#/zoho"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/zoho">Zoho CRM</a>
       <a href="#/apollo"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/apollo">Apollo</a>
       <a href="#/categorize" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/categorize">Categorize</a>
+      <a href="#/tat"        class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/tat">TAT</a>
       <a href="#/emails"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/emails">Pilot Emails</a>
       <a href="#/rerun"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/rerun">Re-run</a>
     </nav>
@@ -154,13 +155,18 @@ tailwind.config = {
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Categorization →</div>
         <div class="text-sm text-slate-600">44% Ready · 56% Clay-enrichable · 0.4% Reject. The data-sufficiency filter applied.</div>
       </a>
-      <a href="#/emails" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/tat" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">05</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">TAT &middot; turnaround time →</div>
+        <div class="text-sm text-slate-600">~1 hour compute, days of human review, weeks of safe send pacing. Critical path explained.</div>
+      </a>
+      <a href="#/emails" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pilot emails →</div>
         <div class="text-sm text-slate-600">10 personalized drafts spanning the conditional matrix. Filter by branch.</div>
       </a>
       <a href="#/rerun" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
+        <div class="text-xs font-mono text-slate-500 mb-2">07</div>
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Re-run on next list →</div>
         <div class="text-sm text-slate-600">The /outreach-batch skill, the scripts, send pacing, hard guardrails.</div>
       </a>
@@ -173,7 +179,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/flow" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Pipeline flow</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Five stages, fully offline up to the staging step. Re-runnable via the <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">/outreach-batch</code> skill on any future CSV.</p>
 
@@ -230,7 +236,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/zoho" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Zoho CRM snapshot</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Generated from the official Zoho data backup pulled 2026-05-08. The only source of truth for what's actually in CRM today.</p>
 
@@ -295,7 +301,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/apollo" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Apollo dedup + funnel</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">9,000 prospects from Apollo, 49 distinct lead sources. Match keys: email, phone digits, name+company.</p>
 
@@ -355,7 +361,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/categorize" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Categorization &middot; data sufficiency</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Filter rule applied to all 8,277 candidates. Insufficient-data rows route to Clay rather than getting dropped, so we don't lose recoverable contacts.</p>
 
@@ -428,11 +434,152 @@ tailwind.config = {
 </section>
 
 <!-- ========================================================== -->
+<!-- PAGE: TAT                                                    -->
+<!-- ========================================================== -->
+<section data-page="/tat" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 08</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Turnaround time</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">
+      Compute is fast. Human review is multi-day. Safe send-pacing is multi-week. Plan around the slowest stage at each step.
+    </p>
+
+    <!-- Headline summary cards -->
+    <div class="mt-8 grid md:grid-cols-4 gap-4">
+      <div class="rounded-xl border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Compute time</div>
+        <div class="text-2xl font-semibold num mt-1">~1 hour</div>
+        <div class="text-xs text-slate-500 mt-1">Dedup + analyze + categorize + bulk draft</div>
+      </div>
+      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-amber-700">Human review</div>
+        <div class="text-2xl font-semibold num mt-1 text-amber-900">1&ndash;3 days</div>
+        <div class="text-xs text-amber-700/80 mt-1">Partner + marketing sign-off on pilot</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Clay enrichment</div>
+        <div class="text-2xl font-semibold num mt-1">3&ndash;6 hours</div>
+        <div class="text-xs text-slate-500 mt-1">4,602 rows · async batch</div>
+      </div>
+      <div class="rounded-xl border border-rose-200 bg-rose-50/40 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-rose-700">Send window</div>
+        <div class="text-2xl font-semibold num mt-1 text-rose-900">14&ndash;21 days</div>
+        <div class="text-xs text-rose-700/80 mt-1">5 mailboxes · safe warmup pace</div>
+      </div>
+    </div>
+
+    <!-- Stage-by-stage TAT table -->
+    <div class="mt-8 rounded-xl border border-slate-200 bg-white overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <div class="text-sm font-semibold text-ink">Stage-by-stage TAT</div>
+          <div class="text-xs text-slate-500">Compute = wall-clock script runtime · Human = partner/team time · Vendor = external system queue</div>
+        </div>
+        <div class="text-xs text-slate-500 hidden md:flex gap-3">
+          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-emerald-500"></span> compute</span>
+          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-amber-500"></span> human</span>
+          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-sky-500"></span> vendor</span>
+          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-rose-500"></span> sending</span>
+        </div>
+      </div>
+      <table class="w-full text-sm">
+        <thead class="bg-slate-50 text-xs uppercase text-slate-500">
+          <tr>
+            <th class="text-left font-medium px-6 py-3">#</th>
+            <th class="text-left font-medium px-6 py-3">Stage</th>
+            <th class="text-left font-medium px-6 py-3">Type</th>
+            <th class="text-left font-medium px-6 py-3">First-run TAT</th>
+            <th class="text-left font-medium px-6 py-3">Re-run TAT</th>
+            <th class="text-left font-medium px-6 py-3">Notes</th>
+          </tr>
+        </thead>
+        <tbody id="tat-rows" class="divide-y divide-slate-100"></tbody>
+        <tfoot class="bg-slate-50 text-sm font-semibold text-ink">
+          <tr>
+            <td class="px-6 py-3" colspan="3">End-to-end</td>
+            <td class="px-6 py-3 num">~17&ndash;25 days</td>
+            <td class="px-6 py-3 num">~15&ndash;22 days</td>
+            <td class="px-6 py-3 text-slate-500 font-normal">Critical path = sending pace, not drafting</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Cumulative timeline -->
+    <div class="mt-8 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-sm font-semibold text-ink mb-1">Cumulative timeline (calendar days)</div>
+      <div class="text-xs text-slate-500 mb-5">From "CSV received" to "list fully sent". Stage bars positioned by start day.</div>
+      <div id="tat-timeline" class="space-y-3 text-xs"></div>
+      <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
+        Reply window opens around <span class="font-mono num text-ink">Day 5</span> (first cohort sent on Day 4) and closes ~7 days after the last send (~<span class="font-mono num text-ink">Day 28</span>).
+      </div>
+    </div>
+
+    <!-- Critical path / bottleneck explainer -->
+    <div class="mt-6 grid md:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">What's slow, and why</div>
+        <ul class="space-y-3 text-sm text-slate-700">
+          <li class="flex gap-3">
+            <span class="font-mono text-rose-600 font-semibold whitespace-nowrap shrink-0">14&ndash;21d</span>
+            <span><span class="font-semibold text-ink">Sending pace.</span> 5 mailboxes × ~80&ndash;150/day at warmup-safe rates. Going faster trashes domain reputation; can't be parallelized further without buying more domains and warming them.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-amber-600 font-semibold whitespace-nowrap shrink-0">1&ndash;3d</span>
+            <span><span class="font-semibold text-ink">Partner + marketing review.</span> Calendar-bound; the only way to compress is to get sign-off attention earlier. Pre-share a Loom walkthrough alongside the pilot to cut cycles.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-sky-600 font-semibold whitespace-nowrap shrink-0">3&ndash;6h</span>
+            <span><span class="font-semibold text-ink">Clay enrichment.</span> Async waterfall on 4,602 rows. Can run overnight in parallel with sending the Ready cohort &mdash; doesn't block.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">What's already fast</div>
+        <ul class="space-y-3 text-sm text-slate-700">
+          <li class="flex gap-3">
+            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30s</span>
+            <span><span class="font-semibold text-ink">Dedup vs CRM.</span> 9k Apollo × 20k Zoho indexed + matched in stdlib Python.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30s</span>
+            <span><span class="font-semibold text-ink">Zoho analyze.</span> Full fill-rate, distributions, hygiene, Flow A/B/C bucketing.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~10s</span>
+            <span><span class="font-semibold text-ink">Categorize.</span> Filter 8,277 rows into Ready / Clay / Reject by data sufficiency.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30m</span>
+            <span><span class="font-semibold text-ink">Bulk draft (template-mode).</span> 3,646 ready rows from CSV + cached facts; deterministic conditional fill.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- This-pilot actuals -->
+    <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
+      <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">This pilot &mdash; actual TAT</div>
+      <div class="grid md:grid-cols-4 gap-3 text-sm">
+        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">CSV received → pilot ready</div><div class="font-semibold num mt-1">~70 minutes</div></div>
+        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">Dedup + categorize</div><div class="font-semibold num mt-1">~2 minutes</div></div>
+        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">Facts extraction</div><div class="font-semibold num mt-1">~10 minutes</div></div>
+        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">10 emails drafted</div><div class="font-semibold num mt-1">~25 minutes</div></div>
+      </div>
+      <div class="mt-3 text-xs text-slate-500">
+        Re-runs are faster &mdash; facts cached, scripts proven, skill registered. Subsequent pilots typically <span class="font-mono text-ink">~25&ndash;40 min</span> end-to-end.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
 <!-- PAGE: EMAILS                                                 -->
 <!-- ========================================================== -->
 <section data-page="/emails" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Pilot drafts &middot; 10 emails</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Picked to span the conditional matrix in CONTEXT.docx — Founder/CEO · CFO · Other × geography × industry. Click any row to expand the body.</p>
 
@@ -458,7 +605,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/rerun" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 06</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">07 / 08</div>
     <h2 class="text-3xl font-semibold tracking-tight">Re-run on the next list</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Same pipeline, new CSV. Skill is registered and re-runnable in any Claude Code session.</p>
 
@@ -605,6 +752,36 @@ tailwind.config = {
 ]
 </script>
 
+<script type="application/json" id="tat-data">
+{
+  "stages": [
+    {"i":1, "stage":"Receive CSV + CRM dump",          "type":"input",   "color":"slate",   "first":"manual", "rerun":"manual",  "notes":"User provides paths; no compute"},
+    {"i":2, "stage":"Dedup CSV vs CRM",                 "type":"compute", "color":"emerald", "first":"~30s",   "rerun":"~30s",    "notes":"3-key match: email · phone · name+co"},
+    {"i":3, "stage":"Zoho snapshot analysis",           "type":"compute", "color":"emerald", "first":"~30s",   "rerun":"~30s",    "notes":"Fill rate · distributions · hygiene · Flow A/B/C"},
+    {"i":4, "stage":"Categorize Ready/Clay/Reject",     "type":"compute", "color":"emerald", "first":"~10s",   "rerun":"~10s",    "notes":"Data-sufficiency filter on the unmatched pool"},
+    {"i":5, "stage":"Extract verifiable USAIndiaCFO facts","type":"compute","color":"emerald","first":"~10m",   "rerun":"<1m",     "notes":"Cached after first run; reuse across batches"},
+    {"i":6, "stage":"Pilot 10 emails (with QA)",        "type":"compute", "color":"emerald", "first":"~25m",   "rerun":"~10m",    "notes":"Conditional matrix coverage · word-count check · no fabrication audit"},
+    {"i":7, "stage":"Build review packet (forward email)","type":"compute","color":"emerald","first":"~5m",    "rerun":"~5m",     "notes":"Wrapper email + attached CSV/JSON for partner"},
+    {"i":8, "stage":"Partner + marketing review",       "type":"human",   "color":"amber",   "first":"1–3d",   "rerun":"4–8h",    "notes":"Calendar-bound; pre-share Loom to compress"},
+    {"i":9, "stage":"Apply review edits to template",   "type":"human",   "color":"amber",   "first":"~1h",    "rerun":"~30m",    "notes":"Tone/lines tweaks; template fixes apply across all rows"},
+    {"i":10,"stage":"Bulk draft (3,646 Ready rows)",    "type":"compute", "color":"emerald", "first":"~30m",   "rerun":"~30m",    "notes":"Template-mode: deterministic conditional fill; no per-row LLM call"},
+    {"i":11,"stage":"Clay enrichment (4,602 rows)",     "type":"vendor",  "color":"sky",     "first":"3–6h",   "rerun":"3–6h",    "notes":"Async; runs parallel to Ready-cohort sending"},
+    {"i":12,"stage":"Stage to Apollo Sequences",        "type":"compute", "color":"emerald", "first":"~30m",   "rerun":"~20m",    "notes":"Filter to Email Status = Verified; tranche by mailbox"},
+    {"i":13,"stage":"Send window (8,277 candidates)",   "type":"sending", "color":"rose",    "first":"14–21d", "rerun":"14–21d",  "notes":"5 mailboxes × ~80–150/day at warmup-safe rates"},
+    {"i":14,"stage":"Reply / bounce monitoring",        "type":"human",   "color":"amber",   "first":"ongoing","rerun":"ongoing", "notes":"Pause if anomaly after first 200 sends"}
+  ],
+  "timeline": [
+    {"label":"Compute pipeline (dedup → bulk draft)",   "start":0,  "len":1,  "color":"emerald"},
+    {"label":"Partner + marketing review",              "start":1,  "len":3,  "color":"amber"},
+    {"label":"Apply edits + bulk draft refresh",        "start":3,  "len":1,  "color":"emerald"},
+    {"label":"Clay enrichment (parallel)",              "start":3,  "len":1,  "color":"sky"},
+    {"label":"Stage + send Ready cohort (3,646)",       "start":4,  "len":10, "color":"rose"},
+    {"label":"Stage + send Clay cohort (4,089 net)",    "start":7,  "len":14, "color":"rose"},
+    {"label":"Reply window",                            "start":5,  "len":23, "color":"slate"}
+  ]
+}
+</script>
+
 <script type="application/json" id="emails-data">
 [
   {"i":1,"name":"Kumar Johny","first":"Kumar","title":"Founder & CEO","company":"Darner AI Inc.","industry":"Information Technology & Services","branch":"founder_ceo","geo":"India person · US company","leaders":["Naman Gangwal"],"email_q":"personal_only","email_q_label":"Personal email only · Clay-recoverable in production","subject":"Cut the cross-border tax drag at Darner AI","body":"Hi Kumar,\n\nFounders running US-incorporated startups from India usually hit the same three speed bumps - transfer pricing on offshore engineering, FEMA/FDI sequencing for any India entity work, and state nexus the moment you onboard your first US customer team.\n\nUSAIndiaCFO sits on both sides of that line. Naman Gangwal (CPA) handles our US-CFO vertical; we built the practice working with founders scaling US companies with India operations - early clients included Blackstone and Sony.\n\nQuick offer - a no-obligation review of your US filing calendar and India-side dependencies so you know exactly what's on your plate before the next quarter closes.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":132},
@@ -633,6 +810,7 @@ tailwind.config = {
     { path: '/zoho',       label: 'Zoho CRM snapshot' },
     { path: '/apollo',     label: 'Apollo dedup funnel' },
     { path: '/categorize', label: 'Categorization' },
+    { path: '/tat',        label: 'Turnaround time' },
     { path: '/emails',     label: 'Pilot emails' },
     { path: '/rerun',      label: 'Re-run on next list' },
   ];
@@ -703,6 +881,49 @@ tailwind.config = {
         <div class="h-full bg-${b.color}-500" style="width:${b.pct}%"></div>
       </div>
     </div>`).join("");
+
+  // TAT — stage table + cumulative timeline
+  const tat = JSON.parse($("#tat-data").textContent);
+  const typeChip = t => ({
+    input:   'bg-slate-100 text-slate-700 border-slate-200',
+    compute: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+    human:   'bg-amber-100 text-amber-700 border-amber-200',
+    vendor:  'bg-sky-100 text-sky-700 border-sky-200',
+    sending: 'bg-rose-100 text-rose-700 border-rose-200',
+  }[t] || 'bg-slate-100 text-slate-700');
+  $("#tat-rows").innerHTML = tat.stages.map(s => `
+    <tr class="hover:bg-slate-50/60">
+      <td class="px-6 py-3 text-xs font-mono text-slate-400">${String(s.i).padStart(2,'0')}</td>
+      <td class="px-6 py-3 text-ink">${s.stage}</td>
+      <td class="px-6 py-3"><span class="text-[10px] px-2 py-0.5 rounded border ${typeChip(s.type)}">${s.type}</span></td>
+      <td class="px-6 py-3 font-mono num text-slate-700">${s.first}</td>
+      <td class="px-6 py-3 font-mono num text-slate-500">${s.rerun}</td>
+      <td class="px-6 py-3 text-xs text-slate-500">${s.notes}</td>
+    </tr>`).join("");
+
+  // Cumulative timeline — 28-day axis
+  const TL_DAYS = 28;
+  const tlEl = $("#tat-timeline");
+  // Day axis
+  const axis = `
+    <div class="flex items-center text-[10px] text-slate-400 mb-1">
+      <div class="w-44 shrink-0"></div>
+      <div class="flex-1 grid grid-cols-7 gap-0">
+        ${[0,4,8,12,16,20,24,28].slice(0,7).map(d=>`<div class="border-l border-slate-200 pl-1">D${d}</div>`).join('')}
+      </div>
+    </div>`;
+  const bars = tat.timeline.map(b => `
+    <div class="flex items-center">
+      <div class="w-44 shrink-0 text-slate-700 truncate pr-3">${b.label}</div>
+      <div class="flex-1 relative h-5 bg-slate-50 rounded">
+        <div class="absolute top-0 bottom-0 rounded bg-${b.color}-500 ${b.color==='slate'?'opacity-30':'opacity-90'}"
+             style="left:${(b.start/TL_DAYS)*100}%; width:${(b.len/TL_DAYS)*100}%"
+             title="Day ${b.start}–${b.start+b.len}">
+        </div>
+      </div>
+      <div class="w-20 shrink-0 text-right font-mono text-slate-500 pl-3">${b.len === 1 ? `D${b.start}` : `D${b.start}–${b.start+b.len}`}</div>
+    </div>`).join("");
+  tlEl.innerHTML = axis + bars;
 
   // Emails
   const emails = JSON.parse($("#emails-data").textContent);
