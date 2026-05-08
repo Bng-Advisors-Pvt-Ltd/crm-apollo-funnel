@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en" class="bg-slate-50">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BNG Outreach Pipeline · Pilot Dashboard</title>
+<meta name="description" content="Cold-outreach pipeline pilot — Zoho CRM snapshot, Apollo dedup, categorization, and 10 sample drafted emails." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        serif: ['"Instrument Serif"', 'ui-serif'],
+      },
+      colors: {
+        ink: { DEFAULT: '#0b1220', soft: '#1e293b' },
+      },
+    },
+  },
+};
+</script>
+
+<style>
+  body { font-feature-settings: "ss01","cv11"; }
+  .num { font-variant-numeric: tabular-nums; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .stat-card { transition: transform .15s ease, box-shadow .15s ease; }
+  .stat-card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -10px rgba(15,23,42,.15); }
+  details[open] summary svg.chev { transform: rotate(90deg); }
+  summary svg.chev { transition: transform .15s ease; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display:none; }
+  /* Page transition */
+  [data-page] { animation: fadeIn .18s ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .nav-link.active { color: #0b1220; border-color: #0b1220; }
+</style>
+</head>
+
+<body class="font-sans text-ink antialiased min-h-screen flex flex-col">
+
+<!-- ========== TOP NAV ========== -->
+<header class="sticky top-0 z-30 border-b border-slate-200/70 bg-slate-50/85 backdrop-blur">
+  <div class="mx-auto max-w-7xl px-6 py-3">
+    <div class="flex items-center justify-between gap-6">
+      <a href="#/" class="flex items-center gap-3 group">
+        <div class="size-8 rounded-md bg-ink text-white grid place-items-center font-mono text-xs font-bold group-hover:scale-105 transition">BNG</div>
+        <div>
+          <div class="text-sm font-semibold text-ink">Outreach Pipeline · Pilot</div>
+          <div class="text-xs text-slate-500">USAIndiaCFO &middot; <span class="font-mono">2026-05-08</span></div>
+        </div>
+      </a>
+      <div class="flex items-center gap-2 text-xs text-slate-500">
+        <span class="size-1.5 rounded-full bg-emerald-500"></span>
+        pilot &middot; not sent
+      </div>
+    </div>
+    <nav class="mt-3 flex items-center gap-1 overflow-x-auto -mb-px text-sm">
+      <a href="#/"           class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/">Overview</a>
+      <a href="#/flow"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/flow">Flow</a>
+      <a href="#/zoho"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/zoho">Zoho CRM</a>
+      <a href="#/apollo"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/apollo">Apollo</a>
+      <a href="#/categorize" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/categorize">Categorize</a>
+      <a href="#/emails"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/emails">Pilot Emails</a>
+      <a href="#/rerun"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/rerun">Re-run</a>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-1">
+
+<!-- ========================================================== -->
+<!-- PAGE: OVERVIEW (default)                                    -->
+<!-- ========================================================== -->
+<section data-page="/" class="hidden">
+  <!-- Hero -->
+  <div class="relative overflow-hidden border-b border-slate-200">
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <div class="relative mx-auto max-w-7xl px-6 py-14 md:py-20">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/70 px-3 py-1 text-xs text-slate-600 mb-6">
+          <span class="size-1.5 rounded-full bg-amber-500"></span>
+          Awaiting partner + marketing review
+        </div>
+        <h1 class="font-serif text-5xl md:text-6xl leading-[1.05] tracking-tight">
+          Cold-outreach pipeline,<br/>
+          end-to-end <span class="text-emerald-700">offline</span>.
+        </h1>
+        <p class="mt-6 text-slate-600 text-lg max-w-2xl">
+          Apollo prospect list deduped against the Zoho CRM, categorized by enrichability,
+          and draft personalized emails using the existing CONTEXT.docx prompt &mdash; without
+          sending anything until the partner signs off.
+        </p>
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="rounded-lg border border-slate-200 bg-white p-4 stat-card">
+            <div class="text-xs text-slate-500">Apollo input</div>
+            <div class="text-2xl font-semibold num mt-1">9,000</div>
+            <div class="text-xs text-slate-400 mt-1">contacts</div>
+          </div>
+          <div class="rounded-lg border border-slate-200 bg-white p-4 stat-card">
+            <div class="text-xs text-slate-500">Already in CRM</div>
+            <div class="text-2xl font-semibold num mt-1">7</div>
+            <div class="text-xs text-slate-400 mt-1">de-duped out</div>
+          </div>
+          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-4 stat-card">
+            <div class="text-xs text-emerald-700">Ready to draft</div>
+            <div class="text-2xl font-semibold num mt-1 text-emerald-900">3,646</div>
+            <div class="text-xs text-emerald-700/70 mt-1">verified work emails</div>
+          </div>
+          <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 stat-card">
+            <div class="text-xs text-amber-700">Clay-enrichable</div>
+            <div class="text-2xl font-semibold num mt-1 text-amber-900">4,602</div>
+            <div class="text-xs text-amber-700/70 mt-1">recoverable via Clay</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Where to next -->
+  <div class="mx-auto max-w-7xl px-6 py-14">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-4">Where to next</div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <a href="#/flow" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">01</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pipeline flow →</div>
+        <div class="text-sm text-slate-600">Five stages from CSV to staged-for-send. Three operating rules that keep this safe.</div>
+      </a>
+      <a href="#/zoho" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">02</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Zoho CRM snapshot →</div>
+        <div class="text-sm text-slate-600">20k Leads, 6.5k stale-open, 0% LinkedIn URL fill. The audience reality.</div>
+      </a>
+      <a href="#/apollo" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">03</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Apollo dedup funnel →</div>
+        <div class="text-sm text-slate-600">9,000 contacts → 8,277 net-new candidates. Only 7 already in CRM.</div>
+      </a>
+      <a href="#/categorize" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">04</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Categorization →</div>
+        <div class="text-sm text-slate-600">44% Ready · 56% Clay-enrichable · 0.4% Reject. The data-sufficiency filter applied.</div>
+      </a>
+      <a href="#/emails" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">05</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pilot emails →</div>
+        <div class="text-sm text-slate-600">10 personalized drafts spanning the conditional matrix. Filter by branch.</div>
+      </a>
+      <a href="#/rerun" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Re-run on next list →</div>
+        <div class="text-sm text-slate-600">The /outreach-batch skill, the scripts, send pacing, hard guardrails.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: FLOW                                                   -->
+<!-- ========================================================== -->
+<section data-page="/flow" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Pipeline flow</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Five stages, fully offline up to the staging step. Re-runnable via the <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">/outreach-batch</code> skill on any future CSV.</p>
+
+    <ol class="mt-10 grid md:grid-cols-5 gap-4 text-sm">
+      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
+        <div class="text-xs font-mono text-slate-500 mb-2">01 · INPUT</div>
+        <div class="font-semibold text-ink mb-1">CSV + CRM dump</div>
+        <div class="text-slate-600">Apollo export (9k rows) + official Zoho backup (20k Leads, full schema, picklists, users).</div>
+      </li>
+      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
+        <div class="text-xs font-mono text-slate-500 mb-2">02 · DEDUP</div>
+        <div class="font-semibold text-ink mb-1">Email · phone · name+company</div>
+        <div class="text-slate-600">Match Apollo rows against CRM Leads. Three-key matching with case + whitespace normalization.</div>
+      </li>
+      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
+        <div class="text-xs font-mono text-slate-500 mb-2">03 · CATEGORIZE</div>
+        <div class="font-semibold text-ink mb-1">Ready · Clay · Reject</div>
+        <div class="text-slate-600">Filter by data sufficiency. Send Clay-enrichable rows to a queue rather than dropping them.</div>
+      </li>
+      <li class="rounded-lg border border-slate-200 p-5 bg-emerald-50/40">
+        <div class="text-xs font-mono text-emerald-700 mb-2">04 · DRAFT</div>
+        <div class="font-semibold text-ink mb-1">CONTEXT.docx · pilot first</div>
+        <div class="text-slate-600">Per-row email using only verified facts. 10-row pilot, reviewed by partner before bulk.</div>
+      </li>
+      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
+        <div class="text-xs font-mono text-slate-500 mb-2">05 · STAGE</div>
+        <div class="font-semibold text-ink mb-1">Apollo Sequences</div>
+        <div class="text-slate-600">Upload in batches respecting per-mailbox daily caps. Never auto-send. Monitor reply/bounce.</div>
+      </li>
+    </ol>
+
+    <div class="mt-10 grid md:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-slate-200 p-5 bg-white">
+        <div class="text-xs font-mono text-slate-500 mb-2">RULE 01</div>
+        <div class="font-semibold text-ink mb-1">Claude first, Clay only when uniquely needed</div>
+        <div class="text-sm text-slate-600">Most rows already have Title, Company, Industry, and LinkedIn URL. Don't pay Clay credits to find what's already in the CSV.</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 p-5 bg-white">
+        <div class="text-xs font-mono text-slate-500 mb-2">RULE 02</div>
+        <div class="font-semibold text-ink mb-1">Filter insufficient-data rows out</div>
+        <div class="text-sm text-slate-600">Rows missing the core inputs for a personalized email skip the draft pass and queue for Clay enrichment instead.</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 p-5 bg-white">
+        <div class="text-xs font-mono text-slate-500 mb-2">RULE 03</div>
+        <div class="font-semibold text-ink mb-1">No fabrication</div>
+        <div class="text-sm text-slate-600">Only verifiable USAIndiaCFO claims. The "12,000 companies" stat is omitted &mdash; not on the live site.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: ZOHO                                                   -->
+<!-- ========================================================== -->
+<section data-page="/zoho" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Zoho CRM snapshot</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Generated from the official Zoho data backup pulled 2026-05-08. The only source of truth for what's actually in CRM today.</p>
+
+    <div class="mt-8 grid md:grid-cols-4 gap-4">
+      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Leads</div>
+        <div class="text-3xl font-semibold num mt-2">20,020</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Contacts</div>
+        <div class="text-3xl font-semibold num mt-2">3,056</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Accounts</div>
+        <div class="text-3xl font-semibold num mt-2">2,627</div>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Deals</div>
+        <div class="text-3xl font-semibold num mt-2">6,107</div>
+      </div>
+    </div>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-sm font-semibold text-ink mb-1">Lead field-fill rates (top signals)</div>
+        <div class="text-xs text-slate-500 mb-4">% of 20,020 Leads with this field populated</div>
+        <div id="zoho-fill" class="space-y-2.5 text-sm"></div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-sm font-semibold text-ink mb-1">Lead enrichment buckets (per SOP)</div>
+        <div class="text-xs text-slate-500 mb-4">Bucketing of all 20,020 Leads by available contact channel</div>
+        <div id="zoho-flow" class="space-y-3 text-sm"></div>
+        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
+          <span class="font-semibold text-ink">Audience signal:</span> Mobile (99.3%) is the universal anchor;
+          Email (87.9%) is secondary; LinkedIn URL is at 0% so every lead enters enrichment from scratch.
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Stale-open leads</div>
+        <div class="text-2xl font-semibold num mt-1">6,486</div>
+        <div class="text-xs text-slate-500 mt-1">32% of book &middot; active status, modified > 90d ago</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Contacts without Account</div>
+        <div class="text-2xl font-semibold num mt-1">2,023</div>
+        <div class="text-xs text-slate-500 mt-1">66% of Contacts &middot; lead-conversion gap</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-xs uppercase tracking-wide text-slate-500">Duplicate emails</div>
+        <div class="text-2xl font-semibold num mt-1 text-emerald-700">0</div>
+        <div class="text-xs text-slate-500 mt-1">Zoho dedup is enforced</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: APOLLO                                                 -->
+<!-- ========================================================== -->
+<section data-page="/apollo" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Apollo dedup + funnel</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">9,000 prospects from Apollo, 49 distinct lead sources. Match keys: email, phone digits, name+company.</p>
+
+    <div class="mt-10 rounded-2xl border border-slate-200 bg-slate-50/60 p-6 md:p-8">
+      <div class="grid md:grid-cols-5 gap-4 items-stretch">
+        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
+          <div class="text-xs uppercase tracking-wide text-slate-500">Apollo input</div>
+          <div class="text-3xl font-semibold num mt-1">9,000</div>
+          <div class="text-xs text-slate-400 mt-1">total contacts</div>
+        </div>
+        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
+          <div class="text-xs uppercase tracking-wide text-slate-500">Internal dupes</div>
+          <div class="text-3xl font-semibold num mt-1">−716</div>
+          <div class="text-xs text-slate-400 mt-1">same person twice</div>
+        </div>
+        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
+          <div class="text-xs uppercase tracking-wide text-slate-500">Already in CRM</div>
+          <div class="text-3xl font-semibold num mt-1">−7</div>
+          <div class="text-xs text-slate-400 mt-1">4 email · 2 phone · 1 name+co</div>
+        </div>
+        <div class="md:col-span-2 rounded-xl bg-ink text-white border border-ink p-5">
+          <div class="text-xs uppercase tracking-wide text-white/60">Outreach pool</div>
+          <div class="text-4xl font-semibold num mt-1">8,277</div>
+          <div class="text-xs text-white/60 mt-1">net-new candidates · 92% of input</div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-4 text-xs">
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <div class="text-slate-500 uppercase tracking-wide">Match basis</div>
+          <div class="mt-2 grid grid-cols-3 gap-2">
+            <div><div class="num text-lg font-semibold">4</div><div class="text-slate-400">email</div></div>
+            <div><div class="num text-lg font-semibold">2</div><div class="text-slate-400">phone</div></div>
+            <div><div class="num text-lg font-semibold">1</div><div class="text-slate-400">name+co</div></div>
+          </div>
+        </div>
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <div class="text-slate-500 uppercase tracking-wide">Audience shape</div>
+          <div class="mt-2 text-ink font-medium">99.8% India persons → US-HQ companies</div>
+          <div class="text-slate-500 mt-1">Dual-jurisdiction is the dominant case, not pure US/India</div>
+        </div>
+        <div class="rounded-lg bg-white p-4 border border-slate-200">
+          <div class="text-slate-500 uppercase tracking-wide">Title spread</div>
+          <div class="mt-2 grid grid-cols-3 gap-2">
+            <div><div class="num text-lg font-semibold">2,418</div><div class="text-slate-400">Founder/CEO</div></div>
+            <div><div class="num text-lg font-semibold">13</div><div class="text-slate-400">CFO</div></div>
+            <div><div class="num text-lg font-semibold">2,505</div><div class="text-slate-400">Other</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: CATEGORIZE                                             -->
+<!-- ========================================================== -->
+<section data-page="/categorize" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Categorization &middot; data sufficiency</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Filter rule applied to all 8,277 candidates. Insufficient-data rows route to Clay rather than getting dropped, so we don't lose recoverable contacts.</p>
+
+    <div class="mt-8 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Split of the 8,277 outreach candidates</div>
+      <div class="h-12 rounded-md overflow-hidden flex border border-slate-200">
+        <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 44.0%">READY · 3,646 (44%)</div>
+        <div class="bg-amber-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 55.6%">CLAY-ENRICHABLE · 4,602 (56%)</div>
+        <div class="bg-rose-500 flex items-center justify-center text-[10px] text-white font-semibold" style="width: 0.4%">29</div>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-600">
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-emerald-500"></span> Verified work email + Title + Company + Industry</div>
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-amber-500"></span> Has Title + Company + at least one anchor; Clay can recover work email</div>
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-rose-500"></span> No Title or no Company or no anchor at all</div>
+      </div>
+    </div>
+
+    <div class="mt-6 grid lg:grid-cols-3 gap-4">
+      <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-xs uppercase tracking-wide text-emerald-700 font-semibold">Ready to draft</div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200">drafting candidates</span>
+        </div>
+        <div class="text-4xl font-semibold num text-emerald-900">3,646</div>
+        <div class="text-xs text-emerald-700/80 mt-1">44.0% of pool</div>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-emerald-600">•</span> Verified work email on a non-personal domain</li>
+          <li class="flex gap-2"><span class="text-emerald-600">•</span> Title + Company + Industry all present</li>
+          <li class="flex gap-2"><span class="text-emerald-600">•</span> Apollo Sequence-uploadable today</li>
+        </ul>
+      </div>
+
+      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-xs uppercase tracking-wide text-amber-700 font-semibold">Clay-enrichable</div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-200">queue, don't drop</span>
+        </div>
+        <div class="text-4xl font-semibold num text-amber-900">4,602</div>
+        <div class="text-xs text-amber-700/80 mt-1">55.6% of pool</div>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li class="flex justify-between"><span>Find work email</span><span class="font-mono num text-slate-500">3,262</span></li>
+          <li class="flex justify-between"><span>Verify existing email</span><span class="font-mono num text-slate-500">1,103</span></li>
+          <li class="flex justify-between"><span>Find email + derive industry</span><span class="font-mono num text-slate-500">142</span></li>
+          <li class="flex justify-between"><span>Verify + derive industry</span><span class="font-mono num text-slate-500">23</span></li>
+          <li class="flex justify-between"><span>Derive industry only</span><span class="font-mono num text-slate-500">72</span></li>
+        </ul>
+        <div class="mt-3 pt-3 border-t border-amber-200 text-xs text-amber-800">
+          Estimated Clay spend at ~6 credits/successful enrich → ~<span class="num font-mono">27,600</span> credits total.
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-xs uppercase tracking-wide text-rose-700 font-semibold">Reject</div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-700 border border-rose-200">drop</span>
+        </div>
+        <div class="text-4xl font-semibold num text-rose-900">29</div>
+        <div class="text-xs text-rose-700/80 mt-1">0.4% of pool</div>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li class="flex justify-between"><span>No title</span><span class="font-mono num text-slate-500">14</span></li>
+          <li class="flex justify-between"><span>No company</span><span class="font-mono num text-slate-500">8</span></li>
+          <li class="flex justify-between"><span>No title + no company</span><span class="font-mono num text-slate-500">7</span></li>
+        </ul>
+        <div class="mt-3 pt-3 border-t border-rose-200 text-xs text-rose-800">
+          Clay can't help &mdash; nothing to anchor on.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: EMAILS                                                 -->
+<!-- ========================================================== -->
+<section data-page="/emails" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Pilot drafts &middot; 10 emails</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Picked to span the conditional matrix in CONTEXT.docx — Founder/CEO · CFO · Other × geography × industry. Click any row to expand the body.</p>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <button data-filter="all" class="filter-btn active px-3 py-1.5 text-xs rounded-md bg-ink text-white">All (10)</button>
+      <button data-filter="founder_ceo" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Founder/CEO</button>
+      <button data-filter="cfo" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">CFO</button>
+      <button data-filter="other" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Other</button>
+    </div>
+
+    <div id="emails-grid" class="mt-6 grid md:grid-cols-2 gap-4"></div>
+
+    <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+      <span class="font-semibold text-ink">Note for partner review:</span> 3 of these 10 sample contacts have only a personal email or unverified work email
+      &mdash; under the production filter, they would have routed to Clay-enrichable instead of being drafted directly.
+      Pilot drafted them anyway to show the conditional logic across the matrix.
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: RE-RUN                                                 -->
+<!-- ========================================================== -->
+<section data-page="/rerun" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 06</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Re-run on the next list</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Same pipeline, new CSV. Skill is registered and re-runnable in any Claude Code session.</p>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Skill</div>
+        <div class="font-mono text-lg text-ink">/outreach-batch</div>
+        <p class="text-sm text-slate-600 mt-3">
+          Mention "Apollo CSV", "dedup against CRM", or "draft cold emails" and the skill activates.
+          Always asks for the prospect CSV path, dedup target, and template before starting.
+        </p>
+        <div class="mt-4 text-xs text-slate-500">
+          Lives at <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">~/.claude/skills/outreach-batch/SKILL.md</code>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Reusable scripts</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/dedup_apollo_vs_crm.py</span><span class="text-slate-500 text-xs whitespace-nowrap">3-key dedup</span></li>
+          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/categorize_outreach_pool.py</span><span class="text-slate-500 text-xs whitespace-nowrap">Ready / Clay / Reject</span></li>
+          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/analyze.py</span><span class="text-slate-500 text-xs whitespace-nowrap">Zoho fill-rate / hygiene</span></li>
+        </ul>
+        <div class="mt-4 text-xs text-slate-500">
+          Stdlib-only Python. Idempotent. Safe to re-run on a fresh export anytime.
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Inputs the skill expects</div>
+        <ol class="space-y-2 text-sm list-decimal list-inside text-slate-700">
+          <li>Prospect CSV path</li>
+          <li>CRM dump path (Zoho official backup folder)</li>
+          <li>Prompt-template doc (default <code class="font-mono text-xs bg-slate-100 px-1 rounded">CONTEXT.docx</code>)</li>
+          <li>Verified-facts JSON (default <code class="font-mono text-xs bg-slate-100 px-1 rounded">analysis/usaindiacfo-facts/facts.json</code>)</li>
+          <li>Output dir (auto-timestamped)</li>
+        </ol>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Hard guardrails</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Pilot 10 first, bulk only after sign-off</li>
+          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Insufficient-data rows route to Clay queue, not drop</li>
+          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Use only verified facts; no fabrication</li>
+          <li class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never auto-send; only stage to Apollo Sequences</li>
+          <li class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never call Clay on data already in the CSV</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-8">
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        <div class="md:col-span-2">
+          <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Send pacing reality</div>
+          <h3 class="text-xl font-semibold tracking-tight">5 mailboxes × ~100/day = 500 sends/day</h3>
+          <p class="mt-3 text-sm text-slate-600 max-w-2xl">
+            Drafting all 3,646 ready rows is fast; sending them isn't. At a warmup-safe send rate the ready cohort
+            alone is 8&ndash;10 days of throughput. The 4,602 Clay-enriched additions extend that to 5&ndash;7 weeks.
+            Plan in tranches; monitor reply / bounce rate after the first 200 sends.
+          </p>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm">
+          <div class="text-xs text-slate-500 mb-2">Sender mailboxes (Apollo)</div>
+          <ul class="space-y-1.5 font-mono text-[11px] text-slate-700">
+            <li>sadhana.b@fixmyusfilings.com <span class="text-emerald-600 ml-1">default</span></li>
+            <li>sadhana.b@usaindiacfocompliance.com</li>
+            <li>sadhana.b@usaindiacfosolutions.com</li>
+            <li>sadhana.b@auditreadyhq.com</li>
+            <li>sadhana.b@remotecfodesk.com</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PAGER (sequential prev/next) ========== -->
+<div class="border-t border-slate-200 bg-white">
+  <div class="mx-auto max-w-7xl px-6 py-8 flex items-center justify-between gap-4 text-sm">
+    <a id="prev-link" href="#/" class="block flex-1 group">
+      <div class="text-xs text-slate-400 mb-1">← Previous</div>
+      <div id="prev-label" class="font-semibold text-ink group-hover:text-emerald-700">Overview</div>
+    </a>
+    <div class="text-xs text-slate-400 font-mono">
+      <span id="page-counter">1 / 7</span>
+    </div>
+    <a id="next-link" href="#/flow" class="block flex-1 text-right group">
+      <div class="text-xs text-slate-400 mb-1">Next →</div>
+      <div id="next-label" class="font-semibold text-ink group-hover:text-emerald-700">Pipeline flow</div>
+    </a>
+  </div>
+</div>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-ink text-white">
+  <div class="mx-auto max-w-7xl px-6 py-10 grid md:grid-cols-3 gap-6">
+    <div>
+      <div class="font-serif text-xl">USAIndiaCFO</div>
+      <div class="text-xs text-white/60 mt-1">BNG Advisors Private Limited</div>
+      <div class="text-xs text-white/60 mt-3">Mumbai · Ajmer · Edison NJ</div>
+    </div>
+    <div class="text-xs text-white/60 space-y-1">
+      <div>Pipeline status: <span class="text-emerald-400">pilot ready</span></div>
+      <div>Next gate: partner + marketing review</div>
+      <div>Generated 2026-05-08 · static dashboard</div>
+    </div>
+    <div class="text-xs text-white/60 space-y-1">
+      <div>Sources</div>
+      <div>· Zoho official backup 2026-05-08</div>
+      <div>· Apollo CSV export #27</div>
+      <div>· usaindiacfo-analysis deep crawl 2026-04-09</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== EMBEDDED DATA ========== -->
+<script type="application/json" id="zoho-fill-data">
+[
+  ["Mobile",        99.3, "Universal anchor"],
+  ["Lead Status",  100.0, "All leads classified"],
+  ["Lead Source",   99.8, "Source attribution clean"],
+  ["Email",         87.9, "Strong primary signal"],
+  ["Phone",         17.9, "Misnamed; people use Mobile"],
+  ["Company",       17.4, "Most leads come without company"],
+  ["City",          13.9, "Sparse"],
+  ["Partner",       12.5, "SOP routing assumes this — needs backfill"],
+  ["Title",          1.9, "Almost never set"],
+  ["Industry",       0.4, "Inconsistent + irrelevant values"],
+  ["Country",        0.7, "Garbage values; use city/phone-prefix instead"],
+  ["LinkedIn URL",   0.0, "0% — every lead enters enrichment from scratch"],
+  ["Rating",         0.0, "Unused; safe to add Lead_Tier separately"]
+]
+</script>
+
+<script type="application/json" id="zoho-flow-data">
+[
+  {"label":"Flow A — work email present", "count":2020, "pct":10.1, "color":"emerald"},
+  {"label":"Flow B — personal email present", "count":15573, "pct":77.8, "color":"amber"},
+  {"label":"Flow C — phone only (no email)", "count":2406, "pct":12.0, "color":"sky"},
+  {"label":"Unreachable", "count":21, "pct":0.1, "color":"rose"}
+]
+</script>
+
+<script type="application/json" id="emails-data">
+[
+  {"i":1,"name":"Kumar Johny","first":"Kumar","title":"Founder & CEO","company":"Darner AI Inc.","industry":"Information Technology & Services","branch":"founder_ceo","geo":"India person · US company","leaders":["Naman Gangwal"],"email_q":"personal_only","email_q_label":"Personal email only · Clay-recoverable in production","subject":"Cut the cross-border tax drag at Darner AI","body":"Hi Kumar,\n\nFounders running US-incorporated startups from India usually hit the same three speed bumps - transfer pricing on offshore engineering, FEMA/FDI sequencing for any India entity work, and state nexus the moment you onboard your first US customer team.\n\nUSAIndiaCFO sits on both sides of that line. Naman Gangwal (CPA) handles our US-CFO vertical; we built the practice working with founders scaling US companies with India operations - early clients included Blackstone and Sony.\n\nQuick offer - a no-obligation review of your US filing calendar and India-side dependencies so you know exactly what's on your plate before the next quarter closes.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":132},
+  {"i":2,"name":"Vikram Gupta","first":"Vikram","title":"Co-founder","company":"Leading Edge Communication","industry":"Information Technology & Services","branch":"founder_ceo","geo":"India person · US company","leaders":["Naman Gangwal","Akshay Nahar"],"email_q":"verified","email_q_label":"Verified work email","subject":"India-US tax surprises for IT services scaling fast","body":"Hi Vikram,\n\nMost India-rooted IT services firms with US clients hit two compliance walls that scale faster than revenue - transfer pricing documentation when more than 10% of work is for related parties, and US state sales tax nexus the moment a US client engages you on a managed-services contract.\n\nUSAIndiaCFO has worked through both ends of this since founding - we run from Mumbai with a US office in Edison NJ. Co-founders Naman Gangwal (CPA) and Akshay Nahar handle the cross-border builds; Blackstone and Sony were among our early premium clients.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":122},
+  {"i":3,"name":"Aseem Shrey","first":"Aseem","title":"OpenSource Project - Founder","company":"ShipSecAI","industry":"Computer & Network Security","branch":"founder_ceo","geo":"US person · US company","leaders":["Naman Gangwal"],"email_q":"verified","email_q_label":"Verified work email","subject":"When your security customers ask about India operations","body":"Hi Aseem,\n\nMost US-based security startups don't think about India compliance until a customer asks - and when an enterprise contract requires India-based engineering or 24x7 SOC coverage, the questions land all at once - entity setup, transfer pricing, GST registration, and state-level professional tax.\n\nUSAIndiaCFO operates on both sides - Mumbai HQ, US office in Edison NJ. Naman Gangwal (CPA) heads the US-CFO vertical and has stood up India ops for several US software and security companies before they had the contract pressure.\n\nEven if India isn't this year, having the playbook on the shelf removes a future blocker.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":129},
+  {"i":4,"name":"Shakul Sonker","first":"Shakul","title":"Co-Founder","company":"Samora AI (YC W26)","industry":"Information Technology & Services","branch":"founder_ceo","geo":"US person · US company","leaders":["Naman Gangwal","Akshay Nahar"],"email_q":"verified","email_q_label":"Verified work email","subject":"For YC-backed AI teams considering India engineering","body":"Hi Shakul,\n\nYC-backed AI startups hit India compliance the moment they hire an offshore engineering lead or set up an India subsidiary for cost efficiency - FEMA/FDI structuring, transfer pricing on R&D, and Section 174 capitalization landing on top of US Delaware C-Corp basics.\n\nUSAIndiaCFO has run this playbook with several US-incorporated startups - Mumbai HQ + Edison NJ office. Naman Gangwal (CPA) handles the US side; Akshay Nahar handles India entity ops. Blackstone and Sony were early clients.\n\nIf you're not there yet - the playbook still helps; if you are - we move faster than you'd build it internally.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":130},
+  {"i":5,"name":"Dinesh Divecha","first":"Dinesh","title":"CFO","company":"FIRM Realty","industry":"Real Estate","branch":"cfo","geo":"India person · US company","leaders":["Naman Gangwal"],"email_q":"unverified","email_q_label":"Work email unverified · Clay-recoverable in production","subject":"India-US cap stack and FATCA exposure at FIRM Realty","body":"Hi Dinesh,\n\nCFOs running real-estate operations across India and the US juggle a particularly tight set of filings - FATCA on Indian residents holding US property interests, RBI LRS limits on outbound investments, US state nexus once rental income crosses thresholds, and the Form 5471 / 8865 disclosures most domestic CPAs miss.\n\nUSAIndiaCFO works specifically on this overlap. Naman Gangwal (CPA) heads our US-CFO vertical and handles cross-border real-estate tax matters regularly. Mumbai HQ, US office in Edison NJ.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":108},
+  {"i":6,"name":"Munish Sharma","first":"Munish","title":"CFO","company":"Progressive Dairy","industry":"Dairy","branch":"cfo","geo":"India person · US company","leaders":["Naman Gangwal"],"email_q":"verified","email_q_label":"Verified work email","subject":"India-US filings for Progressive Dairy ahead of audit season","body":"Hi Munish,\n\nCross-border CFOs in food and dairy operations manage a particularly stacked compliance ladder - state-level US filings, FDA registrations, multi-state employee tax (940/941/SUI), India GST on related-party charges, and Form 5471/8865 disclosures if there's any India entity ownership.\n\nUSAIndiaCFO operates on both sides. Naman Gangwal (CPA) leads our US-CFO vertical and handles cross-border filings; Mumbai HQ, US office in Edison NJ. We built the practice with names like Blackstone and Sony among our early clients.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":110},
+  {"i":7,"name":"Shailaja Mendon","first":"Shailaja","title":"Partner","company":"SBS CORP","industry":"Information Technology & Services","branch":"other","geo":"India person · US company","leaders":["Naman Gangwal","Akshay Nahar"],"email_q":"verified","email_q_label":"Verified work email","subject":"Cross-border filings for SBS Corp - quick reality check","body":"Hi Shailaja,\n\nPartners at India-rooted IT services firms with US client revenue typically run a year-round filing rhythm that's too easy to under-resource - transfer pricing, GST on export of services, US state nexus from on-site contracts, and 1099/940/941 for any US-payroll team.\n\nUSAIndiaCFO works through this exact stack. Mumbai HQ, US office in Edison NJ. Naman Gangwal (CPA) leads our US-CFO vertical and Akshay Nahar handles India coordination.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":91},
+  {"i":8,"name":"Rebant Rawal","first":"Rebant","title":"Chief Marketing Officer","company":"Sanrusha","industry":"Information Technology & Services","branch":"other","geo":"India person · US company","leaders":["Naman Gangwal"],"email_q":"personal_only","email_q_label":"Personal email only · Clay-recoverable in production","subject":"Compliance gaps marketing leaders inherit at India-US firms","body":"Hi Rebant,\n\nCMOs at India-US IT services firms inherit more compliance footprint than the title suggests - cross-border ad spend reporting, contractor tax (1099-NEC) for US freelancers, state nexus from any in-state sales rep, and India GST on services billed cross-border.\n\nUSAIndiaCFO handles the finance and tax side so marketing leaders don't have to chase finance for clarity - Mumbai HQ, US office in Edison NJ. Naman Gangwal (CPA) leads the US-CFO vertical.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":92},
+  {"i":9,"name":"Subramanya Somayaji","first":"Subramanya","title":"Co-Founder","company":"ZORP","industry":"Consumer Services","branch":"founder_ceo","geo":"India person · US company","leaders":["Naman Gangwal","Akshay Nahar"],"email_q":"verified","email_q_label":"Verified work email","subject":"Compliance the moment ZORP signs a US enterprise customer","body":"Hi Subramanya,\n\nConsumer-tech founders running India entities with US enterprise customers hit the same compliance bottleneck - GST on export of services, transfer pricing on US-side support staff, state sales tax nexus the moment usage crosses thresholds, and Form 5472 if there's any US subsidiary.\n\nUSAIndiaCFO has worked through this pattern repeatedly - Mumbai HQ, US office in Edison NJ. Naman Gangwal (CPA) handles our US-CFO vertical; Akshay Nahar leads India coordination. Early clients included Blackstone and Sony.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":108},
+  {"i":10,"name":"Sanjay Nagar","first":"Sanjay","title":"Owner","company":"Libra Solutions","industry":"Financial Services","branch":"founder_ceo","geo":"India person · US company","leaders":["Naman Gangwal","Disha Vakharia"],"email_q":"personal_only","email_q_label":"Personal email only · Clay-recoverable in production","subject":"AML and SEC checks Libra Solutions probably already runs","body":"Hi Sanjay,\n\nOwners running financial-services operations across India and the US carry a sharper compliance load than most sectors - state money-transmitter / RIA registrations, AML/KYC chains, SEC reporting on any US-managed assets, plus the India-side RBI/SEBI overlay and FEMA disclosures on cross-border flows.\n\nUSAIndiaCFO operates on both sides - Mumbai HQ, US office in Edison NJ. Naman Gangwal (CPA) leads the US-CFO vertical and handles fin-services tax matters; Disha Vakharia (Adv) handles the legal/IPR overlay where it intersects.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com","wc":111}
+]
+</script>
+
+<!-- ========== JS ========== -->
+<script>
+(function(){
+  const $ = (sel, ctx) => (ctx||document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx||document).querySelectorAll(sel));
+
+  // -------- ROUTER --------
+  const ROUTES = [
+    { path: '/',           label: 'Overview' },
+    { path: '/flow',       label: 'Pipeline flow' },
+    { path: '/zoho',       label: 'Zoho CRM snapshot' },
+    { path: '/apollo',     label: 'Apollo dedup funnel' },
+    { path: '/categorize', label: 'Categorization' },
+    { path: '/emails',     label: 'Pilot emails' },
+    { path: '/rerun',      label: 'Re-run on next list' },
+  ];
+
+  function currentRoute() {
+    const h = (location.hash || '#/').replace(/^#/, '');
+    return ROUTES.find(r => r.path === h) ? h : '/';
+  }
+
+  function showRoute(path) {
+    $$('[data-page]').forEach(p => p.classList.toggle('hidden', p.dataset.page !== path));
+    $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.route === path));
+    // Pager
+    const idx = ROUTES.findIndex(r => r.path === path);
+    const prev = ROUTES[idx - 1];
+    const next = ROUTES[idx + 1];
+    if (prev) {
+      $('#prev-link').href = '#' + prev.path;
+      $('#prev-link').classList.remove('invisible');
+      $('#prev-label').textContent = prev.label;
+    } else {
+      $('#prev-link').classList.add('invisible');
+    }
+    if (next) {
+      $('#next-link').href = '#' + next.path;
+      $('#next-link').classList.remove('invisible');
+      $('#next-label').textContent = next.label;
+    } else {
+      $('#next-link').classList.add('invisible');
+    }
+    $('#page-counter').textContent = `${idx + 1} / ${ROUTES.length}`;
+    // Reset scroll for new view (so it doesn't feel like a long scroll)
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.title = path === '/' ? 'BNG Outreach Pipeline · Pilot Dashboard'
+                                  : `${ROUTES[idx].label} · BNG Outreach Pipeline`;
+  }
+
+  window.addEventListener('hashchange', () => showRoute(currentRoute()));
+  showRoute(currentRoute());
+
+  // -------- DATA RENDERS --------
+
+  // Zoho fill rates
+  const fill = JSON.parse($("#zoho-fill-data").textContent);
+  $("#zoho-fill").innerHTML = fill.map(([label, pct, hint]) => {
+    const colorBase = pct >= 60 ? 'emerald' : (pct >= 30 ? 'amber' : 'rose');
+    return `
+      <div>
+        <div class="flex items-center justify-between text-xs">
+          <div><span class="font-medium text-ink">${label}</span> <span class="text-slate-400">— ${hint}</span></div>
+          <span class="font-mono text-slate-700">${pct.toFixed(1)}%</span>
+        </div>
+        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-full bg-${colorBase}-500" style="width:${Math.max(pct, 0.5)}%"></div>
+        </div>
+      </div>`;
+  }).join("");
+
+  // Zoho flow buckets
+  const flow = JSON.parse($("#zoho-flow-data").textContent);
+  $("#zoho-flow").innerHTML = flow.map(b => `
+    <div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-ink">${b.label}</span>
+        <span class="font-mono text-slate-700">${b.count.toLocaleString()} <span class="text-slate-400">(${b.pct}%)</span></span>
+      </div>
+      <div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+        <div class="h-full bg-${b.color}-500" style="width:${b.pct}%"></div>
+      </div>
+    </div>`).join("");
+
+  // Emails
+  const emails = JSON.parse($("#emails-data").textContent);
+  const grid = $("#emails-grid");
+
+  const branchClass = b => b === 'founder_ceo' ? 'bg-indigo-100 text-indigo-700 border-indigo-200'
+                          : b === 'cfo' ? 'bg-violet-100 text-violet-700 border-violet-200'
+                          : 'bg-slate-100 text-slate-700 border-slate-200';
+
+  const emailQClass = q => q === 'verified' ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
+                          : 'bg-amber-100 text-amber-700 border-amber-200';
+
+  const branchLabel = b => b === 'founder_ceo' ? 'Founder/CEO branch' : (b === 'cfo' ? 'CFO branch' : 'Other branch');
+
+  function renderEmails(filter) {
+    const items = emails.filter(e => filter === 'all' || e.branch === filter);
+    grid.innerHTML = items.map(e => `
+      <details class="group rounded-xl border border-slate-200 bg-white p-5 hover:border-slate-300 transition" data-branch="${e.branch}">
+        <summary class="cursor-pointer">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-mono text-slate-400">#${String(e.i).padStart(2,'0')}</span>
+                <span class="text-xs px-2 py-0.5 rounded border ${branchClass(e.branch)}">${branchLabel(e.branch)}</span>
+              </div>
+              <div class="font-semibold text-ink truncate">${e.name}</div>
+              <div class="text-xs text-slate-500 truncate">${e.title} · ${e.company}</div>
+            </div>
+            <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="mt-3 flex flex-wrap gap-1.5 text-[10px]">
+            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-600">${e.industry}</span>
+            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-600">${e.geo}</span>
+            <span class="px-2 py-0.5 rounded border ${emailQClass(e.email_q)}">${e.email_q_label}</span>
+            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono">${e.wc} words</span>
+          </div>
+          <div class="mt-3 text-sm font-medium text-ink">${e.subject}</div>
+        </summary>
+        <div class="mt-4 pt-4 border-t border-slate-100">
+          <div class="text-[10px] uppercase tracking-wide text-slate-400 mb-1">Body</div>
+          <pre class="font-mono text-[12px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3">${e.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+          <div class="mt-3 flex flex-wrap items-center gap-1.5 text-[10px] text-slate-500">
+            <span class="uppercase tracking-wide">Leadership referenced:</span>
+            ${e.leaders.map(l=>`<span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">${l}</span>`).join("")}
+          </div>
+        </div>
+      </details>
+    `).join("");
+  }
+  renderEmails('all');
+
+  $$('.filter-btn').forEach(b => b.addEventListener('click', () => {
+    $$('.filter-btn').forEach(x => {
+      x.classList.remove('active','bg-ink','text-white');
+      x.classList.add('bg-slate-100','text-slate-600');
+    });
+    b.classList.add('active','bg-ink','text-white');
+    b.classList.remove('bg-slate-100','text-slate-600');
+    renderEmails(b.dataset.filter);
+  }));
+})();
+</script>
+</body>
+</html>
