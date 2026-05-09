@@ -450,27 +450,75 @@ tailwind.config = {
       All 3,646 Ready rows scored, EU rows pulled out, 3,628 personalized emails drafted (no signature — Smartlead handles it). Tier A is the first send tranche.
     </p>
 
-    <!-- Top stats -->
-    <div class="mt-8 grid md:grid-cols-4 gap-4">
-      <div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-emerald-700">Tier A · first send</div>
-        <div class="text-3xl font-semibold num mt-1 text-emerald-900">312</div>
-        <div class="text-xs text-emerald-700/80 mt-1">8.6% of campaign &middot; ICP 8-10</div>
+    <!-- Two-cohort overview -->
+    <div class="mt-8 grid lg:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+        <div class="flex items-center justify-between mb-1">
+          <div class="text-xs uppercase tracking-wide text-emerald-700 font-semibold">Ready cohort &mdash; drafted</div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200">work_verified</span>
+        </div>
+        <div class="text-4xl font-semibold num text-emerald-900">3,628</div>
+        <div class="text-xs text-emerald-700/80 mt-1">From apollo_ready.csv &middot; verified work emails &middot; A 312 / B 2,722 / C 520 / D 74</div>
       </div>
-      <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-sky-700">Tier B</div>
-        <div class="text-3xl font-semibold num mt-1 text-sky-900">2,722</div>
-        <div class="text-xs text-sky-700/80 mt-1">75.0% &middot; ICP 5-7</div>
+      <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-6">
+        <div class="flex items-center justify-between mb-1">
+          <div class="text-xs uppercase tracking-wide text-sky-700 font-semibold">Clay cohort &mdash; drafted</div>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 border border-sky-200">email-fallback chain</span>
+        </div>
+        <div class="text-4xl font-semibold num text-sky-900">1,273</div>
+        <div class="text-xs text-sky-700/80 mt-1">From apollo_clay_queue.csv &middot; A 163 / B 1,019 / C 79 / D 12</div>
       </div>
-      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-amber-700">Tier C</div>
-        <div class="text-3xl font-semibold num mt-1 text-amber-900">520</div>
-        <div class="text-xs text-amber-700/80 mt-1">14.3% &middot; ICP 3-4</div>
+    </div>
+
+    <div class="mt-4 rounded-xl border border-slate-200 bg-white p-5">
+      <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Combined campaign capacity</div>
+      <div class="grid sm:grid-cols-4 gap-3 text-sm">
+        <div class="rounded-md bg-slate-50 border border-slate-200 px-4 py-3">
+          <div class="text-xs text-slate-500">Total drafted (both)</div>
+          <div class="font-semibold num text-2xl mt-1 text-ink">4,901</div>
+        </div>
+        <div class="rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3">
+          <div class="text-xs text-emerald-700">Verified work email</div>
+          <div class="font-semibold num text-2xl mt-1 text-emerald-900">3,700</div>
+          <div class="text-[11px] text-emerald-700/70 mt-1">3,628 ready + 72 clay</div>
+        </div>
+        <div class="rounded-md bg-amber-50 border border-amber-200 px-4 py-3">
+          <div class="text-xs text-amber-700">Unverified work email</div>
+          <div class="font-semibold num text-2xl mt-1 text-amber-900">1,111</div>
+          <div class="text-[11px] text-amber-700/70 mt-1">expect some bounces</div>
+        </div>
+        <div class="rounded-md bg-rose-50 border border-rose-200 px-4 py-3">
+          <div class="text-xs text-rose-700">Personal email only</div>
+          <div class="font-semibold num text-2xl mt-1 text-rose-900">90</div>
+          <div class="text-[11px] text-rose-700/70 mt-1">lower deliverability</div>
+        </div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-slate-50/40 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-slate-600">Tier D</div>
-        <div class="text-3xl font-semibold num mt-1 text-slate-700">74</div>
-        <div class="text-xs text-slate-500 mt-1">2.0% &middot; ICP 1-2</div>
+    </div>
+
+    <!-- Tier breakdown (Ready cohort) -->
+    <div class="mt-6">
+      <div class="text-xs uppercase tracking-widest text-slate-500 mb-3">Tier distribution &middot; Ready cohort (3,628 rows)</div>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-5 stat-card">
+          <div class="text-xs uppercase tracking-wide text-emerald-700">Tier A &middot; first send</div>
+          <div class="text-3xl font-semibold num mt-1 text-emerald-900">312</div>
+          <div class="text-xs text-emerald-700/80 mt-1">8.6% &middot; ICP 8-10</div>
+        </div>
+        <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-5 stat-card">
+          <div class="text-xs uppercase tracking-wide text-sky-700">Tier B</div>
+          <div class="text-3xl font-semibold num mt-1 text-sky-900">2,722</div>
+          <div class="text-xs text-sky-700/80 mt-1">75.0% &middot; ICP 5-7</div>
+        </div>
+        <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
+          <div class="text-xs uppercase tracking-wide text-amber-700">Tier C</div>
+          <div class="text-3xl font-semibold num mt-1 text-amber-900">520</div>
+          <div class="text-xs text-amber-700/80 mt-1">14.3% &middot; ICP 3-4</div>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-slate-50/40 p-5 stat-card">
+          <div class="text-xs uppercase tracking-wide text-slate-600">Tier D</div>
+          <div class="text-3xl font-semibold num mt-1 text-slate-700">74</div>
+          <div class="text-xs text-slate-500 mt-1">2.0% &middot; ICP 1-2</div>
+        </div>
       </div>
     </div>
 
@@ -488,7 +536,27 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- EU holdback callout -->
+    <!-- Still-needs-Clay callout -->
+    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50/50 p-6">
+      <div class="flex items-start gap-4">
+        <div class="size-10 rounded-md bg-amber-100 grid place-items-center shrink-0">
+          <svg viewBox="0 0 24 24" class="size-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between gap-3 mb-1">
+            <div class="font-semibold text-amber-900">Still pending Clay &mdash; no email anchor at all</div>
+            <span class="text-3xl font-semibold num text-amber-900">3,314</span>
+          </div>
+          <p class="text-sm text-amber-800/80 max-w-2xl">
+            These Clay-queue rows have only LinkedIn URL or phone &mdash; no work, personal, or secondary email.
+            Cannot be drafted today; require Clay's reverse-lookup waterfall to find any sending channel first.
+            Saved to <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-amber-200">needs_clay_for_email.csv</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EU holdback callout (combined across both cohorts) -->
     <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50/50 p-6">
       <div class="flex items-start gap-4">
         <div class="size-10 rounded-md bg-rose-100 grid place-items-center shrink-0">
@@ -496,18 +564,17 @@ tailwind.config = {
         </div>
         <div class="flex-1">
           <div class="flex items-center justify-between gap-3 mb-1">
-            <div class="font-semibold text-rose-900">EU / EEA / UK holdback &mdash; not in send file</div>
-            <span class="text-3xl font-semibold num text-rose-900">18</span>
+            <div class="font-semibold text-rose-900">EU / EEA / UK holdback &mdash; not in any send file</div>
+            <span class="text-3xl font-semibold num text-rose-900">33</span>
           </div>
           <p class="text-sm text-rose-800/80 max-w-2xl">
-            Multi-signal exclusion (work email TLD, person country, company country) caught 18 rows before they entered the campaign CSV.
-            They sit in <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-rose-200">eu_holdback.csv</code> for compliance review.
+            Multi-signal exclusion (chosen email TLD, person country, company country) across both cohorts.
+            18 from Ready + 15 from Clay queue. They sit in their respective <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-rose-200">eu_holdback.csv</code> files for compliance review.
             <span class="font-semibold">Permanent rule</span>: every future bulk run applies this filter — GDPR / UK GDPR risk.
           </p>
-          <div class="mt-3 grid sm:grid-cols-3 gap-2 text-xs">
-            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Work email TLD</div><div class="font-mono num text-rose-900 text-base">15</div></div>
-            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Company country</div><div class="font-mono num text-rose-900 text-base">2</div></div>
-            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Person country</div><div class="font-mono num text-rose-900 text-base">1</div></div>
+          <div class="mt-3 grid sm:grid-cols-2 gap-2 text-xs">
+            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Ready cohort EU excluded</div><div class="font-mono num text-rose-900 text-base">18</div></div>
+            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Clay cohort EU excluded</div><div class="font-mono num text-rose-900 text-base">15</div></div>
           </div>
         </div>
       </div>
@@ -533,7 +600,9 @@ tailwind.config = {
     <!-- Output sheets ready -->
     <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
       <div class="text-sm font-semibold text-ink mb-3">Output sheets &mdash; ready to use</div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+
+      <div class="text-xs uppercase tracking-wide text-emerald-700 mb-2">Ready cohort &mdash; <span class="font-mono">analysis/bulk-draft-&lt;TS&gt;/</span></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs mb-5">
         <div class="rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
           <div class="font-mono text-emerald-900 truncate">tier_a_only.csv</div>
           <div class="text-emerald-700/80 mt-1 num font-mono">312 rows · first send</div>
@@ -559,8 +628,39 @@ tailwind.config = {
           <div class="text-rose-700/80 mt-1 num font-mono">18 rows · compliance review</div>
         </div>
       </div>
+
+      <div class="text-xs uppercase tracking-wide text-sky-700 mb-2">Clay cohort &mdash; <span class="font-mono">analysis/clay-queue-drafts-&lt;TS&gt;/</span></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+        <div class="rounded-md border border-sky-200 bg-sky-50/50 p-3">
+          <div class="font-mono text-sky-900 truncate">clay_queue_drafts.csv</div>
+          <div class="text-sky-700/80 mt-1 num font-mono">1,273 rows · all drafted</div>
+          <div class="text-[10px] text-sky-700/60 mt-1">72 verified · 1,111 unverified · 90 personal</div>
+        </div>
+        <div class="rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
+          <div class="font-mono text-emerald-900 truncate">tier_a_only.csv</div>
+          <div class="text-emerald-700/80 mt-1 num font-mono">163 rows · prioritize</div>
+        </div>
+        <div class="rounded-md border border-amber-200 bg-amber-50/50 p-3">
+          <div class="font-mono text-amber-900 truncate">needs_clay_for_email.csv</div>
+          <div class="text-amber-700/80 mt-1 num font-mono">3,314 rows · no email yet</div>
+          <div class="text-[10px] text-amber-700/60 mt-1">LinkedIn / phone only · need Clay</div>
+        </div>
+        <div class="rounded-md border border-slate-200 bg-white p-3">
+          <div class="font-mono text-ink truncate">tier_b_ready.csv</div>
+          <div class="text-slate-500 mt-1 num font-mono">1,019 rows</div>
+        </div>
+        <div class="rounded-md border border-slate-200 bg-white p-3">
+          <div class="font-mono text-ink truncate">tier_c_ready.csv · tier_d_ready.csv</div>
+          <div class="text-slate-500 mt-1 num font-mono">79 + 12 rows</div>
+        </div>
+        <div class="rounded-md border border-rose-200 bg-rose-50/40 p-3">
+          <div class="font-mono text-rose-900 truncate">eu_holdback.csv</div>
+          <div class="text-rose-700/80 mt-1 num font-mono">15 rows · compliance review</div>
+        </div>
+      </div>
+
       <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
-        All files include <code class="font-mono">subject</code>, <code class="font-mono">body</code>, <code class="font-mono">tier</code>, <code class="font-mono">icp_score</code>, <code class="font-mono">branch</code>, <code class="font-mono">sender_mailbox</code>, and <code class="font-mono">instructions</code> (audit trail). Bodies have no signature — Smartlead's account-level signature applies on send.
+        All files include <code class="font-mono">email</code>, <code class="font-mono">email_source</code>, <code class="font-mono">subject</code>, <code class="font-mono">body</code>, <code class="font-mono">tier</code>, <code class="font-mono">icp_score</code>, <code class="font-mono">branch</code>, <code class="font-mono">sender_mailbox</code>, <code class="font-mono">instructions</code>. Bodies have no signature — Smartlead applies the per-mailbox signature on send.
       </div>
     </div>
 
