@@ -70,10 +70,14 @@ To refresh after a new run of the pipeline, regenerate the source files via the 
 
 ## Source data
 
-Generated from these files (not included in the dashboard repo):
+Generated from the stage-numbered folders in the parent project (not included in the dashboard repo):
 
-- `analysis/2026-05-08-1545/analysis.md` &mdash; Zoho CRM snapshot
-- `analysis/dedup-apollo-2026-05-08-1555/summary.json` &mdash; Apollo dedup
-- `analysis/categorized-2026-05-08-1654/categorization_summary.json` &mdash; Ready/Clay/Reject split
-- `analysis/pilot-emails-2026-05-08/drafts.json` &mdash; the 10 pilot emails
+- `analysis/01-zoho-snapshot/analysis.md` &mdash; Zoho CRM snapshot
+- `analysis/02-apollo-dedup/summary.json` &mdash; Apollo dedup
+- `analysis/03-categorized/categorization_summary.json` &mdash; Ready/Clay/Reject split
+- `analysis/04-pilot-emails/drafts.json` &mdash; the 10 pilot emails
+- `analysis/05-bulk-draft-ready/bulk_draft_summary.json` &mdash; Ready cohort drafts (3,628)
+- `analysis/06-bulk-draft-clay/bulk_draft_summary.json` &mdash; Clay cohort drafts (1,273)
 - `analysis/usaindiacfo-facts/facts.json` &mdash; verified USAIndiaCFO facts
+
+See `analysis/README.md` for the stage-by-stage layout.
