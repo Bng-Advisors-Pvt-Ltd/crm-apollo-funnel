@@ -74,6 +74,7 @@ tailwind.config = {
       <a href="#/zoho"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/zoho">Zoho CRM</a>
       <a href="#/apollo"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/apollo">Apollo</a>
       <a href="#/categorize" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/categorize">Categorize</a>
+      <a href="#/tiers"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/tiers">Tiers</a>
       <a href="#/tat"        class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/tat">TAT</a>
       <a href="#/emails"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/emails">Pilot Emails</a>
       <a href="#/rerun"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/rerun">Re-run</a>
@@ -155,18 +156,23 @@ tailwind.config = {
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Categorization →</div>
         <div class="text-sm text-slate-600">44% Ready · 56% Clay-enrichable · 0.4% Reject. The data-sufficiency filter applied.</div>
       </a>
-      <a href="#/tat" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/tiers" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">05</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Tier A/B/C/D + bulk draft →</div>
+        <div class="text-sm text-slate-600">3,628 emails drafted (no signature) with ICP scoring. EU holdback at 18 rows. Sender round-robin.</div>
+      </a>
+      <a href="#/tat" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">TAT &middot; turnaround time →</div>
         <div class="text-sm text-slate-600">~1 hour compute, days of human review, weeks of safe send pacing. Critical path explained.</div>
       </a>
       <a href="#/emails" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
+        <div class="text-xs font-mono text-slate-500 mb-2">07</div>
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pilot emails →</div>
         <div class="text-sm text-slate-600">10 personalized drafts spanning the conditional matrix. Filter by branch.</div>
       </a>
       <a href="#/rerun" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">07</div>
+        <div class="text-xs font-mono text-slate-500 mb-2">08</div>
         <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Re-run on next list →</div>
         <div class="text-sm text-slate-600">The /outreach-batch skill, the scripts, send pacing, hard guardrails.</div>
       </a>
@@ -179,7 +185,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/flow" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Pipeline flow</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Five stages, fully offline up to the staging step. Re-runnable via the <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">/outreach-batch</code> skill on any future CSV.</p>
 
@@ -236,7 +242,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/zoho" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Zoho CRM snapshot</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Generated from the official Zoho data backup pulled 2026-05-08. The only source of truth for what's actually in CRM today.</p>
 
@@ -301,7 +307,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/apollo" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Apollo dedup + funnel</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">9,000 prospects from Apollo, 49 distinct lead sources. Match keys: email, phone digits, name+company.</p>
 
@@ -361,7 +367,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/categorize" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Categorization &middot; data sufficiency</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Filter rule applied to all 8,277 candidates. Insufficient-data rows route to Clay rather than getting dropped, so we don't lose recoverable contacts.</p>
 
@@ -434,11 +440,163 @@ tailwind.config = {
 </section>
 
 <!-- ========================================================== -->
+<!-- PAGE: TIERS (bulk draft + ICP scoring + EU holdback)         -->
+<!-- ========================================================== -->
+<section data-page="/tiers" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 09</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Tier A/B/C/D &middot; bulk draft</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">
+      All 3,646 Ready rows scored, EU rows pulled out, 3,628 personalized emails drafted (no signature — Smartlead handles it). Tier A is the first send tranche.
+    </p>
+
+    <!-- Top stats -->
+    <div class="mt-8 grid md:grid-cols-4 gap-4">
+      <div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-emerald-700">Tier A · first send</div>
+        <div class="text-3xl font-semibold num mt-1 text-emerald-900">312</div>
+        <div class="text-xs text-emerald-700/80 mt-1">8.6% of campaign &middot; ICP 8-10</div>
+      </div>
+      <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-sky-700">Tier B</div>
+        <div class="text-3xl font-semibold num mt-1 text-sky-900">2,722</div>
+        <div class="text-xs text-sky-700/80 mt-1">75.0% &middot; ICP 5-7</div>
+      </div>
+      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-amber-700">Tier C</div>
+        <div class="text-3xl font-semibold num mt-1 text-amber-900">520</div>
+        <div class="text-xs text-amber-700/80 mt-1">14.3% &middot; ICP 3-4</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-slate-50/40 p-5 stat-card">
+        <div class="text-xs uppercase tracking-wide text-slate-600">Tier D</div>
+        <div class="text-3xl font-semibold num mt-1 text-slate-700">74</div>
+        <div class="text-xs text-slate-500 mt-1">2.0% &middot; ICP 1-2</div>
+      </div>
+    </div>
+
+    <!-- Stacked bar -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Split of the 3,628 drafted-and-ready rows</div>
+      <div class="h-12 rounded-md overflow-hidden flex border border-slate-200">
+        <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 8.6%">A · 312</div>
+        <div class="bg-sky-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 75.0%">TIER B · 2,722 (75%)</div>
+        <div class="bg-amber-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 14.3%">C · 520</div>
+        <div class="bg-slate-500 flex items-center justify-center text-[10px] text-white font-semibold" style="width: 2.1%">D 74</div>
+      </div>
+      <div class="mt-3 text-xs text-slate-500">
+        ICP score = title (0–4) + company size (0–3) + industry fit (0–2) + cross-border (0–1). Deterministic, transparent, reproducible.
+      </div>
+    </div>
+
+    <!-- EU holdback callout -->
+    <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50/50 p-6">
+      <div class="flex items-start gap-4">
+        <div class="size-10 rounded-md bg-rose-100 grid place-items-center shrink-0">
+          <svg viewBox="0 0 24 24" class="size-5 text-rose-700" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between gap-3 mb-1">
+            <div class="font-semibold text-rose-900">EU / EEA / UK holdback &mdash; not in send file</div>
+            <span class="text-3xl font-semibold num text-rose-900">18</span>
+          </div>
+          <p class="text-sm text-rose-800/80 max-w-2xl">
+            Multi-signal exclusion (work email TLD, person country, company country) caught 18 rows before they entered the campaign CSV.
+            They sit in <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-rose-200">eu_holdback.csv</code> for compliance review.
+            <span class="font-semibold">Permanent rule</span>: every future bulk run applies this filter — GDPR / UK GDPR risk.
+          </p>
+          <div class="mt-3 grid sm:grid-cols-3 gap-2 text-xs">
+            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Work email TLD</div><div class="font-mono num text-rose-900 text-base">15</div></div>
+            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Company country</div><div class="font-mono num text-rose-900 text-base">2</div></div>
+            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Person country</div><div class="font-mono num text-rose-900 text-base">1</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-col: Industry pain + sender round-robin -->
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-sm font-semibold text-ink mb-1">Industry pain-point coverage</div>
+        <div class="text-xs text-slate-500 mb-4">How drafted rows distribute across the conditional pain-line categories</div>
+        <div id="industry-pain" class="space-y-2 text-sm"></div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-sm font-semibold text-ink mb-1">Sender round-robin</div>
+        <div class="text-xs text-slate-500 mb-4">Even distribution across 5 warmed Smartlead/Apollo mailboxes</div>
+        <div id="sender-distribution" class="space-y-2 text-sm"></div>
+        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
+          Each row's sender is assigned at draft time so the partner can see exactly which inbox each prospect would receive from before any send.
+        </div>
+      </div>
+    </div>
+
+    <!-- Output sheets ready -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-sm font-semibold text-ink mb-3">Output sheets &mdash; ready to use</div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+        <div class="rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
+          <div class="font-mono text-emerald-900 truncate">tier_a_only.csv</div>
+          <div class="text-emerald-700/80 mt-1 num font-mono">312 rows · first send</div>
+        </div>
+        <div class="rounded-md border border-slate-200 bg-white p-3">
+          <div class="font-mono text-ink truncate">tier_a_campaign_ready.csv</div>
+          <div class="text-slate-500 mt-1 num font-mono">3,628 rows · all tiers, A first</div>
+        </div>
+        <div class="rounded-md border border-sky-200 bg-sky-50/40 p-3">
+          <div class="font-mono text-sky-900 truncate">tier_b_ready.csv</div>
+          <div class="text-sky-700/80 mt-1 num font-mono">2,722 rows · second tranche</div>
+        </div>
+        <div class="rounded-md border border-amber-200 bg-amber-50/40 p-3">
+          <div class="font-mono text-amber-900 truncate">tier_c_ready.csv</div>
+          <div class="text-amber-700/80 mt-1 num font-mono">520 rows · nurture</div>
+        </div>
+        <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
+          <div class="font-mono text-slate-700 truncate">tier_d_ready.csv</div>
+          <div class="text-slate-500 mt-1 num font-mono">74 rows · weekly review</div>
+        </div>
+        <div class="rounded-md border border-rose-200 bg-rose-50/40 p-3">
+          <div class="font-mono text-rose-900 truncate">eu_holdback.csv</div>
+          <div class="text-rose-700/80 mt-1 num font-mono">18 rows · compliance review</div>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
+        All files include <code class="font-mono">subject</code>, <code class="font-mono">body</code>, <code class="font-mono">tier</code>, <code class="font-mono">icp_score</code>, <code class="font-mono">branch</code>, <code class="font-mono">sender_mailbox</code>, and <code class="font-mono">instructions</code> (audit trail). Bodies have no signature — Smartlead's account-level signature applies on send.
+      </div>
+    </div>
+
+    <!-- Sample row -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50/60 p-6">
+      <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Sample drafted row &mdash; Tier A, ICP 10</div>
+      <div class="grid md:grid-cols-3 gap-4 text-xs mb-3">
+        <div><span class="text-slate-500">Recipient:</span> <span class="font-mono text-ink">Deepanshu Gautam &middot; gautam@amazon.com</span></div>
+        <div><span class="text-slate-500">Sender:</span> <span class="font-mono text-ink">sadhana.b@remotecfodesk.com</span></div>
+        <div><span class="text-slate-500">Branch:</span> <span class="font-mono text-ink">founder_ceo / india_us / it_services</span></div>
+      </div>
+      <div class="rounded-md bg-white border border-slate-200 p-4">
+        <div class="text-xs text-slate-500 mb-1">Subject</div>
+        <div class="text-sm font-medium text-ink mb-3">Amazon - cross-border filings worth a quick review</div>
+        <div class="text-xs text-slate-500 mb-1">Body</div>
+        <pre class="font-mono text-[12px] leading-relaxed text-slate-700 whitespace-pre-wrap">Hi Deepanshu,
+
+Founders running US-incorporated companies from India usually hit the same pattern - transfer pricing on offshore engineering, US state nexus the moment a US client engages on a managed-services contract, and Section 174 R&D capitalization landing on top of US Delaware C-Corp basics.
+
+USAIndiaCFO sits on both sides of that line. Co-founders Naman Gangwal (CPA) and Akshay Nahar handle the cross-border builds - early clients included Blackstone and Sony.
+
+Would you be open to a quick call to explore how we can help lighten the compliance load while you scale?</pre>
+      </div>
+      <div class="mt-3 text-[11px] text-slate-500">
+        No signature in the body &mdash; Smartlead applies the per-mailbox signature on send. Word count: <span class="font-mono num text-ink">88</span> (under the 150 limit).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
 <!-- PAGE: TAT                                                    -->
 <!-- ========================================================== -->
 <section data-page="/tat" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Turnaround time</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">
       Compute is fast. Human review is multi-day. Safe send-pacing is multi-week. Plan around the slowest stage at each step.
@@ -579,7 +737,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/emails" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">07 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Pilot drafts &middot; 10 emails</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Picked to span the conditional matrix in CONTEXT.docx — Founder/CEO · CFO · Other × geography × industry. Click any row to expand the body.</p>
 
@@ -605,7 +763,7 @@ tailwind.config = {
 <!-- ========================================================== -->
 <section data-page="/rerun" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">07 / 08</div>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">08 / 09</div>
     <h2 class="text-3xl font-semibold tracking-tight">Re-run on the next list</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">Same pipeline, new CSV. Skill is registered and re-runnable in any Claude Code session.</p>
 
@@ -752,6 +910,36 @@ tailwind.config = {
 ]
 </script>
 
+<script type="application/json" id="tiers-data">
+{
+  "industry_pain": [
+    {"key":"it_services",   "count":1798, "label":"IT services / software"},
+    {"key":"default",       "count":935,  "label":"Generic cross-border (industry not matched)"},
+    {"key":"marketing",     "count":228,  "label":"Marketing / advertising / media"},
+    {"key":"healthcare",    "count":148,  "label":"Healthcare / pharma / biotech"},
+    {"key":"fin_services",  "count":136,  "label":"Financial services / fintech"},
+    {"key":"manufacturing", "count":61,   "label":"Manufacturing / industrial"},
+    {"key":"security",      "count":56,   "label":"Computer & network security"},
+    {"key":"consumer",      "count":50,   "label":"Consumer services / retail / e-commerce"},
+    {"key":"education",     "count":46,   "label":"Education / EdTech"},
+    {"key":"construction",  "count":33,   "label":"Construction / engineering"},
+    {"key":"logistics",     "count":30,   "label":"Logistics / supply chain"},
+    {"key":"real_estate",   "count":28,   "label":"Real estate"},
+    {"key":"telecom",       "count":27,   "label":"Telecommunications"},
+    {"key":"renewables",    "count":21,   "label":"Renewables / sustainability"},
+    {"key":"food_dairy",    "count":16,   "label":"Food & beverages / dairy / agriculture"},
+    {"key":"legal",         "count":15,   "label":"Legal services"}
+  ],
+  "senders": [
+    {"email":"sadhana.b@fixmyusfilings.com",         "count":726, "default":true},
+    {"email":"sadhana.b@usaindiacfocompliance.com",  "count":726, "default":false},
+    {"email":"sadhana.b@usaindiacfosolutions.com",   "count":726, "default":false},
+    {"email":"sadhana.b@auditreadyhq.com",           "count":725, "default":false},
+    {"email":"sadhana.b@remotecfodesk.com",          "count":725, "default":false}
+  ]
+}
+</script>
+
 <script type="application/json" id="tat-data">
 {
   "stages": [
@@ -810,6 +998,7 @@ tailwind.config = {
     { path: '/zoho',       label: 'Zoho CRM snapshot' },
     { path: '/apollo',     label: 'Apollo dedup funnel' },
     { path: '/categorize', label: 'Categorization' },
+    { path: '/tiers',      label: 'Tier A/B/C/D + bulk draft' },
     { path: '/tat',        label: 'Turnaround time' },
     { path: '/emails',     label: 'Pilot emails' },
     { path: '/rerun',      label: 'Re-run on next list' },
@@ -879,6 +1068,34 @@ tailwind.config = {
       </div>
       <div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden">
         <div class="h-full bg-${b.color}-500" style="width:${b.pct}%"></div>
+      </div>
+    </div>`).join("");
+
+  // Tiers — industry-pain bars + sender distribution
+  const tiers = JSON.parse($("#tiers-data").textContent);
+  const totalDrafted = tiers.industry_pain.reduce((s,b)=>s+b.count, 0);
+  $("#industry-pain").innerHTML = tiers.industry_pain.map(b => {
+    const pct = (b.count/totalDrafted)*100;
+    return `
+      <div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-ink">${b.label}</span>
+          <span class="font-mono text-slate-700">${b.count.toLocaleString()} <span class="text-slate-400">(${pct.toFixed(1)}%)</span></span>
+        </div>
+        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-full bg-indigo-500" style="width:${Math.max(pct, 0.5)}%"></div>
+        </div>
+      </div>`;
+  }).join("");
+
+  $("#sender-distribution").innerHTML = tiers.senders.map(s => `
+    <div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="font-mono text-ink truncate pr-2">${s.email}${s.default?'<span class="ml-1 text-emerald-600">default</span>':''}</span>
+        <span class="font-mono text-slate-700">${s.count.toLocaleString()}</span>
+      </div>
+      <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div class="h-full bg-emerald-500" style="width:${(s.count/Math.max(...tiers.senders.map(x=>x.count)))*100}%"></div>
       </div>
     </div>`).join("");
 
