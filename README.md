@@ -16,14 +16,13 @@ Or just double-click `index.html` &mdash; everything is inline (Tailwind via CDN
 
 The dashboard uses **hash-based routing**, not anchor scrolling. Each nav button swaps the visible page rather than jumping to a section. URL bar reflects the current view:
 
-- `#/`            — Overview (default)
-- `#/flow`        — Pipeline flow
-- `#/zoho`        — Zoho CRM snapshot
-- `#/apollo`      — Apollo dedup funnel
-- `#/categorize`  — Ready / Clay / Reject categorization
-- `#/tat`         — Turnaround time (compute · human · vendor · sending)
-- `#/emails`      — 10 pilot drafts
-- `#/rerun`       — Re-run instructions, skill, scripts, send pacing
+- `#/`         — Overview (default)
+- `#/funnel`   — Data funnel: dedup → tier scoring → bulk draft → rejects (donut + stacked bars + reject reasons)
+- `#/audience` — Who's in the list: CRM snapshot + Apollo audience shape (pies for industry + title)
+- `#/drafts`   — Output quality: word-count histogram, audit results, 10 sample emails (filterable)
+- `#/ops`      — Pipeline flow, TAT timeline, send pacing, re-run via `/outreach-batch`
+
+5 nav items total (down from 9). All charts are pure inline SVG — no external libraries.
 
 Every page also has a Previous / Next pager at the bottom for sequential review. Browser back/forward works naturally.
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BNG Outreach Pipeline · Pilot Dashboard</title>
-<meta name="description" content="Cold-outreach pipeline pilot — Zoho CRM snapshot, Apollo dedup, categorization, and 10 sample drafted emails." />
+<title>BNG Outreach Pipeline · Dashboard</title>
+<meta name="description" content="CRM × Apollo outreach pipeline — data journey, audience, drafts, and operations at a glance." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,9 +20,7 @@ tailwind.config = {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         serif: ['"Instrument Serif"', 'ui-serif'],
       },
-      colors: {
-        ink: { DEFAULT: '#0b1220', soft: '#1e293b' },
-      },
+      colors: { ink: { DEFAULT: '#0b1220', soft: '#1e293b' } },
     },
   },
 };
@@ -43,41 +41,40 @@ tailwind.config = {
   summary svg.chev { transition: transform .15s ease; }
   summary { list-style: none; }
   summary::-webkit-details-marker { display:none; }
-  /* Page transition */
   [data-page] { animation: fadeIn .18s ease both; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   .nav-link.active { color: #0b1220; border-color: #0b1220; }
+
+  /* Donut + pie chart hover */
+  .pie-seg, .donut-seg { transition: opacity .15s; cursor: default; }
+  .pie-seg:hover, .donut-seg:hover { opacity: 0.75; }
 </style>
 </head>
 
 <body class="font-sans text-ink antialiased min-h-screen flex flex-col">
 
-<!-- ========== TOP NAV ========== -->
+<!-- ========== TOP NAV (5 items) ========== -->
 <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-slate-50/85 backdrop-blur">
   <div class="mx-auto max-w-7xl px-6 py-3">
     <div class="flex items-center justify-between gap-6">
       <a href="#/" class="flex items-center gap-3 group">
         <div class="size-8 rounded-md bg-ink text-white grid place-items-center font-mono text-xs font-bold group-hover:scale-105 transition">BNG</div>
         <div>
-          <div class="text-sm font-semibold text-ink">Outreach Pipeline · Pilot</div>
-          <div class="text-xs text-slate-500">USAIndiaCFO &middot; <span class="font-mono">2026-05-08</span></div>
+          <div class="text-sm font-semibold text-ink">Outreach Pipeline · Dashboard</div>
+          <div class="text-xs text-slate-500">USAIndiaCFO &middot; <span class="font-mono">2026-05-11</span></div>
         </div>
       </a>
       <div class="flex items-center gap-2 text-xs text-slate-500">
         <span class="size-1.5 rounded-full bg-emerald-500"></span>
-        pilot &middot; not sent
+        3,221 ready &middot; not sent
       </div>
     </div>
     <nav class="mt-3 flex items-center gap-1 overflow-x-auto -mb-px text-sm">
-      <a href="#/"           class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/">Overview</a>
-      <a href="#/flow"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/flow">Flow</a>
-      <a href="#/zoho"       class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/zoho">Zoho CRM</a>
-      <a href="#/apollo"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/apollo">Apollo</a>
-      <a href="#/categorize" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/categorize">Categorize</a>
-      <a href="#/tiers"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/tiers">Tiers</a>
-      <a href="#/tat"        class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/tat">TAT</a>
-      <a href="#/emails"     class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/emails">Pilot Emails</a>
-      <a href="#/rerun"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/rerun">Re-run</a>
+      <a href="#/"         class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/">Overview</a>
+      <a href="#/funnel"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/funnel">Funnel</a>
+      <a href="#/audience" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/audience">Audience</a>
+      <a href="#/drafts"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/drafts">Drafts</a>
+      <a href="#/ops"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/ops">Ops</a>
     </nav>
   </div>
 </header>
@@ -85,878 +82,495 @@ tailwind.config = {
 <main class="flex-1">
 
 <!-- ========================================================== -->
-<!-- PAGE: OVERVIEW (default)                                    -->
+<!-- PAGE: OVERVIEW                                              -->
 <!-- ========================================================== -->
 <section data-page="/" class="hidden">
-  <!-- Hero -->
   <div class="relative overflow-hidden border-b border-slate-200">
     <div class="absolute inset-0 grid-bg pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-14 md:py-20">
       <div class="max-w-3xl">
         <div class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/70 px-3 py-1 text-xs text-slate-600 mb-6">
-          <span class="size-1.5 rounded-full bg-amber-500"></span>
-          Awaiting partner + marketing review
+          <span class="size-1.5 rounded-full bg-emerald-500"></span>
+          3,221 Tier A drafts ready &middot; awaiting partner review
         </div>
         <h1 class="font-serif text-5xl md:text-6xl leading-[1.05] tracking-tight">
           Cold-outreach pipeline,<br/>
-          end-to-end <span class="text-emerald-700">offline</span>.
+          <span class="text-emerald-700">research-targeted</span> at scale.
         </h1>
         <p class="mt-6 text-slate-600 text-lg max-w-2xl">
-          Apollo prospect list deduped against the Zoho CRM, categorized by enrichability,
-          and draft personalized emails using the existing CONTEXT.docx prompt &mdash; without
-          sending anything until the partner signs off.
+          9,000 Apollo contacts → deduped against 20k Zoho leads → ICP-scored into tiers → 3,221 Tier A
+          rows drafted with per-company research (no templates, no fabrication, Akshay-only leader).
         </p>
-        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div class="rounded-lg border border-slate-200 bg-white p-4 stat-card">
-            <div class="text-xs text-slate-500">Apollo input</div>
-            <div class="text-2xl font-semibold num mt-1">9,000</div>
-            <div class="text-xs text-slate-400 mt-1">contacts</div>
+
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">Apollo input</div>
+            <div class="text-xl font-semibold num mt-1">9,000</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-4 stat-card">
-            <div class="text-xs text-slate-500">Already in CRM</div>
-            <div class="text-2xl font-semibold num mt-1">7</div>
-            <div class="text-xs text-slate-400 mt-1">de-duped out</div>
+          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">Already in CRM</div>
+            <div class="text-xl font-semibold num mt-1">7</div>
           </div>
-          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-4 stat-card">
-            <div class="text-xs text-emerald-700">Ready to draft</div>
-            <div class="text-2xl font-semibold num mt-1 text-emerald-900">3,646</div>
-            <div class="text-xs text-emerald-700/70 mt-1">verified work emails</div>
+          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">Outreach pool</div>
+            <div class="text-xl font-semibold num mt-1">8,277</div>
           </div>
-          <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 stat-card">
-            <div class="text-xs text-amber-700">Clay-enrichable</div>
-            <div class="text-2xl font-semibold num mt-1 text-amber-900">4,602</div>
-            <div class="text-xs text-amber-700/70 mt-1">recoverable via Clay</div>
+          <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-indigo-700">Tier A scope</div>
+            <div class="text-xl font-semibold num mt-1 text-indigo-900">3,628</div>
+          </div>
+          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
+            <div class="text-xl font-semibold num mt-1 text-emerald-900">3,221</div>
+          </div>
+          <div class="rounded-lg border border-rose-200 bg-rose-50 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-rose-700">Rejected · quality</div>
+            <div class="text-xl font-semibold num mt-1 text-rose-900">407</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Where to next -->
   <div class="mx-auto max-w-7xl px-6 py-14">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-4">Where to next</div>
-    <div class="grid md:grid-cols-3 gap-4">
-      <a href="#/flow" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-4">What to look at</div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="#/funnel" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">01</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pipeline flow →</div>
-        <div class="text-sm text-slate-600">Five stages from CSV to staged-for-send. Three operating rules that keep this safe.</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Funnel →</div>
+        <div class="text-sm text-slate-600">9k → 8,277 → tier split → 3,221 drafted. The full data journey with charts.</div>
       </a>
-      <a href="#/zoho" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/audience" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">02</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Zoho CRM snapshot →</div>
-        <div class="text-sm text-slate-600">20k Leads, 6.5k stale-open, 0% LinkedIn URL fill. The audience reality.</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Audience →</div>
+        <div class="text-sm text-slate-600">Who's in this list — 99.8% India person → US company. Industry + title mix.</div>
       </a>
-      <a href="#/apollo" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/drafts" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">03</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Apollo dedup funnel →</div>
-        <div class="text-sm text-slate-600">9,000 contacts → 8,277 net-new candidates. Only 7 already in CRM.</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Drafts →</div>
+        <div class="text-sm text-slate-600">3,221 bulk drafts, 100% unique bodies. 10 sample emails to skim.</div>
       </a>
-      <a href="#/categorize" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/ops" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">04</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Categorization →</div>
-        <div class="text-sm text-slate-600">44% Ready · 56% Clay-enrichable · 0.4% Reject. The data-sufficiency filter applied.</div>
-      </a>
-      <a href="#/tiers" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">05</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Tier A/B/C/D + bulk draft →</div>
-        <div class="text-sm text-slate-600">3,628 emails drafted (no signature) with ICP scoring. EU holdback at 18 rows. Sender round-robin.</div>
-      </a>
-      <a href="#/tat" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">06</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">TAT &middot; turnaround time →</div>
-        <div class="text-sm text-slate-600">~1 hour compute, days of human review, weeks of safe send pacing. Critical path explained.</div>
-      </a>
-      <a href="#/emails" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">07</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Pilot emails →</div>
-        <div class="text-sm text-slate-600">10 personalized drafts spanning the conditional matrix. Filter by branch.</div>
-      </a>
-      <a href="#/rerun" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
-        <div class="text-xs font-mono text-slate-500 mb-2">08</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Re-run on next list →</div>
-        <div class="text-sm text-slate-600">The /outreach-batch skill, the scripts, send pacing, hard guardrails.</div>
+        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Ops →</div>
+        <div class="text-sm text-slate-600">Pipeline flow, TAT, send pacing, re-run via /outreach-batch skill.</div>
       </a>
     </div>
   </div>
 </section>
 
 <!-- ========================================================== -->
-<!-- PAGE: FLOW                                                   -->
+<!-- PAGE: FUNNEL                                                 -->
 <!-- ========================================================== -->
-<section data-page="/flow" class="hidden">
+<section data-page="/funnel" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Pipeline flow</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">Five stages, fully offline up to the staging step. Re-runnable via the <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">/outreach-batch</code> skill on any future CSV.</p>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">01 / 04</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Data funnel</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">Where rows actually go. From the 9,000-row Apollo CSV through dedup, tier scoring, and quality filtering — to the 3,221 ready-to-send drafts.</p>
 
-    <ol class="mt-10 grid md:grid-cols-5 gap-4 text-sm">
-      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
-        <div class="text-xs font-mono text-slate-500 mb-2">01 · INPUT</div>
-        <div class="font-semibold text-ink mb-1">CSV + CRM dump</div>
-        <div class="text-slate-600">Apollo export (9k rows) + official Zoho backup (20k Leads, full schema, picklists, users).</div>
-      </li>
-      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
-        <div class="text-xs font-mono text-slate-500 mb-2">02 · DEDUP</div>
-        <div class="font-semibold text-ink mb-1">Email · phone · name+company</div>
-        <div class="text-slate-600">Match Apollo rows against CRM Leads. Three-key matching with case + whitespace normalization.</div>
-      </li>
-      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
-        <div class="text-xs font-mono text-slate-500 mb-2">03 · CATEGORIZE</div>
-        <div class="font-semibold text-ink mb-1">Ready · Clay · Reject</div>
-        <div class="text-slate-600">Filter by data sufficiency. Send Clay-enrichable rows to a queue rather than dropping them.</div>
-      </li>
-      <li class="rounded-lg border border-slate-200 p-5 bg-emerald-50/40">
-        <div class="text-xs font-mono text-emerald-700 mb-2">04 · DRAFT</div>
-        <div class="font-semibold text-ink mb-1">CONTEXT.docx · pilot first</div>
-        <div class="text-slate-600">Per-row email using only verified facts. 10-row pilot, reviewed by partner before bulk.</div>
-      </li>
-      <li class="rounded-lg border border-slate-200 p-5 bg-slate-50/40">
-        <div class="text-xs font-mono text-slate-500 mb-2">05 · STAGE</div>
-        <div class="font-semibold text-ink mb-1">Apollo Sequences</div>
-        <div class="text-slate-600">Upload in batches respecting per-mailbox daily caps. Never auto-send. Monitor reply/bounce.</div>
-      </li>
-    </ol>
-
-    <div class="mt-10 grid md:grid-cols-3 gap-4">
-      <div class="rounded-lg border border-slate-200 p-5 bg-white">
-        <div class="text-xs font-mono text-slate-500 mb-2">RULE 01</div>
-        <div class="font-semibold text-ink mb-1">Claude first, Clay only when uniquely needed</div>
-        <div class="text-sm text-slate-600">Most rows already have Title, Company, Industry, and LinkedIn URL. Don't pay Clay credits to find what's already in the CSV.</div>
+    <!-- Visual funnel -->
+    <div class="mt-10 grid lg:grid-cols-5 gap-3">
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">Apollo input</div>
+        <div class="text-3xl font-semibold num mt-1">9,000</div>
+        <div class="mt-2 text-xs text-slate-500">contacts</div>
       </div>
-      <div class="rounded-lg border border-slate-200 p-5 bg-white">
-        <div class="text-xs font-mono text-slate-500 mb-2">RULE 02</div>
-        <div class="font-semibold text-ink mb-1">Filter insufficient-data rows out</div>
-        <div class="text-sm text-slate-600">Rows missing the core inputs for a personalized email skip the draft pass and queue for Clay enrichment instead.</div>
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">After dedup</div>
+        <div class="text-3xl font-semibold num mt-1">8,277</div>
+        <div class="mt-2 text-xs text-slate-500">−716 dupes · −7 in CRM</div>
       </div>
-      <div class="rounded-lg border border-slate-200 p-5 bg-white">
-        <div class="text-xs font-mono text-slate-500 mb-2">RULE 03</div>
-        <div class="font-semibold text-ink mb-1">No fabrication</div>
-        <div class="text-sm text-slate-600">Only verifiable USAIndiaCFO claims. The "12,000 companies" stat is omitted &mdash; not on the live site.</div>
+      <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-indigo-700">Tier A scope</div>
+        <div class="text-3xl font-semibold num mt-1 text-indigo-900">3,628</div>
+        <div class="mt-2 text-xs text-indigo-700/80">ICP-scored + EU excluded</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================== -->
-<!-- PAGE: ZOHO                                                   -->
-<!-- ========================================================== -->
-<section data-page="/zoho" class="hidden">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Zoho CRM snapshot</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">Generated from the official Zoho data backup pulled 2026-05-08. The only source of truth for what's actually in CRM today.</p>
-
-    <div class="mt-8 grid md:grid-cols-4 gap-4">
-      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Leads</div>
-        <div class="text-3xl font-semibold num mt-2">20,020</div>
+      <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
+        <div class="text-3xl font-semibold num mt-1 text-emerald-900">3,221</div>
+        <div class="mt-2 text-xs text-emerald-700/80">88.8% of Tier A</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Contacts</div>
-        <div class="text-3xl font-semibold num mt-2">3,056</div>
-      </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Accounts</div>
-        <div class="text-3xl font-semibold num mt-2">2,627</div>
-      </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Deals</div>
-        <div class="text-3xl font-semibold num mt-2">6,107</div>
+      <div class="rounded-xl border border-rose-200 bg-rose-50 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-rose-700">Rejected</div>
+        <div class="text-3xl font-semibold num mt-1 text-rose-900">407</div>
+        <div class="mt-2 text-xs text-rose-700/80">data quality</div>
       </div>
     </div>
 
-    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+    <!-- Tier split donut + numbers -->
+    <div class="mt-10 grid lg:grid-cols-2 gap-6">
       <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Lead field-fill rates (top signals)</div>
-        <div class="text-xs text-slate-500 mb-4">% of 20,020 Leads with this field populated</div>
-        <div id="zoho-fill" class="space-y-2.5 text-sm"></div>
-      </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Lead enrichment buckets (per SOP)</div>
-        <div class="text-xs text-slate-500 mb-4">Bucketing of all 20,020 Leads by available contact channel</div>
-        <div id="zoho-flow" class="space-y-3 text-sm"></div>
-        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
-          <span class="font-semibold text-ink">Audience signal:</span> Mobile (99.3%) is the universal anchor;
-          Email (87.9%) is secondary; LinkedIn URL is at 0% so every lead enters enrichment from scratch.
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-6 grid md:grid-cols-3 gap-4">
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
-        <div class="text-xs uppercase tracking-wide text-slate-500">Stale-open leads</div>
-        <div class="text-2xl font-semibold num mt-1">6,486</div>
-        <div class="text-xs text-slate-500 mt-1">32% of book &middot; active status, modified > 90d ago</div>
-      </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
-        <div class="text-xs uppercase tracking-wide text-slate-500">Contacts without Account</div>
-        <div class="text-2xl font-semibold num mt-1">2,023</div>
-        <div class="text-xs text-slate-500 mt-1">66% of Contacts &middot; lead-conversion gap</div>
-      </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
-        <div class="text-xs uppercase tracking-wide text-slate-500">Duplicate emails</div>
-        <div class="text-2xl font-semibold num mt-1 text-emerald-700">0</div>
-        <div class="text-xs text-slate-500 mt-1">Zoho dedup is enforced</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================== -->
-<!-- PAGE: APOLLO                                                 -->
-<!-- ========================================================== -->
-<section data-page="/apollo" class="hidden">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Apollo dedup + funnel</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">9,000 prospects from Apollo, 49 distinct lead sources. Match keys: email, phone digits, name+company.</p>
-
-    <div class="mt-10 rounded-2xl border border-slate-200 bg-slate-50/60 p-6 md:p-8">
-      <div class="grid md:grid-cols-5 gap-4 items-stretch">
-        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
-          <div class="text-xs uppercase tracking-wide text-slate-500">Apollo input</div>
-          <div class="text-3xl font-semibold num mt-1">9,000</div>
-          <div class="text-xs text-slate-400 mt-1">total contacts</div>
-        </div>
-        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
-          <div class="text-xs uppercase tracking-wide text-slate-500">Internal dupes</div>
-          <div class="text-3xl font-semibold num mt-1">−716</div>
-          <div class="text-xs text-slate-400 mt-1">same person twice</div>
-        </div>
-        <div class="md:col-span-1 rounded-xl bg-white border border-slate-200 p-5">
-          <div class="text-xs uppercase tracking-wide text-slate-500">Already in CRM</div>
-          <div class="text-3xl font-semibold num mt-1">−7</div>
-          <div class="text-xs text-slate-400 mt-1">4 email · 2 phone · 1 name+co</div>
-        </div>
-        <div class="md:col-span-2 rounded-xl bg-ink text-white border border-ink p-5">
-          <div class="text-xs uppercase tracking-wide text-white/60">Outreach pool</div>
-          <div class="text-4xl font-semibold num mt-1">8,277</div>
-          <div class="text-xs text-white/60 mt-1">net-new candidates · 92% of input</div>
-        </div>
-      </div>
-
-      <div class="mt-6 grid md:grid-cols-3 gap-4 text-xs">
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <div class="text-slate-500 uppercase tracking-wide">Match basis</div>
-          <div class="mt-2 grid grid-cols-3 gap-2">
-            <div><div class="num text-lg font-semibold">4</div><div class="text-slate-400">email</div></div>
-            <div><div class="num text-lg font-semibold">2</div><div class="text-slate-400">phone</div></div>
-            <div><div class="num text-lg font-semibold">1</div><div class="text-slate-400">name+co</div></div>
+        <div class="text-sm font-semibold text-ink mb-1">Outreach pool by ICP tier</div>
+        <div class="text-xs text-slate-500 mb-6">All 8,277 candidates were scored 1–10 on title × company size × industry fit × cross-border signal, then bucketed into A (8–10), B (5–7), C (3–4), D (1–2).</div>
+        <div class="grid grid-cols-2 gap-6 items-center">
+          <div class="flex justify-center">
+            <div id="tier-donut"></div>
           </div>
+          <div id="tier-legend" class="space-y-2"></div>
         </div>
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <div class="text-slate-500 uppercase tracking-wide">Audience shape</div>
-          <div class="mt-2 text-ink font-medium">99.8% India persons → US-HQ companies</div>
-          <div class="text-slate-500 mt-1">Dual-jurisdiction is the dominant case, not pure US/India</div>
-        </div>
-        <div class="rounded-lg bg-white p-4 border border-slate-200">
-          <div class="text-slate-500 uppercase tracking-wide">Title spread</div>
-          <div class="mt-2 grid grid-cols-3 gap-2">
-            <div><div class="num text-lg font-semibold">2,418</div><div class="text-slate-400">Founder/CEO</div></div>
-            <div><div class="num text-lg font-semibold">13</div><div class="text-slate-400">CFO</div></div>
-            <div><div class="num text-lg font-semibold">2,505</div><div class="text-slate-400">Other</div></div>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6">
+        <div class="text-sm font-semibold text-ink mb-1">Why each tier matters</div>
+        <div class="text-xs text-slate-500 mb-4">Tranches by tier so partner can stage sends. Tier A is the first push; B follows after pilot reply data; C/D get nurture sequences.</div>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-3 items-start">
+            <span class="mt-1 size-3 rounded-sm shrink-0 bg-emerald-500"></span>
+            <div>
+              <div class="font-medium text-ink">Tier A · 3,628</div>
+              <div class="text-xs text-slate-500">ICP 8–10. Founder/CEO/CFO at India-rooted firms with US revenue. First send tranche.</div>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mt-1 size-3 rounded-sm shrink-0 bg-sky-500"></span>
+            <div>
+              <div class="font-medium text-ink">Tier B · 2,722</div>
+              <div class="text-xs text-slate-500">ICP 5–7. Senior but not C-suite, or smaller companies. Standard pool, send after Tier A pilot data.</div>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mt-1 size-3 rounded-sm shrink-0 bg-amber-500"></span>
+            <div>
+              <div class="font-medium text-ink">Tier C · 520</div>
+              <div class="text-xs text-slate-500">ICP 3–4. Lower fit; nurture sequence, no rep-driven first-touch.</div>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mt-1 size-3 rounded-sm shrink-0 bg-rose-500"></span>
+            <div>
+              <div class="font-medium text-ink">Tier D · 74</div>
+              <div class="text-xs text-slate-500">ICP 1–2. Hold queue; weekly review only.</div>
+            </div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mt-1 size-3 rounded-sm shrink-0 bg-slate-400"></span>
+            <div>
+              <div class="font-medium text-ink">EU holdback · 18</div>
+              <div class="text-xs text-slate-500">GDPR/UK GDPR — work-email TLD or country signals EU/EEA/UK. Excluded from all tiers.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ========================================================== -->
-<!-- PAGE: CATEGORIZE                                             -->
-<!-- ========================================================== -->
-<section data-page="/categorize" class="hidden">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Categorization &middot; data sufficiency</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">Filter rule applied to all 8,277 candidates. Insufficient-data rows route to Clay rather than getting dropped, so we don't lose recoverable contacts.</p>
-
-    <div class="mt-8 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Split of the 8,277 outreach candidates</div>
+    <!-- Bulk draft outcome breakdown -->
+    <div class="mt-10 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-sm font-semibold text-ink mb-1">Tier A draft outcome</div>
+      <div class="text-xs text-slate-500 mb-5">Of the 3,628 Tier A rows, 88.8% drafted cleanly. The 407 rejected rows had data-quality issues the research pass caught (dead websites, hijacked domains, parked pages, title noise).</div>
       <div class="h-12 rounded-md overflow-hidden flex border border-slate-200">
-        <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 44.0%">READY · 3,646 (44%)</div>
-        <div class="bg-amber-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 55.6%">CLAY-ENRICHABLE · 4,602 (56%)</div>
-        <div class="bg-rose-500 flex items-center justify-center text-[10px] text-white font-semibold" style="width: 0.4%">29</div>
+        <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 73.0%">Drafted with research hook · 2,651 (73%)</div>
+        <div class="bg-emerald-400 flex items-center justify-center text-xs text-white font-semibold" style="width: 15.8%">Fallback opener · 570 (16%)</div>
+        <div class="bg-rose-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 11.2%">Rejected · 407 (11%)</div>
       </div>
       <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-600">
-        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-emerald-500"></span> Verified work email + Title + Company + Industry</div>
-        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-amber-500"></span> Has Title + Company + at least one anchor; Clay can recover work email</div>
-        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-rose-500"></span> No Title or no Company or no anchor at all</div>
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-emerald-500"></span> Company-specific opener built from WebFetch'd site research</div>
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-emerald-400"></span> Generic-but-company-named opener (site was empty/blocked, but contact still safe to send)</div>
+        <div class="flex items-center gap-2"><span class="size-2 rounded-sm bg-rose-500"></span> Hijacked domain / 404 / parked / title noise — do NOT send</div>
       </div>
     </div>
 
-    <div class="mt-6 grid lg:grid-cols-3 gap-4">
-      <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
-        <div class="flex items-center justify-between mb-3">
-          <div class="text-xs uppercase tracking-wide text-emerald-700 font-semibold">Ready to draft</div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200">drafting candidates</span>
-        </div>
-        <div class="text-4xl font-semibold num text-emerald-900">3,646</div>
-        <div class="text-xs text-emerald-700/80 mt-1">44.0% of pool</div>
-        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
-          <li class="flex gap-2"><span class="text-emerald-600">•</span> Verified work email on a non-personal domain</li>
-          <li class="flex gap-2"><span class="text-emerald-600">•</span> Title + Company + Industry all present</li>
-          <li class="flex gap-2"><span class="text-emerald-600">•</span> Apollo Sequence-uploadable today</li>
-        </ul>
-      </div>
-
-      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-6">
-        <div class="flex items-center justify-between mb-3">
-          <div class="text-xs uppercase tracking-wide text-amber-700 font-semibold">Clay-enrichable</div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 border border-amber-200">queue, don't drop</span>
-        </div>
-        <div class="text-4xl font-semibold num text-amber-900">4,602</div>
-        <div class="text-xs text-amber-700/80 mt-1">55.6% of pool</div>
-        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
-          <li class="flex justify-between"><span>Find work email</span><span class="font-mono num text-slate-500">3,262</span></li>
-          <li class="flex justify-between"><span>Verify existing email</span><span class="font-mono num text-slate-500">1,103</span></li>
-          <li class="flex justify-between"><span>Find email + derive industry</span><span class="font-mono num text-slate-500">142</span></li>
-          <li class="flex justify-between"><span>Verify + derive industry</span><span class="font-mono num text-slate-500">23</span></li>
-          <li class="flex justify-between"><span>Derive industry only</span><span class="font-mono num text-slate-500">72</span></li>
-        </ul>
-        <div class="mt-3 pt-3 border-t border-amber-200 text-xs text-amber-800">
-          Estimated Clay spend at ~6 credits/successful enrich → ~<span class="num font-mono">27,600</span> credits total.
-        </div>
-      </div>
-
-      <div class="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
-        <div class="flex items-center justify-between mb-3">
-          <div class="text-xs uppercase tracking-wide text-rose-700 font-semibold">Reject</div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-700 border border-rose-200">drop</span>
-        </div>
-        <div class="text-4xl font-semibold num text-rose-900">29</div>
-        <div class="text-xs text-rose-700/80 mt-1">0.4% of pool</div>
-        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
-          <li class="flex justify-between"><span>No title</span><span class="font-mono num text-slate-500">14</span></li>
-          <li class="flex justify-between"><span>No company</span><span class="font-mono num text-slate-500">8</span></li>
-          <li class="flex justify-between"><span>No title + no company</span><span class="font-mono num text-slate-500">7</span></li>
-        </ul>
-        <div class="mt-3 pt-3 border-t border-rose-200 text-xs text-rose-800">
-          Clay can't help &mdash; nothing to anchor on.
-        </div>
-      </div>
+    <!-- Rejection reasons -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-sm font-semibold text-ink mb-1">Why 407 rows got rejected</div>
+      <div class="text-xs text-slate-500 mb-4">All caught automatically by the WebFetch quality pass. None would have been flagged by templated bulk drafting.</div>
+      <div id="reject-reasons" class="space-y-2 text-sm"></div>
     </div>
   </div>
 </section>
 
 <!-- ========================================================== -->
-<!-- PAGE: TIERS (bulk draft + ICP scoring + EU holdback)         -->
+<!-- PAGE: AUDIENCE                                               -->
 <!-- ========================================================== -->
-<section data-page="/tiers" class="hidden">
+<section data-page="/audience" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">05 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Tier A/B/C/D &middot; bulk draft</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">
-      All 3,646 Ready rows scored, EU rows pulled out, 3,628 personalized emails drafted (no signature — Smartlead handles it). Tier A is the first send tranche.
-    </p>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">02 / 04</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Audience &middot; who's in the list</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">CRM context on the left (what we already have), Apollo audience shape on the right (who the new outreach is going to).</p>
 
-    <!-- Two-cohort overview -->
-    <div class="mt-8 grid lg:grid-cols-2 gap-4">
-      <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
-        <div class="flex items-center justify-between mb-1">
-          <div class="text-xs uppercase tracking-wide text-emerald-700 font-semibold">Ready cohort &mdash; drafted</div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200">work_verified</span>
-        </div>
-        <div class="text-4xl font-semibold num text-emerald-900">3,628</div>
-        <div class="text-xs text-emerald-700/80 mt-1">From apollo_ready.csv &middot; verified work emails &middot; A 312 / B 2,722 / C 520 / D 74</div>
-      </div>
-      <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-6">
-        <div class="flex items-center justify-between mb-1">
-          <div class="text-xs uppercase tracking-wide text-sky-700 font-semibold">Clay cohort &mdash; drafted</div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 border border-sky-200">email-fallback chain</span>
-        </div>
-        <div class="text-4xl font-semibold num text-sky-900">1,273</div>
-        <div class="text-xs text-sky-700/80 mt-1">From apollo_clay_queue.csv &middot; A 163 / B 1,019 / C 79 / D 12</div>
-      </div>
-    </div>
+    <!-- 2-column: Zoho CRM (left) vs Apollo audience (right) -->
+    <div class="mt-10 grid lg:grid-cols-2 gap-8">
 
-    <div class="mt-4 rounded-xl border border-slate-200 bg-white p-5">
-      <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Combined campaign capacity</div>
-      <div class="grid sm:grid-cols-4 gap-3 text-sm">
-        <div class="rounded-md bg-slate-50 border border-slate-200 px-4 py-3">
-          <div class="text-xs text-slate-500">Total drafted (both)</div>
-          <div class="font-semibold num text-2xl mt-1 text-ink">4,901</div>
-        </div>
-        <div class="rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3">
-          <div class="text-xs text-emerald-700">Verified work email</div>
-          <div class="font-semibold num text-2xl mt-1 text-emerald-900">3,700</div>
-          <div class="text-[11px] text-emerald-700/70 mt-1">3,628 ready + 72 clay</div>
-        </div>
-        <div class="rounded-md bg-amber-50 border border-amber-200 px-4 py-3">
-          <div class="text-xs text-amber-700">Unverified work email</div>
-          <div class="font-semibold num text-2xl mt-1 text-amber-900">1,111</div>
-          <div class="text-[11px] text-amber-700/70 mt-1">expect some bounces</div>
-        </div>
-        <div class="rounded-md bg-rose-50 border border-rose-200 px-4 py-3">
-          <div class="text-xs text-rose-700">Personal email only</div>
-          <div class="font-semibold num text-2xl mt-1 text-rose-900">90</div>
-          <div class="text-[11px] text-rose-700/70 mt-1">lower deliverability</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tier breakdown (Ready cohort) -->
-    <div class="mt-6">
-      <div class="text-xs uppercase tracking-widest text-slate-500 mb-3">Tier distribution &middot; Ready cohort (3,628 rows)</div>
-      <div class="grid md:grid-cols-4 gap-4">
-        <div class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-5 stat-card">
-          <div class="text-xs uppercase tracking-wide text-emerald-700">Tier A &middot; first send</div>
-          <div class="text-3xl font-semibold num mt-1 text-emerald-900">312</div>
-          <div class="text-xs text-emerald-700/80 mt-1">8.6% &middot; ICP 8-10</div>
-        </div>
-        <div class="rounded-xl border border-sky-200 bg-sky-50/40 p-5 stat-card">
-          <div class="text-xs uppercase tracking-wide text-sky-700">Tier B</div>
-          <div class="text-3xl font-semibold num mt-1 text-sky-900">2,722</div>
-          <div class="text-xs text-sky-700/80 mt-1">75.0% &middot; ICP 5-7</div>
-        </div>
-        <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
-          <div class="text-xs uppercase tracking-wide text-amber-700">Tier C</div>
-          <div class="text-3xl font-semibold num mt-1 text-amber-900">520</div>
-          <div class="text-xs text-amber-700/80 mt-1">14.3% &middot; ICP 3-4</div>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-slate-50/40 p-5 stat-card">
-          <div class="text-xs uppercase tracking-wide text-slate-600">Tier D</div>
-          <div class="text-3xl font-semibold num mt-1 text-slate-700">74</div>
-          <div class="text-xs text-slate-500 mt-1">2.0% &middot; ICP 1-2</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stacked bar -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Split of the 3,628 drafted-and-ready rows</div>
-      <div class="h-12 rounded-md overflow-hidden flex border border-slate-200">
-        <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 8.6%">A · 312</div>
-        <div class="bg-sky-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 75.0%">TIER B · 2,722 (75%)</div>
-        <div class="bg-amber-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 14.3%">C · 520</div>
-        <div class="bg-slate-500 flex items-center justify-center text-[10px] text-white font-semibold" style="width: 2.1%">D 74</div>
-      </div>
-      <div class="mt-3 text-xs text-slate-500">
-        ICP score = title (0–4) + company size (0–3) + industry fit (0–2) + cross-border (0–1). Deterministic, transparent, reproducible.
-      </div>
-    </div>
-
-    <!-- Still-needs-Clay callout -->
-    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50/50 p-6">
-      <div class="flex items-start gap-4">
-        <div class="size-10 rounded-md bg-amber-100 grid place-items-center shrink-0">
-          <svg viewBox="0 0 24 24" class="size-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="flex-1">
-          <div class="flex items-center justify-between gap-3 mb-1">
-            <div class="font-semibold text-amber-900">Still pending Clay &mdash; no email anchor at all</div>
-            <span class="text-3xl font-semibold num text-amber-900">3,314</span>
+      <!-- LEFT: Zoho CRM snapshot -->
+      <div>
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">Existing CRM (Zoho)</div>
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <div class="text-xs text-slate-500">Leads</div>
+            <div class="text-2xl font-semibold num mt-1">20,020</div>
           </div>
-          <p class="text-sm text-amber-800/80 max-w-2xl">
-            These Clay-queue rows have only LinkedIn URL or phone &mdash; no work, personal, or secondary email.
-            Cannot be drafted today; require Clay's reverse-lookup waterfall to find any sending channel first.
-            Saved to <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-amber-200">needs_clay_for_email.csv</code>.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- EU holdback callout (combined across both cohorts) -->
-    <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50/50 p-6">
-      <div class="flex items-start gap-4">
-        <div class="size-10 rounded-md bg-rose-100 grid place-items-center shrink-0">
-          <svg viewBox="0 0 24 24" class="size-5 text-rose-700" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="flex-1">
-          <div class="flex items-center justify-between gap-3 mb-1">
-            <div class="font-semibold text-rose-900">EU / EEA / UK holdback &mdash; not in any send file</div>
-            <span class="text-3xl font-semibold num text-rose-900">33</span>
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <div class="text-xs text-slate-500">Contacts</div>
+            <div class="text-2xl font-semibold num mt-1">3,056</div>
           </div>
-          <p class="text-sm text-rose-800/80 max-w-2xl">
-            Multi-signal exclusion (chosen email TLD, person country, company country) across both cohorts.
-            18 from Ready + 15 from Clay queue. They sit in their respective <code class="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-rose-200">eu_holdback.csv</code> files for compliance review.
-            <span class="font-semibold">Permanent rule</span>: every future bulk run applies this filter — GDPR / UK GDPR risk.
-          </p>
-          <div class="mt-3 grid sm:grid-cols-2 gap-2 text-xs">
-            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Ready cohort EU excluded</div><div class="font-mono num text-rose-900 text-base">18</div></div>
-            <div class="rounded-md bg-white border border-rose-200 px-3 py-2"><div class="text-rose-700">Clay cohort EU excluded</div><div class="font-mono num text-rose-900 text-base">15</div></div>
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <div class="text-xs text-slate-500">Accounts</div>
+            <div class="text-2xl font-semibold num mt-1">2,627</div>
+          </div>
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <div class="text-xs text-slate-500">Deals</div>
+            <div class="text-2xl font-semibold num mt-1">6,107</div>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
+          <div class="text-sm font-semibold text-ink mb-1">Lead field-fill rates</div>
+          <div class="text-xs text-slate-500 mb-4">% of 20,020 leads with the field populated</div>
+          <div id="zoho-fill" class="space-y-2 text-sm"></div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+          <div class="rounded-lg border border-slate-200 bg-white p-3">
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">Stale-open</div>
+            <div class="text-xl font-semibold num mt-1">6,486</div>
+            <div class="text-[10px] text-slate-400">32% of book</div>
+          </div>
+          <div class="rounded-lg border border-slate-200 bg-white p-3">
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">Contacts w/o Account</div>
+            <div class="text-xl font-semibold num mt-1">2,023</div>
+            <div class="text-[10px] text-slate-400">66%</div>
+          </div>
+          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+            <div class="text-[10px] uppercase tracking-wide text-emerald-700">Duplicate emails</div>
+            <div class="text-xl font-semibold num mt-1 text-emerald-900">0</div>
+            <div class="text-[10px] text-emerald-700/70">Zoho dedup enforced</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Two-col: Industry pain + sender round-robin -->
-    <div class="mt-6 grid lg:grid-cols-2 gap-6">
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Industry pain-point coverage</div>
-        <div class="text-xs text-slate-500 mb-4">How drafted rows distribute across the conditional pain-line categories</div>
-        <div id="industry-pain" class="space-y-2 text-sm"></div>
-      </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Sender round-robin</div>
-        <div class="text-xs text-slate-500 mb-4">Even distribution across 5 warmed Smartlead/Apollo mailboxes</div>
-        <div id="sender-distribution" class="space-y-2 text-sm"></div>
-        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
-          Each row's sender is assigned at draft time so the partner can see exactly which inbox each prospect would receive from before any send.
-        </div>
-      </div>
-    </div>
+      <!-- RIGHT: Apollo audience -->
+      <div>
+        <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">Apollo prospect list (8,277 outreach pool)</div>
 
-    <!-- Output sheets ready -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-3">Output sheets &mdash; ready to use</div>
+        <!-- Geo callout -->
+        <div class="rounded-xl border border-slate-200 bg-white p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-sm font-semibold text-ink">Geography</div>
+            <div class="text-[10px] uppercase tracking-wide text-slate-500">audience shape</div>
+          </div>
+          <div class="text-3xl font-semibold num text-ink mb-1">98.5%</div>
+          <div class="text-sm text-slate-600 mb-3">India person → US-HQ company</div>
+          <div class="h-2.5 rounded-full bg-slate-100 overflow-hidden">
+            <div class="h-full bg-indigo-500" style="width:98.5%"></div>
+          </div>
+          <div class="mt-3 text-xs text-slate-500">
+            The "dual-jurisdiction complexity" branch of CONTEXT.docx is the dominant case — not pure US or pure India.
+          </div>
+        </div>
 
-      <div class="text-xs uppercase tracking-wide text-emerald-700 mb-2">Ready cohort &mdash; <span class="font-mono">analysis/05-bulk-draft-ready/</span></div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs mb-5">
-        <div class="rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
-          <div class="font-mono text-emerald-900 truncate">tier_a_only.csv</div>
-          <div class="text-emerald-700/80 mt-1 num font-mono">312 rows · first send</div>
+        <!-- Branch + Industry pies side-by-side -->
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <div class="rounded-xl border border-slate-200 bg-white p-5">
+            <div class="text-sm font-semibold text-ink mb-1">Title bucket</div>
+            <div class="text-[10px] text-slate-500 mb-3">drafted rows</div>
+            <div class="flex justify-center mb-3">
+              <div id="branch-pie"></div>
+            </div>
+            <div id="branch-legend" class="space-y-1.5 text-xs"></div>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-5">
+            <div class="text-sm font-semibold text-ink mb-1">Industry pain (top 8)</div>
+            <div class="text-[10px] text-slate-500 mb-3">drafted rows</div>
+            <div class="flex justify-center mb-3">
+              <div id="industry-pie"></div>
+            </div>
+            <div id="industry-legend" class="space-y-1.5 text-xs"></div>
+          </div>
         </div>
-        <div class="rounded-md border border-slate-200 bg-white p-3">
-          <div class="font-mono text-ink truncate">tier_a_campaign_ready.csv</div>
-          <div class="text-slate-500 mt-1 num font-mono">3,628 rows · all tiers, A first</div>
-        </div>
-        <div class="rounded-md border border-sky-200 bg-sky-50/40 p-3">
-          <div class="font-mono text-sky-900 truncate">tier_b_ready.csv</div>
-          <div class="text-sky-700/80 mt-1 num font-mono">2,722 rows · second tranche</div>
-        </div>
-        <div class="rounded-md border border-amber-200 bg-amber-50/40 p-3">
-          <div class="font-mono text-amber-900 truncate">tier_c_ready.csv</div>
-          <div class="text-amber-700/80 mt-1 num font-mono">520 rows · nurture</div>
-        </div>
-        <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
-          <div class="font-mono text-slate-700 truncate">tier_d_ready.csv</div>
-          <div class="text-slate-500 mt-1 num font-mono">74 rows · weekly review</div>
-        </div>
-        <div class="rounded-md border border-rose-200 bg-rose-50/40 p-3">
-          <div class="font-mono text-rose-900 truncate">eu_holdback.csv</div>
-          <div class="text-rose-700/80 mt-1 num font-mono">18 rows · compliance review</div>
+
+        <div class="rounded-lg border border-amber-200 bg-amber-50/40 p-4 text-xs text-amber-900">
+          <span class="font-semibold">Why 99.8% India→US?</span> The Apollo seed query targeted India-based individuals at US-headquartered companies — exactly USAIndiaCFO's ICP. The remaining 0.2% (US/US, India/India) are edge cases worth verifying before send.
         </div>
       </div>
 
-      <div class="text-xs uppercase tracking-wide text-sky-700 mb-2">Clay cohort &mdash; <span class="font-mono">analysis/06-bulk-draft-clay/</span></div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-        <div class="rounded-md border border-sky-200 bg-sky-50/50 p-3">
-          <div class="font-mono text-sky-900 truncate">clay_queue_drafts.csv</div>
-          <div class="text-sky-700/80 mt-1 num font-mono">1,273 rows · all drafted</div>
-          <div class="text-[10px] text-sky-700/60 mt-1">72 verified · 1,111 unverified · 90 personal</div>
-        </div>
-        <div class="rounded-md border border-emerald-200 bg-emerald-50/50 p-3">
-          <div class="font-mono text-emerald-900 truncate">tier_a_only.csv</div>
-          <div class="text-emerald-700/80 mt-1 num font-mono">163 rows · prioritize</div>
-        </div>
-        <div class="rounded-md border border-amber-200 bg-amber-50/50 p-3">
-          <div class="font-mono text-amber-900 truncate">needs_clay_for_email.csv</div>
-          <div class="text-amber-700/80 mt-1 num font-mono">3,314 rows · no email yet</div>
-          <div class="text-[10px] text-amber-700/60 mt-1">LinkedIn / phone only · need Clay</div>
-        </div>
-        <div class="rounded-md border border-slate-200 bg-white p-3">
-          <div class="font-mono text-ink truncate">tier_b_ready.csv</div>
-          <div class="text-slate-500 mt-1 num font-mono">1,019 rows</div>
-        </div>
-        <div class="rounded-md border border-slate-200 bg-white p-3">
-          <div class="font-mono text-ink truncate">tier_c_ready.csv · tier_d_ready.csv</div>
-          <div class="text-slate-500 mt-1 num font-mono">79 + 12 rows</div>
-        </div>
-        <div class="rounded-md border border-rose-200 bg-rose-50/40 p-3">
-          <div class="font-mono text-rose-900 truncate">eu_holdback.csv</div>
-          <div class="text-rose-700/80 mt-1 num font-mono">15 rows · compliance review</div>
-        </div>
-      </div>
-
-      <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
-        All files include <code class="font-mono">email</code>, <code class="font-mono">email_source</code>, <code class="font-mono">subject</code>, <code class="font-mono">body</code>, <code class="font-mono">tier</code>, <code class="font-mono">icp_score</code>, <code class="font-mono">branch</code>, <code class="font-mono">sender_mailbox</code>, <code class="font-mono">instructions</code>. Bodies have no signature — Smartlead applies the per-mailbox signature on send.
-      </div>
-    </div>
-
-    <!-- Sample row -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50/60 p-6">
-      <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Sample drafted row &mdash; Tier A, ICP 10</div>
-      <div class="grid md:grid-cols-3 gap-4 text-xs mb-3">
-        <div><span class="text-slate-500">Recipient:</span> <span class="font-mono text-ink">Deepanshu Gautam &middot; gautam@amazon.com</span></div>
-        <div><span class="text-slate-500">Sender:</span> <span class="font-mono text-ink">sadhana.b@remotecfodesk.com</span></div>
-        <div><span class="text-slate-500">Branch:</span> <span class="font-mono text-ink">founder_ceo / india_us / it_services</span></div>
-      </div>
-      <div class="rounded-md bg-white border border-slate-200 p-4">
-        <div class="text-xs text-slate-500 mb-1">Subject</div>
-        <div class="text-sm font-medium text-ink mb-3">Amazon - cross-border filings worth a quick review</div>
-        <div class="text-xs text-slate-500 mb-1">Body</div>
-        <pre class="font-mono text-[12px] leading-relaxed text-slate-700 whitespace-pre-wrap">Hi Deepanshu,
-
-Founders running US-incorporated companies from India usually hit the same pattern - transfer pricing on offshore engineering, US state nexus the moment a US client engages on a managed-services contract, and Section 174 R&D capitalization landing on top of US Delaware C-Corp basics.
-
-USAIndiaCFO sits on both sides of that line. Co-founders Naman Gangwal (CPA) and Akshay Nahar handle the cross-border builds - early clients included Blackstone and Sony.
-
-Would you be open to a quick call to explore how we can help lighten the compliance load while you scale?</pre>
-      </div>
-      <div class="mt-3 text-[11px] text-slate-500">
-        No signature in the body &mdash; Smartlead applies the per-mailbox signature on send. Word count: <span class="font-mono num text-ink">88</span> (under the 150 limit).
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ========================================================== -->
-<!-- PAGE: TAT                                                    -->
+<!-- PAGE: DRAFTS                                                 -->
 <!-- ========================================================== -->
-<section data-page="/tat" class="hidden">
+<section data-page="/drafts" class="hidden">
   <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">06 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Turnaround time</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">
-      Compute is fast. Human review is multi-day. Safe send-pacing is multi-week. Plan around the slowest stage at each step.
-    </p>
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">03 / 04</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Drafts &middot; output quality</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">3,221 bulk-drafted emails for Tier A. Each one researched against the company's actual website. Akshay-only leader, no fabricated stats, no Sony/Blackstone name-drop.</p>
 
-    <!-- Headline summary cards -->
-    <div class="mt-8 grid md:grid-cols-4 gap-4">
-      <div class="rounded-xl border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-slate-500">Compute time</div>
-        <div class="text-2xl font-semibold num mt-1">~1 hour</div>
-        <div class="text-xs text-slate-500 mt-1">Dedup + analyze + categorize + bulk draft</div>
+    <!-- Headline quality cards -->
+    <div class="mt-8 grid md:grid-cols-4 gap-3">
+      <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
+        <div class="text-2xl font-semibold num mt-1 text-emerald-900">3,221</div>
+        <div class="text-[10px] text-emerald-700/80 mt-1">88.8% of Tier A scope</div>
       </div>
-      <div class="rounded-xl border border-amber-200 bg-amber-50/40 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-amber-700">Human review</div>
-        <div class="text-2xl font-semibold num mt-1 text-amber-900">1&ndash;3 days</div>
-        <div class="text-xs text-amber-700/80 mt-1">Partner + marketing sign-off on pilot</div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">Unique bodies</div>
+        <div class="text-2xl font-semibold num mt-1">100%</div>
+        <div class="text-[10px] text-slate-400 mt-1">3,221 distinct</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-slate-500">Clay enrichment</div>
-        <div class="text-2xl font-semibold num mt-1">3&ndash;6 hours</div>
-        <div class="text-xs text-slate-500 mt-1">4,602 rows · async batch</div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">With research hook</div>
+        <div class="text-2xl font-semibold num mt-1">82.3%</div>
+        <div class="text-[10px] text-slate-400 mt-1">2,651 rows</div>
       </div>
-      <div class="rounded-xl border border-rose-200 bg-rose-50/40 p-5 stat-card">
-        <div class="text-xs uppercase tracking-wide text-rose-700">Send window</div>
-        <div class="text-2xl font-semibold num mt-1 text-rose-900">14&ndash;21 days</div>
-        <div class="text-xs text-rose-700/80 mt-1">5 mailboxes · safe warmup pace</div>
+      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">Median word count</div>
+        <div class="text-2xl font-semibold num mt-1">114</div>
+        <div class="text-[10px] text-slate-400 mt-1">all ≤150 ✓</div>
       </div>
     </div>
 
-    <!-- Stage-by-stage TAT table -->
-    <div class="mt-8 rounded-xl border border-slate-200 bg-white overflow-hidden">
-      <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+    <!-- Word count histogram + audit -->
+    <div class="mt-6 grid lg:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-sm font-semibold text-ink mb-1">Word count distribution</div>
+        <div class="text-xs text-slate-500 mb-4">Body length across 3,221 drafted emails. Hard cap from CONTEXT.docx is 150.</div>
+        <div id="wc-histogram"></div>
+      </div>
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-sm font-semibold text-ink mb-1">Audit results</div>
+        <div class="text-xs text-slate-500 mb-4">Final checks before partner review</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center justify-between"><span>Bodies over 150 words</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Leaders field = "Akshay Nahar" only</span><span class="font-mono num text-emerald-700">3,221/3,221 ✓</span></li>
+          <li class="flex items-center justify-between"><span>"Sony" / "Blackstone" mentions</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Other-leader mentions (Naman, Disha, etc.)</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>"12,000 companies" fabricated stat</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Unique subjects</span><span class="font-mono num">3,214 / 3,221 (99.8%)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 10 sample emails -->
+    <div class="mt-8">
+      <div class="flex items-baseline justify-between mb-4">
         <div>
-          <div class="text-sm font-semibold text-ink">Stage-by-stage TAT</div>
-          <div class="text-xs text-slate-500">Compute = wall-clock script runtime · Human = partner/team time · Vendor = external system queue</div>
+          <div class="text-sm font-semibold text-ink">10 sample drafts</div>
+          <div class="text-xs text-slate-500">Click any card to expand the body. Filter by title branch.</div>
         </div>
-        <div class="text-xs text-slate-500 hidden md:flex gap-3">
-          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-emerald-500"></span> compute</span>
-          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-amber-500"></span> human</span>
-          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-sky-500"></span> vendor</span>
-          <span class="flex items-center gap-1.5"><span class="size-2 rounded-sm bg-rose-500"></span> sending</span>
+        <div class="flex gap-1.5">
+          <button data-filter="all" class="filter-btn active px-2.5 py-1 text-[11px] rounded-md bg-ink text-white">All</button>
+          <button data-filter="founder_ceo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Founder/CEO</button>
+          <button data-filter="cfo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">CFO</button>
+          <button data-filter="other" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Other</button>
         </div>
       </div>
-      <table class="w-full text-sm">
-        <thead class="bg-slate-50 text-xs uppercase text-slate-500">
-          <tr>
-            <th class="text-left font-medium px-6 py-3">#</th>
-            <th class="text-left font-medium px-6 py-3">Stage</th>
-            <th class="text-left font-medium px-6 py-3">Type</th>
-            <th class="text-left font-medium px-6 py-3">First-run TAT</th>
-            <th class="text-left font-medium px-6 py-3">Re-run TAT</th>
-            <th class="text-left font-medium px-6 py-3">Notes</th>
-          </tr>
-        </thead>
-        <tbody id="tat-rows" class="divide-y divide-slate-100"></tbody>
-        <tfoot class="bg-slate-50 text-sm font-semibold text-ink">
-          <tr>
-            <td class="px-6 py-3" colspan="3">End-to-end</td>
-            <td class="px-6 py-3 num">~17&ndash;25 days</td>
-            <td class="px-6 py-3 num">~15&ndash;22 days</td>
-            <td class="px-6 py-3 text-slate-500 font-normal">Critical path = sending pace, not drafting</td>
-          </tr>
-        </tfoot>
-      </table>
+      <div id="emails-grid" class="grid md:grid-cols-2 gap-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== -->
+<!-- PAGE: OPS                                                    -->
+<!-- ========================================================== -->
+<section data-page="/ops" class="hidden">
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">04 / 04</div>
+    <h2 class="text-3xl font-semibold tracking-tight">Operations</h2>
+    <p class="mt-2 text-slate-600 max-w-3xl">How the pipeline runs, how long each stage takes, how to send safely, how to re-run on the next list.</p>
+
+    <!-- TAT headline cards -->
+    <div class="mt-8 grid md:grid-cols-4 gap-3">
+      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500">Compute time</div>
+        <div class="text-2xl font-semibold num mt-1">~1 hour</div>
+        <div class="text-[10px] text-slate-400 mt-1">dedup + analyze + draft</div>
+      </div>
+      <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-amber-700">Human review</div>
+        <div class="text-2xl font-semibold num mt-1 text-amber-900">1–3 days</div>
+        <div class="text-[10px] text-amber-700/80 mt-1">partner + marketing</div>
+      </div>
+      <div class="rounded-xl border border-sky-200 bg-sky-50 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-sky-700">Clay enrichment</div>
+        <div class="text-2xl font-semibold num mt-1 text-sky-900">3–6 hours</div>
+        <div class="text-[10px] text-sky-700/80 mt-1">parallel to sending</div>
+      </div>
+      <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-rose-700">Send window</div>
+        <div class="text-2xl font-semibold num mt-1 text-rose-900">14–21 days</div>
+        <div class="text-[10px] text-rose-700/80 mt-1">5 mailboxes × ~100/day</div>
+      </div>
     </div>
 
-    <!-- Cumulative timeline -->
+    <!-- Flow + Timeline -->
     <div class="mt-8 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-1">Cumulative timeline (calendar days)</div>
-      <div class="text-xs text-slate-500 mb-5">From "CSV received" to "list fully sent". Stage bars positioned by start day.</div>
+      <div class="text-sm font-semibold text-ink mb-1">Pipeline flow</div>
+      <div class="text-xs text-slate-500 mb-6">Five stages from CSV to staged-for-send. Re-runnable on any future CSV.</div>
+      <ol class="grid md:grid-cols-5 gap-3 text-sm">
+        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+          <div class="text-[10px] font-mono text-slate-500 mb-1">01 · INPUT</div>
+          <div class="font-semibold text-ink mb-1">CSV + CRM dump</div>
+          <div class="text-xs text-slate-600">Apollo export + Zoho official backup.</div>
+        </li>
+        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+          <div class="text-[10px] font-mono text-slate-500 mb-1">02 · DEDUP</div>
+          <div class="font-semibold text-ink mb-1">3-key match</div>
+          <div class="text-xs text-slate-600">Email · phone · name+company.</div>
+        </li>
+        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+          <div class="text-[10px] font-mono text-slate-500 mb-1">03 · SCORE</div>
+          <div class="font-semibold text-ink mb-1">ICP &middot; EU exclude</div>
+          <div class="text-xs text-slate-600">Title × size × industry × cross-border → tier A/B/C/D. EU rows holdback.</div>
+        </li>
+        <li class="rounded-lg border border-emerald-200 p-4 bg-emerald-50/40">
+          <div class="text-[10px] font-mono text-emerald-700 mb-1">04 · DRAFT</div>
+          <div class="font-semibold text-ink mb-1">Research-targeted</div>
+          <div class="text-xs text-slate-600">WebFetch each company site → unique hook → Akshay-only body.</div>
+        </li>
+        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+          <div class="text-[10px] font-mono text-slate-500 mb-1">05 · STAGE</div>
+          <div class="font-semibold text-ink mb-1">Apollo Sequences</div>
+          <div class="text-xs text-slate-600">Tranches by per-mailbox daily cap. Never auto-send.</div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- TAT timeline -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+      <div class="text-sm font-semibold text-ink mb-1">Calendar timeline (CSV received → list fully sent)</div>
+      <div class="text-xs text-slate-500 mb-5">Bars positioned by start day. Reply window opens around Day 5; closes ~Day 28.</div>
       <div id="tat-timeline" class="space-y-3 text-xs"></div>
-      <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500">
-        Reply window opens around <span class="font-mono num text-ink">Day 5</span> (first cohort sent on Day 4) and closes ~7 days after the last send (~<span class="font-mono num text-ink">Day 28</span>).
-      </div>
     </div>
 
-    <!-- Critical path / bottleneck explainer -->
+    <!-- Re-run + Sender mailboxes -->
     <div class="mt-6 grid md:grid-cols-2 gap-4">
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">What's slow, and why</div>
-        <ul class="space-y-3 text-sm text-slate-700">
-          <li class="flex gap-3">
-            <span class="font-mono text-rose-600 font-semibold whitespace-nowrap shrink-0">14&ndash;21d</span>
-            <span><span class="font-semibold text-ink">Sending pace.</span> 5 mailboxes × ~80&ndash;150/day at warmup-safe rates. Going faster trashes domain reputation; can't be parallelized further without buying more domains and warming them.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-amber-600 font-semibold whitespace-nowrap shrink-0">1&ndash;3d</span>
-            <span><span class="font-semibold text-ink">Partner + marketing review.</span> Calendar-bound; the only way to compress is to get sign-off attention earlier. Pre-share a Loom walkthrough alongside the pilot to cut cycles.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-sky-600 font-semibold whitespace-nowrap shrink-0">3&ndash;6h</span>
-            <span><span class="font-semibold text-ink">Clay enrichment.</span> Async waterfall on 4,602 rows. Can run overnight in parallel with sending the Ready cohort &mdash; doesn't block.</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">What's already fast</div>
-        <ul class="space-y-3 text-sm text-slate-700">
-          <li class="flex gap-3">
-            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30s</span>
-            <span><span class="font-semibold text-ink">Dedup vs CRM.</span> 9k Apollo × 20k Zoho indexed + matched in stdlib Python.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30s</span>
-            <span><span class="font-semibold text-ink">Zoho analyze.</span> Full fill-rate, distributions, hygiene, Flow A/B/C bucketing.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~10s</span>
-            <span><span class="font-semibold text-ink">Categorize.</span> Filter 8,277 rows into Ready / Clay / Reject by data sufficiency.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="font-mono text-emerald-600 font-semibold whitespace-nowrap shrink-0">~30m</span>
-            <span><span class="font-semibold text-ink">Bulk draft (template-mode).</span> 3,646 ready rows from CSV + cached facts; deterministic conditional fill.</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- This-pilot actuals -->
-    <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
-      <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">This pilot &mdash; actual TAT</div>
-      <div class="grid md:grid-cols-4 gap-3 text-sm">
-        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">CSV received → pilot ready</div><div class="font-semibold num mt-1">~70 minutes</div></div>
-        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">Dedup + categorize</div><div class="font-semibold num mt-1">~2 minutes</div></div>
-        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">Facts extraction</div><div class="font-semibold num mt-1">~10 minutes</div></div>
-        <div class="rounded-md bg-white border border-slate-200 px-4 py-3"><div class="text-xs text-slate-500">10 emails drafted</div><div class="font-semibold num mt-1">~25 minutes</div></div>
-      </div>
-      <div class="mt-3 text-xs text-slate-500">
-        Re-runs are faster &mdash; facts cached, scripts proven, skill registered. Subsequent pilots typically <span class="font-mono text-ink">~25&ndash;40 min</span> end-to-end.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================== -->
-<!-- PAGE: EMAILS                                                 -->
-<!-- ========================================================== -->
-<section data-page="/emails" class="hidden">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">07 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Pilot drafts &middot; 10 emails</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">Picked to span the conditional matrix in CONTEXT.docx — Founder/CEO · CFO · Other × geography × industry. Click any row to expand the body.</p>
-
-    <div class="mt-6 flex flex-wrap gap-2">
-      <button data-filter="all" class="filter-btn active px-3 py-1.5 text-xs rounded-md bg-ink text-white">All (10)</button>
-      <button data-filter="founder_ceo" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Founder/CEO</button>
-      <button data-filter="cfo" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">CFO</button>
-      <button data-filter="other" class="filter-btn px-3 py-1.5 text-xs rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Other</button>
-    </div>
-
-    <div id="emails-grid" class="mt-6 grid md:grid-cols-2 gap-4"></div>
-
-    <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-      <span class="font-semibold text-ink">Note for partner review:</span> 3 of these 10 sample contacts have only a personal email or unverified work email
-      &mdash; under the production filter, they would have routed to Clay-enrichable instead of being drafted directly.
-      Pilot drafted them anyway to show the conditional logic across the matrix.
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================== -->
-<!-- PAGE: RE-RUN                                                 -->
-<!-- ========================================================== -->
-<section data-page="/rerun" class="hidden">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <div class="text-xs uppercase tracking-widest text-slate-500 mb-1">08 / 09</div>
-    <h2 class="text-3xl font-semibold tracking-tight">Re-run on the next list</h2>
-    <p class="mt-2 text-slate-600 max-w-3xl">Same pipeline, new CSV. Skill is registered and re-runnable in any Claude Code session.</p>
-
-    <div class="mt-8 grid md:grid-cols-2 gap-6">
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Skill</div>
-        <div class="font-mono text-lg text-ink">/outreach-batch</div>
-        <p class="text-sm text-slate-600 mt-3">
-          Mention "Apollo CSV", "dedup against CRM", or "draft cold emails" and the skill activates.
-          Always asks for the prospect CSV path, dedup target, and template before starting.
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-2">Re-run on next list</div>
+        <div class="font-mono text-base text-ink mb-2">/outreach-batch</div>
+        <p class="text-sm text-slate-600">
+          Available in Claude Code. Mention "Apollo CSV", "dedup against CRM", or "draft cold emails" and the skill activates. Always asks for the prospect CSV path before starting.
         </p>
-        <div class="mt-4 text-xs text-slate-500">
-          Lives at <code class="font-mono text-ink bg-slate-100 px-1.5 py-0.5 rounded">~/.claude/skills/outreach-batch/SKILL.md</code>
+        <div class="mt-3 text-[11px] text-slate-500">
+          Scripts at <code class="font-mono bg-slate-100 px-1 rounded">scripts/{dedup,analyze,categorize,fetch_hooks,draft_targeted_bulk}.py</code>
         </div>
       </div>
-
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Reusable scripts</div>
-        <ul class="space-y-2 text-sm">
-          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/dedup_apollo_vs_crm.py</span><span class="text-slate-500 text-xs whitespace-nowrap">3-key dedup</span></li>
-          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/categorize_outreach_pool.py</span><span class="text-slate-500 text-xs whitespace-nowrap">Ready / Clay / Reject</span></li>
-          <li class="flex justify-between gap-3 items-start"><span class="font-mono text-xs text-ink truncate">scripts/analyze.py</span><span class="text-slate-500 text-xs whitespace-nowrap">Zoho fill-rate / hygiene</span></li>
-        </ul>
-        <div class="mt-4 text-xs text-slate-500">
-          Stdlib-only Python. Idempotent. Safe to re-run on a fresh export anytime.
-        </div>
-      </div>
-
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Inputs the skill expects</div>
-        <ol class="space-y-2 text-sm list-decimal list-inside text-slate-700">
-          <li>Prospect CSV path</li>
-          <li>CRM dump path (Zoho official backup folder)</li>
-          <li>Prompt-template doc (default <code class="font-mono text-xs bg-slate-100 px-1 rounded">CONTEXT.docx</code>)</li>
-          <li>Verified-facts JSON (default <code class="font-mono text-xs bg-slate-100 px-1 rounded">analysis/usaindiacfo-facts/facts.json</code>)</li>
-          <li>Output dir (auto-timestamped)</li>
-        </ol>
-      </div>
-
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Hard guardrails</div>
-        <ul class="space-y-2 text-sm">
-          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Pilot 10 first, bulk only after sign-off</li>
-          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Insufficient-data rows route to Clay queue, not drop</li>
-          <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Use only verified facts; no fabrication</li>
-          <li class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never auto-send; only stage to Apollo Sequences</li>
-          <li class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never call Clay on data already in the CSV</li>
+      <div class="rounded-xl border border-slate-200 bg-white p-5">
+        <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-2">Sender mailboxes (Apollo)</div>
+        <div class="text-sm text-slate-700 mb-2">Round-robin assigned across 3,221 drafts (~640 each).</div>
+        <ul class="space-y-1 font-mono text-[11px] text-slate-600">
+          <li>sadhana.b@usaindiacfocompliance.com <span class="text-slate-400 ml-1">656</span></li>
+          <li>sadhana.b@auditreadyhq.com <span class="text-slate-400 ml-1">647</span></li>
+          <li>sadhana.b@remotecfodesk.com <span class="text-slate-400 ml-1">641</span></li>
+          <li>sadhana.b@fixmyusfilings.com <span class="text-slate-400 ml-1">639 (default)</span></li>
+          <li>sadhana.b@usaindiacfosolutions.com <span class="text-slate-400 ml-1">638</span></li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-8">
-      <div class="grid md:grid-cols-3 gap-6 items-start">
-        <div class="md:col-span-2">
-          <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">Send pacing reality</div>
-          <h3 class="text-xl font-semibold tracking-tight">5 mailboxes × ~100/day = 500 sends/day</h3>
-          <p class="mt-3 text-sm text-slate-600 max-w-2xl">
-            Drafting all 3,646 ready rows is fast; sending them isn't. At a warmup-safe send rate the ready cohort
-            alone is 8&ndash;10 days of throughput. The 4,602 Clay-enriched additions extend that to 5&ndash;7 weeks.
-            Plan in tranches; monitor reply / bounce rate after the first 200 sends.
-          </p>
-        </div>
-        <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm">
-          <div class="text-xs text-slate-500 mb-2">Sender mailboxes (Apollo)</div>
-          <ul class="space-y-1.5 font-mono text-[11px] text-slate-700">
-            <li>sadhana.b@fixmyusfilings.com <span class="text-emerald-600 ml-1">default</span></li>
-            <li>sadhana.b@usaindiacfocompliance.com</li>
-            <li>sadhana.b@usaindiacfosolutions.com</li>
-            <li>sadhana.b@auditreadyhq.com</li>
-            <li>sadhana.b@remotecfodesk.com</li>
-          </ul>
-        </div>
+    <!-- Hard guardrails -->
+    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-3">Hard guardrails — always on</div>
+      <div class="grid md:grid-cols-2 gap-2 text-sm">
+        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Pilot before bulk &middot; partner sign-off mandatory</div>
+        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> EU/EEA/UK rows split to holdback (GDPR)</div>
+        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Only verified USAIndiaCFO facts &middot; no fabrication</div>
+        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Akshay Nahar only as leader reference</div>
+        <div class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never auto-send &middot; only stage to Apollo Sequences</div>
+        <div class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never call Clay on data already in the CSV</div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ========== PAGER (sequential prev/next) ========== -->
-<div class="border-t border-slate-200 bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-8 flex items-center justify-between gap-4 text-sm">
-    <a id="prev-link" href="#/" class="block flex-1 group">
-      <div class="text-xs text-slate-400 mb-1">← Previous</div>
-      <div id="prev-label" class="font-semibold text-ink group-hover:text-emerald-700">Overview</div>
-    </a>
-    <div class="text-xs text-slate-400 font-mono">
-      <span id="page-counter">1 / 7</span>
-    </div>
-    <a id="next-link" href="#/flow" class="block flex-1 text-right group">
-      <div class="text-xs text-slate-400 mb-1">Next →</div>
-      <div id="next-label" class="font-semibold text-ink group-hover:text-emerald-700">Pipeline flow</div>
-    </a>
-  </div>
-</div>
 
 </main>
 
@@ -969,119 +583,104 @@ Would you be open to a quick call to explore how we can help lighten the complia
       <div class="text-xs text-white/60 mt-3">Mumbai · Ajmer · Edison NJ</div>
     </div>
     <div class="text-xs text-white/60 space-y-1">
-      <div>Pipeline status: <span class="text-emerald-400">pilot ready</span></div>
-      <div>Next gate: partner + marketing review</div>
-      <div>Generated 2026-05-08 · static dashboard</div>
+      <div>Pipeline status: <span class="text-emerald-400">3,221 drafted · awaiting partner review</span></div>
+      <div>Generated 2026-05-11 · static dashboard</div>
     </div>
     <div class="text-xs text-white/60 space-y-1">
       <div>Sources</div>
       <div>· Zoho official backup 2026-05-08</div>
       <div>· Apollo CSV export #27</div>
-      <div>· usaindiacfo-analysis deep crawl 2026-04-09</div>
+      <div>· Per-company website research (WebFetch on 3,429 unique sites)</div>
     </div>
   </div>
 </footer>
 
 <!-- ========== EMBEDDED DATA ========== -->
+<script type="application/json" id="tier-data">
+[
+  {"label":"Tier A", "value":3628, "color":"#10b981"},
+  {"label":"Tier B", "value":2722, "color":"#0ea5e9"},
+  {"label":"Tier C", "value":520,  "color":"#f59e0b"},
+  {"label":"Tier D", "value":74,   "color":"#f43f5e"},
+  {"label":"EU holdback", "value":18, "color":"#94a3b8"}
+]
+</script>
+
+<script type="application/json" id="reject-reasons-data">
+[
+  {"label":"Website URL error (DNS/unreachable)", "value":166, "color":"#f43f5e"},
+  {"label":"Website TLS error", "value":129, "color":"#ef4444"},
+  {"label":"No website", "value":37, "color":"#fb7185"},
+  {"label":"HTTP 404 / page not found", "value":27, "color":"#fda4af"},
+  {"label":"Title noise (Company Owner, Intern, etc.)", "value":16, "color":"#fbbf24"},
+  {"label":"HTTP 5xx server error", "value":12, "color":"#f97316"},
+  {"label":"Hijacked domain (parked, lottery, casino, etc.)", "value":14, "color":"#dc2626"},
+  {"label":"Other", "value":6, "color":"#94a3b8"}
+]
+</script>
+
+<script type="application/json" id="branch-data">
+[
+  {"label":"Other", "value":1755, "color":"#64748b"},
+  {"label":"Founder/CEO", "value":1448, "color":"#6366f1"},
+  {"label":"CFO", "value":18, "color":"#8b5cf6"}
+]
+</script>
+
+<script type="application/json" id="industry-data">
+[
+  {"label":"IT services", "value":1651, "color":"#0ea5e9"},
+  {"label":"Default / other", "value":801, "color":"#94a3b8"},
+  {"label":"Marketing", "value":203, "color":"#f59e0b"},
+  {"label":"Healthcare", "value":126, "color":"#10b981"},
+  {"label":"Fin services", "value":116, "color":"#6366f1"},
+  {"label":"Security", "value":56, "color":"#f43f5e"},
+  {"label":"Manufacturing", "value":49, "color":"#a855f7"},
+  {"label":"Education + others", "value":219, "color":"#475569"}
+]
+</script>
+
 <script type="application/json" id="zoho-fill-data">
 [
   ["Mobile",        99.3, "Universal anchor"],
-  ["Lead Status",  100.0, "All leads classified"],
   ["Lead Source",   99.8, "Source attribution clean"],
   ["Email",         87.9, "Strong primary signal"],
   ["Phone",         17.9, "Misnamed; people use Mobile"],
   ["Company",       17.4, "Most leads come without company"],
-  ["City",          13.9, "Sparse"],
-  ["Partner",       12.5, "SOP routing assumes this — needs backfill"],
-  ["Title",          1.9, "Almost never set"],
-  ["Industry",       0.4, "Inconsistent + irrelevant values"],
-  ["Country",        0.7, "Garbage values; use city/phone-prefix instead"],
-  ["LinkedIn URL",   0.0, "0% — every lead enters enrichment from scratch"],
-  ["Rating",         0.0, "Unused; safe to add Lead_Tier separately"]
+  ["Partner",       12.5, "Needs backfill"],
+  ["Industry",       0.4, "Inconsistent values"],
+  ["LinkedIn URL",   0.0, "Every lead enters enrichment from scratch"]
 ]
 </script>
 
-<script type="application/json" id="zoho-flow-data">
+<script type="application/json" id="wc-data">
+{"buckets":[{"label":"70-89","count":231},{"label":"90-109","count":1135},{"label":"110-129","count":1406},{"label":"130-149","count":449}],"stats":{"min":78,"median":114,"mean":113,"max":146}}
+</script>
+
+<script type="application/json" id="tat-timeline-data">
 [
-  {"label":"Flow A — work email present", "count":2020, "pct":10.1, "color":"emerald"},
-  {"label":"Flow B — personal email present", "count":15573, "pct":77.8, "color":"amber"},
-  {"label":"Flow C — phone only (no email)", "count":2406, "pct":12.0, "color":"sky"},
-  {"label":"Unreachable", "count":21, "pct":0.1, "color":"rose"}
+  {"label":"Compute pipeline (dedup → bulk draft)",   "start":0,  "len":1,  "color":"emerald"},
+  {"label":"Partner + marketing review",              "start":1,  "len":3,  "color":"amber"},
+  {"label":"Apply edits + bulk draft refresh",        "start":3,  "len":1,  "color":"emerald"},
+  {"label":"Clay enrichment (parallel)",              "start":3,  "len":1,  "color":"sky"},
+  {"label":"Stage + send Tier A (3,221)",             "start":4,  "len":10, "color":"rose"},
+  {"label":"Stage + send Tier B (2,722)",             "start":10, "len":11, "color":"rose"},
+  {"label":"Reply window",                            "start":5,  "len":23, "color":"slate"}
 ]
-</script>
-
-<script type="application/json" id="tiers-data">
-{
-  "industry_pain": [
-    {"key":"it_services",   "count":1798, "label":"IT services / software"},
-    {"key":"default",       "count":935,  "label":"Generic cross-border (industry not matched)"},
-    {"key":"marketing",     "count":228,  "label":"Marketing / advertising / media"},
-    {"key":"healthcare",    "count":148,  "label":"Healthcare / pharma / biotech"},
-    {"key":"fin_services",  "count":136,  "label":"Financial services / fintech"},
-    {"key":"manufacturing", "count":61,   "label":"Manufacturing / industrial"},
-    {"key":"security",      "count":56,   "label":"Computer & network security"},
-    {"key":"consumer",      "count":50,   "label":"Consumer services / retail / e-commerce"},
-    {"key":"education",     "count":46,   "label":"Education / EdTech"},
-    {"key":"construction",  "count":33,   "label":"Construction / engineering"},
-    {"key":"logistics",     "count":30,   "label":"Logistics / supply chain"},
-    {"key":"real_estate",   "count":28,   "label":"Real estate"},
-    {"key":"telecom",       "count":27,   "label":"Telecommunications"},
-    {"key":"renewables",    "count":21,   "label":"Renewables / sustainability"},
-    {"key":"food_dairy",    "count":16,   "label":"Food & beverages / dairy / agriculture"},
-    {"key":"legal",         "count":15,   "label":"Legal services"}
-  ],
-  "senders": [
-    {"email":"sadhana.b@fixmyusfilings.com",         "count":726, "default":true},
-    {"email":"sadhana.b@usaindiacfocompliance.com",  "count":726, "default":false},
-    {"email":"sadhana.b@usaindiacfosolutions.com",   "count":726, "default":false},
-    {"email":"sadhana.b@auditreadyhq.com",           "count":725, "default":false},
-    {"email":"sadhana.b@remotecfodesk.com",          "count":725, "default":false}
-  ]
-}
-</script>
-
-<script type="application/json" id="tat-data">
-{
-  "stages": [
-    {"i":1, "stage":"Receive CSV + CRM dump",          "type":"input",   "color":"slate",   "first":"manual", "rerun":"manual",  "notes":"User provides paths; no compute"},
-    {"i":2, "stage":"Dedup CSV vs CRM",                 "type":"compute", "color":"emerald", "first":"~30s",   "rerun":"~30s",    "notes":"3-key match: email · phone · name+co"},
-    {"i":3, "stage":"Zoho snapshot analysis",           "type":"compute", "color":"emerald", "first":"~30s",   "rerun":"~30s",    "notes":"Fill rate · distributions · hygiene · Flow A/B/C"},
-    {"i":4, "stage":"Categorize Ready/Clay/Reject",     "type":"compute", "color":"emerald", "first":"~10s",   "rerun":"~10s",    "notes":"Data-sufficiency filter on the unmatched pool"},
-    {"i":5, "stage":"Extract verifiable USAIndiaCFO facts","type":"compute","color":"emerald","first":"~10m",   "rerun":"<1m",     "notes":"Cached after first run; reuse across batches"},
-    {"i":6, "stage":"Pilot 10 emails (with QA)",        "type":"compute", "color":"emerald", "first":"~25m",   "rerun":"~10m",    "notes":"Conditional matrix coverage · word-count check · no fabrication audit"},
-    {"i":7, "stage":"Build review packet (forward email)","type":"compute","color":"emerald","first":"~5m",    "rerun":"~5m",     "notes":"Wrapper email + attached CSV/JSON for partner"},
-    {"i":8, "stage":"Partner + marketing review",       "type":"human",   "color":"amber",   "first":"1–3d",   "rerun":"4–8h",    "notes":"Calendar-bound; pre-share Loom to compress"},
-    {"i":9, "stage":"Apply review edits to template",   "type":"human",   "color":"amber",   "first":"~1h",    "rerun":"~30m",    "notes":"Tone/lines tweaks; template fixes apply across all rows"},
-    {"i":10,"stage":"Bulk draft (3,646 Ready rows)",    "type":"compute", "color":"emerald", "first":"~30m",   "rerun":"~30m",    "notes":"Template-mode: deterministic conditional fill; no per-row LLM call"},
-    {"i":11,"stage":"Clay enrichment (4,602 rows)",     "type":"vendor",  "color":"sky",     "first":"3–6h",   "rerun":"3–6h",    "notes":"Async; runs parallel to Ready-cohort sending"},
-    {"i":12,"stage":"Stage to Apollo Sequences",        "type":"compute", "color":"emerald", "first":"~30m",   "rerun":"~20m",    "notes":"Filter to Email Status = Verified; tranche by mailbox"},
-    {"i":13,"stage":"Send window (8,277 candidates)",   "type":"sending", "color":"rose",    "first":"14–21d", "rerun":"14–21d",  "notes":"5 mailboxes × ~80–150/day at warmup-safe rates"},
-    {"i":14,"stage":"Reply / bounce monitoring",        "type":"human",   "color":"amber",   "first":"ongoing","rerun":"ongoing", "notes":"Pause if anomaly after first 200 sends"}
-  ],
-  "timeline": [
-    {"label":"Compute pipeline (dedup → bulk draft)",   "start":0,  "len":1,  "color":"emerald"},
-    {"label":"Partner + marketing review",              "start":1,  "len":3,  "color":"amber"},
-    {"label":"Apply edits + bulk draft refresh",        "start":3,  "len":1,  "color":"emerald"},
-    {"label":"Clay enrichment (parallel)",              "start":3,  "len":1,  "color":"sky"},
-    {"label":"Stage + send Ready cohort (3,646)",       "start":4,  "len":10, "color":"rose"},
-    {"label":"Stage + send Clay cohort (4,089 net)",    "start":7,  "len":14, "color":"rose"},
-    {"label":"Reply window",                            "start":5,  "len":23, "color":"slate"}
-  ]
-}
 </script>
 
 <script type="application/json" id="emails-data">
 [
-  {"i": 1, "name": "Kumar Johny", "first": "Kumar", "title": "Founder & CEO", "company": "Darner AI Inc.", "industry": "Information Technology & Services", "branch": "founder_ceo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "personal_only", "email_q_label": "Personal email only · Clay-recoverable in production", "research_hook": "Garth - AI Work Execution Intelligence Platform for software dev teams; India engineering against US Delaware C-Corp", "subject": "Darner AI's India-side compliance, before the Series A clock starts", "body": "Hi Kumar,\n\nFounders building AI products from India usually hit a US filing rhythm that gets noisy fast - Section 174 R&D capitalization on Garth's engineering spend, transfer pricing once the India team is doing more than 10% of the work, and the FEMA paperwork that lands the day a US lead investor asks about your cap table.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) runs this exact playbook with US-incorporated startups operating from India - Mumbai HQ and US office in Edison NJ.\n\nQuick offer - a 20-minute review of where Darner sits on US filings, India entity setup, and the cross-border bits investors will eventually ask about.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 122},
-  {"i": 2, "name": "Vikram Gupta", "first": "Vikram", "title": "Co-founder", "company": "Leading Edge Communication", "industry": "Information Technology & Services", "branch": "founder_ceo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "Turnkey IT infra for Indian government (PM Office, Naval HQ) + 22+ international ICT centers across 25 countries", "subject": "Cross-border filings for an India-government IT contractor with 22+ overseas projects", "body": "Hi Vikram,\n\nLECPL's profile - government contracts in India plus 22+ international ICT deployments - sits at an unusual compliance intersection. The overseas project receivables, FEMA reporting on remitted earnings, transfer pricing on the centralised India entity billing global work, and GST treatment of cross-border services all stack in ways most generalist firms underestimate.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles India-side coordination for cross-border firms that bill internationally - Mumbai HQ and US office in Edison NJ.\n\nIf it helps, I can pull together a short note on the specific FEMA and TP exposure points firms with your shape typically miss.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 124},
-  {"i": 3, "name": "Aseem Shrey", "first": "Aseem", "title": "OpenSource Project - Founder", "company": "ShipSecAI", "industry": "Computer & Network Security", "branch": "founder_ceo", "geo": "US person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "ShipSec Studio - turns fragmented security alerts into attack paths; 4-person US security startup with SOC 2 + India eng-hire cliff ahead", "subject": "ShipSec's first SOC 2 push and the India engineering cliff", "body": "Hi Aseem,\n\nSecurity startups make an interesting compliance jump the moment paid customers ask for SOC 2 type II - and a second one when the engineering team starts pulling India-based talent for cost or 24x7 coverage. The first puts pressure on entity structure and audit readiness; the second adds GST on cross-border services, FEMA disclosures, and India professional tax.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) has run the India-side setup for US-incorporated security and software companies before contract pressure forces the move - Mumbai HQ, US office in Edison NJ.\n\nEven if it's not this quarter - having the path mapped removes a real future blocker.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 132},
-  {"i": 4, "name": "Shakul Sonker", "first": "Shakul", "title": "Co-Founder", "company": "Samora AI (YC W26)", "industry": "Information Technology & Services", "branch": "founder_ceo", "geo": "US person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "Samora AI (YC W26) - voice AI agents handling 1M+ calls; clients include UNICEF, Signify, GOI - GOI billing implies live India revenue", "subject": "Samora's GOI billing and the India revenue compliance ladder", "body": "Hi Shakul,\n\nYC-backed voice AI is a fast-moving space, but the moment Samora is billing Government of India from a US Delaware entity, the compliance picture gets specific - transfer pricing on the India delivery work, GST registration once billed services cross thresholds, FEMA on funds inflow, and US Form 5472 if there's an India subsidiary handling delivery.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border setup for US-incorporated AI startups operating into India - Mumbai HQ, US office in Edison NJ.\n\nWorth a 20-minute conversation before the next investor diligence pass, when these threads get pulled at once.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 124},
-  {"i": 5, "name": "Dinesh Divecha", "first": "Dinesh", "title": "CFO", "company": "FIRM Realty", "industry": "Real Estate", "branch": "cfo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "unverified", "email_q_label": "Work email unverified · Clay-recoverable in production", "research_hook": "FIRM Realty - 50+ years South Florida commercial RE; just opened the Icon Office Building in Hollywood FL; CFO is India-resident", "subject": "India-side reporting for FIRM's South Florida portfolio after the Icon launch", "body": "Hi Dinesh,\n\nCFOs at US commercial real estate firms with India-resident principals or staff sit on a specific compliance ledger - FATCA reporting on the US-side rental income, FBAR on personal-side accounts, RBI LRS limits when capital crosses, Form 5471/8865 for any India entity, and FIRPTA on disposition events.\n\nThe Icon Office Building going operational layers in the next round - state revenue allocation, Florida documentary stamps, and the depreciation timing decisions that change US filing pressure for several years.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border real-estate matters specifically - Mumbai HQ, US office in Edison NJ.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 124},
-  {"i": 6, "name": "Munish Sharma", "first": "Munish", "title": "CFO", "company": "Progressive Dairy", "industry": "Dairy", "branch": "cfo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "Progressive Dairy is a US trade publication (under Ag Proud), NOT a dairy operation; India-resident CFO managing US media-revenue side", "subject": "India-US filings for Progressive Dairy's subscription and ad-revenue side", "body": "Hi Munish,\n\nCFOs at US trade publications with India-based finance leadership manage a different cross-border surface than most assume - state nexus on subscriber revenue once it crosses thresholds per state, advertising-revenue sourcing for programmatic and direct placements, transfer pricing on India-side editorial and back-office support, and FBAR / Form 5471 if any India entity sits in the structure.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border tax and entity matters for US-headquartered businesses with India operations - Mumbai HQ, US office in Edison NJ.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 110},
-  {"i": 7, "name": "Shailaja Mendon", "first": "Shailaja", "title": "Partner", "company": "SBS CORP", "industry": "Information Technology & Services", "branch": "other", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "SBS Corp (Sai Business Solutions) - 160-person India IT services firm with US client revenue", "subject": "Cross-border filings for a 160-person India IT services partnership", "body": "Hi Shailaja,\n\nAn India-rooted IT services firm at SBS Corp's scale - 160-plus people, US client revenue, partner-led structure - typically runs four filings concurrently that's easy to under-resource - transfer pricing documentation (mandatory above the related-party threshold), GST on export-of-services (refundable but procedurally heavy), US state nexus from any on-site contractors, and 1099/940/941 for any US-payroll team.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles this exact stack for India-headquartered services firms billing US clients - Mumbai HQ, US office in Edison NJ.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 99},
-  {"i": 8, "name": "Rebant Rawal", "first": "Rebant", "title": "Chief Marketing Officer", "company": "Sanrusha", "industry": "Information Technology & Services", "branch": "other", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "personal_only", "email_q_label": "Personal email only · Clay-recoverable in production", "research_hook": "Sanrusha - Oracle EBS implementation, IT consulting, managed cloud; 5-person India shop with US enterprise positioning", "subject": "The compliance surface marketing leaders at Oracle-consulting shops inherit", "body": "Hi Rebant,\n\nCMOs at small India-rooted Oracle and ERP consulting firms with US client outreach inherit more compliance footprint than the title suggests - cross-border ad spend reporting, 1099-NEC for any US-based contractors or affiliates, state nexus from any in-state sales rep, GST on service exports, and the documentation that makes the GST refund cycle actually work.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles the finance and tax side so marketing leaders aren't chasing the back-office for clarity - Mumbai HQ, US office in Edison NJ.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 99},
-  {"i": 9, "name": "Subramanya Somayaji", "first": "Subramanya", "title": "Co-Founder", "company": "ZORP", "industry": "Consumer Services", "branch": "founder_ceo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "verified", "email_q_label": "Verified work email", "research_hook": "ZORP - workflow automation for supply chain and field teams; India-rooted SaaS with US enterprise customers likely", "subject": "Workflow-SaaS compliance hits the moment ZORP signs the first US enterprise", "body": "Hi Subramanya,\n\nWorkflow-SaaS startups working from India with US enterprise customers hit a familiar compliance pattern the moment ARR scales - GST on export of services with the refund cycle every quarter, transfer pricing on US-side customer success or sales staff, state sales tax nexus once usage triggers economic thresholds, and Form 5472 the first year there's a US subsidiary.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border setup for India-headquartered SaaS firms with US enterprise revenue - Mumbai HQ, US office in Edison NJ.\n\nWorth a short conversation if you want a second view before the next contract negotiation forces the structure.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 124},
-  {"i": 10, "name": "Sanjay Nagar", "first": "Sanjay", "title": "Owner", "company": "Libra Solutions", "industry": "Financial Services", "branch": "founder_ceo", "geo": "India person · US company", "leaders": ["Akshay Nahar"], "email_q": "personal_only", "email_q_label": "Personal email only · Clay-recoverable in production", "research_hook": "Libra Solutions - medical + legal funding for personal-injury litigation; $3.13B+ originations; 75k+ PI attorneys; India-resident owner", "subject": "India-side reporting for owners of US legal-finance platforms", "body": "Hi Sanjay,\n\nOwners of US-incorporated legal-finance platforms operating from India sit on a sharper compliance load than most sectors - state-level legal funding regulations, AML/KYC on the originations flow, Form 5471 reporting on Indian residents holding US entity stakes, FATCA on the personal side, and the FEMA disclosures on cross-border investment income.\n\nA platform handling 75,000+ attorneys and $3B+ in originations isn't a generic case - the structure deserves a partner familiar with US-India coordination, not just one side of it.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles the cross-border setup specifically - Mumbai HQ, US office in Edison NJ.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B\nUSAIndiaCFO  ·  BNG Advisors Private Limited\ncontact@usaindiacfo.com", "wc": 123}
+  {"i":1,"name":"Kumar Johny","first":"Kumar","title":"Founder & CEO","company":"Darner AI Inc.","industry":"IT & Services","branch":"founder_ceo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"Garth — AI Work Execution platform; clients include Microsoft and Amazon","subject":"Darner AI's India-side compliance, before Series A clock","body":"Hi Kumar,\n\nFounders building AI products from India usually hit a US filing rhythm that gets noisy fast - Section 174 R&D capitalization on Garth's engineering spend, transfer pricing once the India team is doing more than ten percent of the work, and the FEMA paperwork that lands the day a US lead investor maps your cap table.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) runs this exact playbook with US-incorporated startups operating from India - Mumbai HQ and US office in Edison NJ.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":119},
+  {"i":2,"name":"Vikram Gupta","first":"Vikram","title":"Co-founder","company":"Leading Edge Communication","industry":"IT & Services","branch":"founder_ceo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"LECPL — turnkey IT infra for Indian government (PM Office, Naval HQ) + 22+ international ICT centers","subject":"Cross-border filings for an India-government IT contractor","body":"Hi Vikram,\n\nLECPL's profile - government contracts in India plus 22+ international ICT deployments - sits at an unusual compliance intersection. The overseas project receivables, FEMA reporting on remitted earnings, transfer pricing on the centralised India entity billing global work, and GST treatment of cross-border services all stack in ways most generalist firms underestimate.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles India-side coordination for cross-border firms that bill internationally - Mumbai HQ and US office in Edison NJ.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":124},
+  {"i":3,"name":"Aseem Shrey","first":"Aseem","title":"OpenSource Project — Founder","company":"ShipSecAI","industry":"Security","branch":"founder_ceo","geo":"US · US co","leaders":["Akshay Nahar"],"research_hook":"ShipSec Studio — turns fragmented security alerts into attack paths","subject":"ShipSec's first SOC 2 push and the India engineering cliff","body":"Hi Aseem,\n\nSecurity startups make an interesting compliance jump the moment paid customers ask for SOC 2 type II - and a second one when the engineering team starts pulling India-based talent for cost or 24x7 coverage. The first puts pressure on entity structure and audit readiness; the second adds GST on cross-border services, FEMA disclosures, and India professional tax.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) has run the India-side setup for US-incorporated security and software companies before contract pressure forces the move - Mumbai HQ, US office in Edison NJ.\n\nEven if it's not this quarter - having the path mapped removes a real future blocker.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":132},
+  {"i":4,"name":"Shakul Sonker","first":"Shakul","title":"Co-Founder","company":"Samora AI (YC W26)","industry":"IT & Services","branch":"founder_ceo","geo":"US · US co","leaders":["Akshay Nahar"],"research_hook":"Samora AI (YC W26) — voice AI agents, 1M+ calls; clients include UNICEF, Signify, GOI","subject":"Samora's GOI billing and the India revenue compliance ladder","body":"Hi Shakul,\n\nYC-backed voice AI is a fast-moving space, but the moment Samora is billing Government of India from a US Delaware entity, the compliance picture gets specific - transfer pricing on the India delivery work, GST registration once billed services cross thresholds, FEMA on funds inflow, and US Form 5472 if there's an India subsidiary handling delivery.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border setup for US-incorporated AI startups operating into India - Mumbai HQ, US office in Edison NJ.\n\nWorth a 20-minute conversation before the next investor diligence pass.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":120},
+  {"i":5,"name":"Dinesh Divecha","first":"Dinesh","title":"CFO","company":"FIRM Realty","industry":"Real Estate","branch":"cfo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"FIRM Realty — 50+ years South Florida commercial RE; just opened the Icon Office Building in Hollywood FL","subject":"India-side reporting for FIRM's portfolio after the Icon launch","body":"Hi Dinesh,\n\nCFOs at US commercial real estate firms with India-resident principals or staff sit on a specific compliance ledger - FATCA reporting on the US-side rental income, FBAR on personal-side accounts, RBI LRS limits when capital crosses, Form 5471/8865 for any India entity, and FIRPTA on disposition events.\n\nThe Icon Office Building going operational layers in the next round - state revenue allocation, Florida documentary stamps, and the depreciation timing decisions that change US filing pressure for several years.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border real-estate matters specifically - Mumbai HQ, US office in Edison NJ.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B","wc":124},
+  {"i":6,"name":"Munish Sharma","first":"Munish","title":"CFO","company":"Progressive Dairy","industry":"Publication","branch":"cfo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"Progressive Dairy is a US trade publication (under Ag Proud), NOT a dairy operation","subject":"India-US filings for Progressive Dairy's subscription side","body":"Hi Munish,\n\nCFOs at US trade publications with India-based finance leadership manage a different cross-border surface than most assume - state nexus on subscriber revenue once it crosses thresholds per state, advertising-revenue sourcing for programmatic and direct placements, transfer pricing on India-side editorial and back-office support, and FBAR / Form 5471 if any India entity sits in the structure.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border tax and entity matters for US-headquartered businesses with India operations - Mumbai HQ, US office in Edison NJ.\n\nWould it help if I shared a few case studies of how we've helped other companies manage their India-US filings?\n\nBest,\nSadhana B","wc":110},
+  {"i":7,"name":"Shailaja Mendon","first":"Shailaja","title":"Partner","company":"SBS CORP","industry":"IT & Services","branch":"other","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"SBS Corp (Sai Business Solutions) — 160-person India IT services firm with US client revenue","subject":"Cross-border filings for a 160-person India IT services partnership","body":"Hi Shailaja,\n\nAn India-rooted IT services firm at SBS Corp's scale - 160-plus people, US client revenue, partner-led structure - typically runs four filings concurrently that's easy to under-resource - transfer pricing documentation, GST on export-of-services (refundable but procedurally heavy), US state nexus from any on-site contractors, and 1099/940/941 for any US-payroll team.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles this exact stack for India-headquartered services firms billing US clients - Mumbai HQ, US office in Edison NJ.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B","wc":99},
+  {"i":8,"name":"Rebant Rawal","first":"Rebant","title":"CMO","company":"Sanrusha","industry":"IT & Services","branch":"other","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"Sanrusha — Oracle EBS implementation, IT consulting, managed cloud; 5-person India shop","subject":"Compliance surface marketing leaders inherit at Oracle-consulting shops","body":"Hi Rebant,\n\nCMOs at small India-rooted Oracle and ERP consulting firms with US client outreach inherit more compliance footprint than the title suggests - cross-border ad spend reporting, 1099-NEC for any US-based contractors or affiliates, state nexus from any in-state sales rep, GST on service exports, and the documentation that makes the GST refund cycle actually work.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles the finance and tax side so marketing leaders aren't chasing the back-office for clarity - Mumbai HQ, US office in Edison NJ.\n\nHow are you currently managing cross-border filings and tax requirements?\n\nBest,\nSadhana B","wc":99},
+  {"i":9,"name":"Subramanya Somayaji","first":"Subramanya","title":"Co-Founder","company":"ZORP","industry":"Consumer","branch":"founder_ceo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"ZORP — workflow automation for supply chain and field teams","subject":"Workflow-SaaS compliance hits the moment ZORP signs the first US enterprise","body":"Hi Subramanya,\n\nWorkflow-SaaS startups working from India with US enterprise customers hit a familiar compliance pattern the moment ARR scales - GST on export of services with the refund cycle every quarter, transfer pricing on US-side customer success or sales staff, state sales tax nexus once usage triggers economic thresholds, and Form 5472 the first year there's a US subsidiary.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles cross-border setup for India-headquartered SaaS firms with US enterprise revenue - Mumbai HQ, US office in Edison NJ.\n\nWorth a short conversation if you want a second view before the next contract negotiation forces the structure.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":124},
+  {"i":10,"name":"Sanjay Nagar","first":"Sanjay","title":"Owner","company":"Libra Solutions","industry":"Fin Services","branch":"founder_ceo","geo":"India · US co","leaders":["Akshay Nahar"],"research_hook":"Libra Solutions — medical + legal funding for personal-injury litigation; $3.13B+ originations, 75k+ PI attorneys","subject":"India-side reporting for owners of US legal-finance platforms","body":"Hi Sanjay,\n\nOwners of US-incorporated legal-finance platforms operating from India sit on a sharper compliance load than most sectors - state-level legal funding regulations, AML/KYC on the originations flow, Form 5471 reporting on Indian residents holding US entity stakes, FATCA on the personal side, and the FEMA disclosures on cross-border investment income.\n\nA platform handling 75,000+ attorneys and $3B+ in originations isn't a generic case - the structure deserves a partner familiar with US-India coordination, not just one side of it.\n\nAt USAIndiaCFO, Akshay Nahar (Co-Founder, CGO) handles the cross-border setup specifically - Mumbai HQ, US office in Edison NJ.\n\nWould you be open to a quick call to explore how we can help lighten the compliance load while you scale?\n\nBest,\nSadhana B","wc":123}
 ]
 </script>
 
@@ -1093,64 +692,106 @@ Would you be open to a quick call to explore how we can help lighten the complia
 
   // -------- ROUTER --------
   const ROUTES = [
-    { path: '/',           label: 'Overview' },
-    { path: '/flow',       label: 'Pipeline flow' },
-    { path: '/zoho',       label: 'Zoho CRM snapshot' },
-    { path: '/apollo',     label: 'Apollo dedup funnel' },
-    { path: '/categorize', label: 'Categorization' },
-    { path: '/tiers',      label: 'Tier A/B/C/D + bulk draft' },
-    { path: '/tat',        label: 'Turnaround time' },
-    { path: '/emails',     label: 'Pilot emails' },
-    { path: '/rerun',      label: 'Re-run on next list' },
+    { path: '/',         label: 'Overview' },
+    { path: '/funnel',   label: 'Funnel' },
+    { path: '/audience', label: 'Audience' },
+    { path: '/drafts',   label: 'Drafts' },
+    { path: '/ops',      label: 'Ops' },
   ];
-
   function currentRoute() {
     const h = (location.hash || '#/').replace(/^#/, '');
     return ROUTES.find(r => r.path === h) ? h : '/';
   }
-
   function showRoute(path) {
     $$('[data-page]').forEach(p => p.classList.toggle('hidden', p.dataset.page !== path));
     $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.route === path));
-    // Pager
-    const idx = ROUTES.findIndex(r => r.path === path);
-    const prev = ROUTES[idx - 1];
-    const next = ROUTES[idx + 1];
-    if (prev) {
-      $('#prev-link').href = '#' + prev.path;
-      $('#prev-link').classList.remove('invisible');
-      $('#prev-label').textContent = prev.label;
-    } else {
-      $('#prev-link').classList.add('invisible');
-    }
-    if (next) {
-      $('#next-link').href = '#' + next.path;
-      $('#next-link').classList.remove('invisible');
-      $('#next-label').textContent = next.label;
-    } else {
-      $('#next-link').classList.add('invisible');
-    }
-    $('#page-counter').textContent = `${idx + 1} / ${ROUTES.length}`;
-    // Reset scroll for new view (so it doesn't feel like a long scroll)
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = path === '/' ? 'BNG Outreach Pipeline · Pilot Dashboard'
+    const idx = ROUTES.findIndex(r => r.path === path);
+    document.title = path === '/' ? 'BNG Outreach Pipeline · Dashboard'
                                   : `${ROUTES[idx].label} · BNG Outreach Pipeline`;
   }
-
   window.addEventListener('hashchange', () => showRoute(currentRoute()));
   showRoute(currentRoute());
 
-  // -------- DATA RENDERS --------
+  // -------- SVG CHART HELPERS --------
 
-  // Zoho fill rates
+  // Pie/donut chart — pure SVG, no library
+  // data = [{label, value, color}], thickness=0 → solid pie, thickness>0 → donut
+  function svgPie(data, size=160, thickness=32) {
+    const total = data.reduce((s,d)=>s+d.value, 0);
+    if (total === 0) return '<div class="text-xs text-slate-400">no data</div>';
+    const cx = size/2, cy = size/2;
+    const r_outer = size/2 - 2;
+    const r_inner = thickness > 0 ? r_outer - thickness : 0;
+
+    let cumAngle = -Math.PI / 2; // start at 12 o'clock
+    const paths = data.map(d => {
+      const angle = (d.value/total) * 2 * Math.PI;
+      const a0 = cumAngle, a1 = cumAngle + angle;
+      cumAngle = a1;
+      const largeArc = angle > Math.PI ? 1 : 0;
+      const x0 = cx + r_outer * Math.cos(a0);
+      const y0 = cy + r_outer * Math.sin(a0);
+      const x1 = cx + r_outer * Math.cos(a1);
+      const y1 = cy + r_outer * Math.sin(a1);
+      let path;
+      if (r_inner > 0) {
+        const xi0 = cx + r_inner * Math.cos(a0);
+        const yi0 = cy + r_inner * Math.sin(a0);
+        const xi1 = cx + r_inner * Math.cos(a1);
+        const yi1 = cy + r_inner * Math.sin(a1);
+        path = `M ${x0} ${y0} A ${r_outer} ${r_outer} 0 ${largeArc} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${r_inner} ${r_inner} 0 ${largeArc} 0 ${xi0} ${yi0} Z`;
+      } else {
+        path = `M ${cx} ${cy} L ${x0} ${y0} A ${r_outer} ${r_outer} 0 ${largeArc} 1 ${x1} ${y1} Z`;
+      }
+      return `<path class="pie-seg" d="${path}" fill="${d.color}"><title>${d.label}: ${d.value.toLocaleString()} (${(d.value/total*100).toFixed(1)}%)</title></path>`;
+    }).join('');
+
+    let centerText = '';
+    if (thickness > 0) {
+      centerText = `<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="20" font-weight="600" fill="#0b1220">${total.toLocaleString()}</text>
+                    <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="9" fill="#64748b" letter-spacing="1">TOTAL</text>`;
+    }
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${paths}${centerText}</svg>`;
+  }
+
+  function chartLegend(data, elId) {
+    const total = data.reduce((s,d)=>s+d.value, 0);
+    $(elId).innerHTML = data.map(d => `
+      <div class="flex items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="size-2.5 rounded-sm shrink-0" style="background:${d.color}"></span>
+          <span class="truncate text-slate-700">${d.label}</span>
+        </div>
+        <div class="font-mono num text-slate-500 whitespace-nowrap">${d.value.toLocaleString()} · ${(d.value/total*100).toFixed(0)}%</div>
+      </div>
+    `).join('');
+  }
+
+  // -------- TIER DONUT --------
+  const tierData = JSON.parse($("#tier-data").textContent);
+  $("#tier-donut").innerHTML = svgPie(tierData, 200, 42);
+  chartLegend(tierData, "#tier-legend");
+
+  // -------- BRANCH PIE --------
+  const branchData = JSON.parse($("#branch-data").textContent);
+  $("#branch-pie").innerHTML = svgPie(branchData, 140, 0);
+  chartLegend(branchData, "#branch-legend");
+
+  // -------- INDUSTRY PIE --------
+  const industryData = JSON.parse($("#industry-data").textContent);
+  $("#industry-pie").innerHTML = svgPie(industryData, 140, 0);
+  chartLegend(industryData, "#industry-legend");
+
+  // -------- ZOHO FILL --------
   const fill = JSON.parse($("#zoho-fill-data").textContent);
   $("#zoho-fill").innerHTML = fill.map(([label, pct, hint]) => {
     const colorBase = pct >= 60 ? 'emerald' : (pct >= 30 ? 'amber' : 'rose');
     return `
       <div>
         <div class="flex items-center justify-between text-xs">
-          <div><span class="font-medium text-ink">${label}</span> <span class="text-slate-400">— ${hint}</span></div>
-          <span class="font-mono text-slate-700">${pct.toFixed(1)}%</span>
+          <div class="min-w-0"><span class="font-medium text-ink">${label}</span> <span class="text-slate-400">— ${hint}</span></div>
+          <span class="font-mono text-slate-700 whitespace-nowrap">${pct.toFixed(1)}%</span>
         </div>
         <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
           <div class="h-full bg-${colorBase}-500" style="width:${Math.max(pct, 0.5)}%"></div>
@@ -1158,135 +799,96 @@ Would you be open to a quick call to explore how we can help lighten the complia
       </div>`;
   }).join("");
 
-  // Zoho flow buckets
-  const flow = JSON.parse($("#zoho-flow-data").textContent);
-  $("#zoho-flow").innerHTML = flow.map(b => `
+  // -------- REJECT REASONS --------
+  const rejData = JSON.parse($("#reject-reasons-data").textContent);
+  const rejMax = Math.max(...rejData.map(d => d.value));
+  $("#reject-reasons").innerHTML = rejData.map(d => `
     <div>
       <div class="flex items-center justify-between text-xs">
-        <span class="text-ink">${b.label}</span>
-        <span class="font-mono text-slate-700">${b.count.toLocaleString()} <span class="text-slate-400">(${b.pct}%)</span></span>
+        <span class="text-ink">${d.label}</span>
+        <span class="font-mono text-slate-700">${d.value}</span>
       </div>
       <div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-        <div class="h-full bg-${b.color}-500" style="width:${b.pct}%"></div>
+        <div class="h-full" style="width:${(d.value/rejMax*100).toFixed(1)}%; background:${d.color}"></div>
       </div>
-    </div>`).join("");
+    </div>`).join('');
 
-  // Tiers — industry-pain bars + sender distribution
-  const tiers = JSON.parse($("#tiers-data").textContent);
-  const totalDrafted = tiers.industry_pain.reduce((s,b)=>s+b.count, 0);
-  $("#industry-pain").innerHTML = tiers.industry_pain.map(b => {
-    const pct = (b.count/totalDrafted)*100;
-    return `
-      <div>
-        <div class="flex items-center justify-between text-xs">
-          <span class="text-ink">${b.label}</span>
-          <span class="font-mono text-slate-700">${b.count.toLocaleString()} <span class="text-slate-400">(${pct.toFixed(1)}%)</span></span>
-        </div>
-        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-          <div class="h-full bg-indigo-500" style="width:${Math.max(pct, 0.5)}%"></div>
-        </div>
-      </div>`;
-  }).join("");
+  // -------- WORD COUNT HISTOGRAM --------
+  const wc = JSON.parse($("#wc-data").textContent);
+  const wcMax = Math.max(...wc.buckets.map(b=>b.count));
+  $("#wc-histogram").innerHTML = `
+    <div class="flex items-end justify-around h-32 gap-2 mb-2">
+      ${wc.buckets.map(b => {
+        const h = (b.count / wcMax * 100).toFixed(0);
+        return `<div class="flex-1 flex flex-col items-center justify-end h-full">
+          <div class="font-mono text-[10px] text-slate-500 mb-1">${b.count.toLocaleString()}</div>
+          <div class="w-full bg-emerald-500 rounded-t hover:bg-emerald-600 transition" style="height:${h}%" title="${b.label} words: ${b.count}"></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="flex justify-around text-[10px] text-slate-500 mt-1">
+      ${wc.buckets.map(b => `<div class="flex-1 text-center">${b.label}</div>`).join('')}
+    </div>
+    <div class="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between">
+      <span>Min: <span class="font-mono text-ink">${wc.stats.min}</span></span>
+      <span>Median: <span class="font-mono text-ink">${wc.stats.median}</span></span>
+      <span>Mean: <span class="font-mono text-ink">${wc.stats.mean}</span></span>
+      <span>Max: <span class="font-mono text-ink">${wc.stats.max}</span></span>
+    </div>`;
 
-  $("#sender-distribution").innerHTML = tiers.senders.map(s => `
-    <div>
-      <div class="flex items-center justify-between text-xs">
-        <span class="font-mono text-ink truncate pr-2">${s.email}${s.default?'<span class="ml-1 text-emerald-600">default</span>':''}</span>
-        <span class="font-mono text-slate-700">${s.count.toLocaleString()}</span>
-      </div>
-      <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-        <div class="h-full bg-emerald-500" style="width:${(s.count/Math.max(...tiers.senders.map(x=>x.count)))*100}%"></div>
-      </div>
-    </div>`).join("");
-
-  // TAT — stage table + cumulative timeline
-  const tat = JSON.parse($("#tat-data").textContent);
-  const typeChip = t => ({
-    input:   'bg-slate-100 text-slate-700 border-slate-200',
-    compute: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-    human:   'bg-amber-100 text-amber-700 border-amber-200',
-    vendor:  'bg-sky-100 text-sky-700 border-sky-200',
-    sending: 'bg-rose-100 text-rose-700 border-rose-200',
-  }[t] || 'bg-slate-100 text-slate-700');
-  $("#tat-rows").innerHTML = tat.stages.map(s => `
-    <tr class="hover:bg-slate-50/60">
-      <td class="px-6 py-3 text-xs font-mono text-slate-400">${String(s.i).padStart(2,'0')}</td>
-      <td class="px-6 py-3 text-ink">${s.stage}</td>
-      <td class="px-6 py-3"><span class="text-[10px] px-2 py-0.5 rounded border ${typeChip(s.type)}">${s.type}</span></td>
-      <td class="px-6 py-3 font-mono num text-slate-700">${s.first}</td>
-      <td class="px-6 py-3 font-mono num text-slate-500">${s.rerun}</td>
-      <td class="px-6 py-3 text-xs text-slate-500">${s.notes}</td>
-    </tr>`).join("");
-
-  // Cumulative timeline — 28-day axis
+  // -------- TAT TIMELINE (28-day axis) --------
+  const tl = JSON.parse($("#tat-timeline-data").textContent);
   const TL_DAYS = 28;
-  const tlEl = $("#tat-timeline");
-  // Day axis
   const axis = `
     <div class="flex items-center text-[10px] text-slate-400 mb-1">
       <div class="w-44 shrink-0"></div>
       <div class="flex-1 grid grid-cols-7 gap-0">
-        ${[0,4,8,12,16,20,24,28].slice(0,7).map(d=>`<div class="border-l border-slate-200 pl-1">D${d}</div>`).join('')}
+        ${[0,4,8,12,16,20,24].map(d=>`<div class="border-l border-slate-200 pl-1">D${d}</div>`).join('')}
       </div>
     </div>`;
-  const bars = tat.timeline.map(b => `
+  const bars = tl.map(b => `
     <div class="flex items-center">
       <div class="w-44 shrink-0 text-slate-700 truncate pr-3">${b.label}</div>
       <div class="flex-1 relative h-5 bg-slate-50 rounded">
         <div class="absolute top-0 bottom-0 rounded bg-${b.color}-500 ${b.color==='slate'?'opacity-30':'opacity-90'}"
              style="left:${(b.start/TL_DAYS)*100}%; width:${(b.len/TL_DAYS)*100}%"
-             title="Day ${b.start}–${b.start+b.len}">
-        </div>
+             title="Day ${b.start}–${b.start+b.len}"></div>
       </div>
       <div class="w-20 shrink-0 text-right font-mono text-slate-500 pl-3">${b.len === 1 ? `D${b.start}` : `D${b.start}–${b.start+b.len}`}</div>
     </div>`).join("");
-  tlEl.innerHTML = axis + bars;
+  $("#tat-timeline").innerHTML = axis + bars;
 
-  // Emails
+  // -------- EMAILS --------
   const emails = JSON.parse($("#emails-data").textContent);
   const grid = $("#emails-grid");
 
   const branchClass = b => b === 'founder_ceo' ? 'bg-indigo-100 text-indigo-700 border-indigo-200'
                           : b === 'cfo' ? 'bg-violet-100 text-violet-700 border-violet-200'
                           : 'bg-slate-100 text-slate-700 border-slate-200';
-
-  const emailQClass = q => q === 'verified' ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
-                          : 'bg-amber-100 text-amber-700 border-amber-200';
-
-  const branchLabel = b => b === 'founder_ceo' ? 'Founder/CEO branch' : (b === 'cfo' ? 'CFO branch' : 'Other branch');
+  const branchLabel = b => b === 'founder_ceo' ? 'Founder/CEO' : (b === 'cfo' ? 'CFO' : 'Other');
 
   function renderEmails(filter) {
     const items = emails.filter(e => filter === 'all' || e.branch === filter);
     grid.innerHTML = items.map(e => `
-      <details class="group rounded-xl border border-slate-200 bg-white p-5 hover:border-slate-300 transition" data-branch="${e.branch}">
+      <details class="group rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition" data-branch="${e.branch}">
         <summary class="cursor-pointer">
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-xs font-mono text-slate-400">#${String(e.i).padStart(2,'0')}</span>
-                <span class="text-xs px-2 py-0.5 rounded border ${branchClass(e.branch)}">${branchLabel(e.branch)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded border ${branchClass(e.branch)}">${branchLabel(e.branch)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500">${e.industry}</span>
               </div>
               <div class="font-semibold text-ink truncate">${e.name}</div>
               <div class="text-xs text-slate-500 truncate">${e.title} · ${e.company}</div>
             </div>
             <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="mt-3 flex flex-wrap gap-1.5 text-[10px]">
-            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-600">${e.industry}</span>
-            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-600">${e.geo}</span>
-            <span class="px-2 py-0.5 rounded border ${emailQClass(e.email_q)}">${e.email_q_label}</span>
-            <span class="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono">${e.wc} words</span>
-          </div>
-          ${e.research_hook ? `<div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-400 uppercase tracking-wide text-[9px] mr-1">Research basis</span>${e.research_hook}</div>` : ''}
+          <div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-400 uppercase tracking-wide text-[9px] mr-1">Research</span>${e.research_hook}</div>
           <div class="mt-3 text-sm font-medium text-ink">${e.subject}</div>
         </summary>
-        <div class="mt-4 pt-4 border-t border-slate-100">
-          <div class="text-[10px] uppercase tracking-wide text-slate-400 mb-1">Body</div>
-          <pre class="font-mono text-[12px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3">${e.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
-          <div class="mt-3 flex flex-wrap items-center gap-1.5 text-[10px] text-slate-500">
-            <span class="uppercase tracking-wide">Leadership referenced:</span>
-            ${e.leaders.map(l=>`<span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">${l}</span>`).join("")}
-          </div>
+        <div class="mt-3 pt-3 border-t border-slate-100">
+          <pre class="font-mono text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3 max-h-80 overflow-y-auto">${e.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
         </div>
       </details>
     `).join("");
