@@ -1229,7 +1229,7 @@ tailwind.config = {
     if (!grid) return;
     let rows = [];
     try { rows = JSON.parse(document.getElementById(dataId).textContent); } catch (e) { return; }
-    const sigBlock = '
+    const sigBlock = `
 
 Best,
 Sadhana B
@@ -1240,7 +1240,7 @@ www.usaindiacfo.com
 
 Scheduling a call with:
 Akshay Nahar | CA · Co-Founder, USAIndiaCFO · BNG Advisors
-calendly.com/akshay-usaindiacfo';
+calendly.com/akshay-usaindiacfo`;
     grid.innerHTML = rows.map(e => {
       const cacheTotal = (e.cache_creation || 0) + (e.cache_read || 0);
       const tokensLabel = `in ${(e.input_tokens||0).toLocaleString()} · out ${(e.output_tokens||0).toLocaleString()} · cache ${cacheTotal.toLocaleString()}`;
