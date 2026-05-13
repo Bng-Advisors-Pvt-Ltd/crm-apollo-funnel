@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="bg-slate-50">
+<html lang="en" class="dark bg-slate-950 text-slate-100">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,23 +27,25 @@ tailwind.config = {
 </script>
 
 <style>
+  :root { color-scheme: dark; }
+  html, body { background-color: #020617; color: #f1f5f9; }
   body { font-feature-settings: "ss01","cv11"; }
   .num { font-variant-numeric: tabular-nums; }
   .grid-bg {
     background-image:
-      linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px);
+      linear-gradient(rgba(241,245,249,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(241,245,249,.05) 1px, transparent 1px);
     background-size: 24px 24px;
   }
   .stat-card { transition: transform .15s ease, box-shadow .15s ease; }
-  .stat-card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -10px rgba(15,23,42,.15); }
+  .stat-card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px -10px rgba(0,0,0,.55), 0 0 0 1px rgba(241,245,249,.05); }
   details[open] summary svg.chev { transform: rotate(90deg); }
   summary svg.chev { transition: transform .15s ease; }
   summary { list-style: none; }
   summary::-webkit-details-marker { display:none; }
   [data-page] { animation: fadeIn .18s ease both; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-  .nav-link.active { color: #0b1220; border-color: #0b1220; }
+  .nav-link.active { color: #f1f5f9; border-color: #f1f5f9; }
 
   /* Donut + pie chart hover */
   .pie-seg, .donut-seg { transition: opacity .15s; cursor: default; }
@@ -51,16 +53,17 @@ tailwind.config = {
 </style>
 </head>
 
-<body class="font-sans text-ink antialiased min-h-screen flex flex-col">
+<!-- DARK-MODE-DEFAULT: applied -->
+<body class="font-sans text-slate-100 antialiased min-h-screen flex flex-col">
 
 <!-- ========== TOP NAV (5 items) ========== -->
-<header class="sticky top-0 z-30 border-b border-slate-200/70 bg-slate-50/85 backdrop-blur">
+<header class="sticky top-0 z-30 border-b border-slate-800/70 bg-slate-950/85 backdrop-blur">
   <div class="mx-auto max-w-7xl px-6 py-3">
     <div class="flex items-center justify-between gap-6">
       <a href="#/" class="flex items-center gap-3 group">
         <div class="size-8 rounded-md bg-ink text-white grid place-items-center font-mono text-xs font-bold group-hover:scale-105 transition">BNG</div>
         <div>
-          <div class="text-sm font-semibold text-ink">Outreach Pipeline · Dashboard</div>
+          <div class="text-sm font-semibold text-slate-100">Outreach Pipeline · Dashboard</div>
           <div class="text-xs text-slate-500">USAIndiaCFO &middot; <span class="font-mono">2026-05-11</span></div>
         </div>
       </a>
@@ -70,15 +73,15 @@ tailwind.config = {
       </div>
     </div>
     <nav class="mt-3 flex items-center gap-1 overflow-x-auto -mb-px text-sm">
-      <a href="#/"         class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/">Overview</a>
-      <a href="#/funnel"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/funnel">Funnel</a>
-      <a href="#/audience" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/audience">Audience</a>
-      <a href="#/drafts"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/drafts">Drafts</a>
-      <a href="#/pilot-v2" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/pilot-v2">Pilot v2 <span class="ml-1 text-[9px] uppercase tracking-wide bg-amber-100 text-amber-700 rounded px-1.5 py-0.5 align-middle">new</span></a>
-      <a href="#/pilot-v3-haiku" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/pilot-v3-haiku">Pilot v3 · Haiku <span class="ml-1 text-[9px] uppercase tracking-wide bg-indigo-100 text-indigo-700 rounded px-1.5 py-0.5 align-middle">API</span></a>
-      <a href="#/pilot-v3-sonnet" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/pilot-v3-sonnet">Pilot v3 · Sonnet <span class="ml-1 text-[9px] uppercase tracking-wide bg-violet-100 text-violet-700 rounded px-1.5 py-0.5 align-middle">API</span></a>
-      <a href="#/bulk-pilot" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/bulk-pilot">Bulk Pilot <span class="ml-1 text-[9px] uppercase tracking-wide bg-emerald-100 text-emerald-700 rounded px-1.5 py-0.5 align-middle">50</span></a>
-      <a href="#/ops"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-ink" data-route="/ops">Ops</a>
+      <a href="#/"         class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/">Overview</a>
+      <a href="#/funnel"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/funnel">Funnel</a>
+      <a href="#/audience" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/audience">Audience</a>
+      <a href="#/drafts"   class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/drafts">Drafts</a>
+      <a href="#/pilot-v2" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/pilot-v2">Pilot v2 <span class="ml-1 text-[9px] uppercase tracking-wide bg-amber-900/40 text-amber-400 rounded px-1.5 py-0.5 align-middle">new</span></a>
+      <a href="#/pilot-v3-haiku" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/pilot-v3-haiku">Pilot v3 · Haiku <span class="ml-1 text-[9px] uppercase tracking-wide bg-indigo-900/40 text-indigo-300 rounded px-1.5 py-0.5 align-middle">API</span></a>
+      <a href="#/pilot-v3-sonnet" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/pilot-v3-sonnet">Pilot v3 · Sonnet <span class="ml-1 text-[9px] uppercase tracking-wide bg-violet-900/40 text-violet-300 rounded px-1.5 py-0.5 align-middle">API</span></a>
+      <a href="#/bulk-pilot" class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/bulk-pilot">Bulk Pilot <span class="ml-1 text-[9px] uppercase tracking-wide bg-emerald-900/40 text-emerald-400 rounded px-1.5 py-0.5 align-middle">50</span></a>
+      <a href="#/ops"      class="nav-link shrink-0 px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-50" data-route="/ops">Ops</a>
     </nav>
   </div>
 </header>
@@ -89,17 +92,17 @@ tailwind.config = {
 <!-- PAGE: OVERVIEW                                              -->
 <!-- ========================================================== -->
 <section data-page="/" class="hidden">
-  <div class="relative overflow-hidden border-b border-slate-200">
+  <div class="relative overflow-hidden border-b border-slate-800">
     <div class="absolute inset-0 grid-bg pointer-events-none"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-14 md:py-20">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/70 px-3 py-1 text-xs text-slate-600 mb-6">
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-white/70 px-3 py-1 text-xs text-slate-600 mb-6">
           <span class="size-1.5 rounded-full bg-emerald-500"></span>
           3,221 Tier A drafts ready &middot; awaiting partner review
         </div>
         <h1 class="font-serif text-5xl md:text-6xl leading-[1.05] tracking-tight">
           Cold-outreach pipeline,<br/>
-          <span class="text-emerald-700">research-targeted</span> at scale.
+          <span class="text-emerald-400">research-targeted</span> at scale.
         </h1>
         <p class="mt-6 text-slate-600 text-lg max-w-2xl">
           9,000 Apollo contacts → deduped against 20k Zoho leads → ICP-scored into tiers → 3,221 Tier A
@@ -107,29 +110,29 @@ tailwind.config = {
         </p>
 
         <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-3 stat-card">
             <div class="text-[10px] uppercase tracking-wide text-slate-500">Apollo input</div>
             <div class="text-xl font-semibold num mt-1">9,000</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-3 stat-card">
             <div class="text-[10px] uppercase tracking-wide text-slate-500">Already in CRM</div>
             <div class="text-xl font-semibold num mt-1">7</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-3 stat-card">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-3 stat-card">
             <div class="text-[10px] uppercase tracking-wide text-slate-500">Outreach pool</div>
             <div class="text-xl font-semibold num mt-1">8,277</div>
           </div>
-          <div class="rounded-lg border border-indigo-200 bg-indigo-50 p-3 stat-card">
-            <div class="text-[10px] uppercase tracking-wide text-indigo-700">Tier A scope</div>
-            <div class="text-xl font-semibold num mt-1 text-indigo-900">3,628</div>
+          <div class="rounded-lg border border-indigo-800 bg-indigo-950/40 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-indigo-300">Tier A scope</div>
+            <div class="text-xl font-semibold num mt-1 text-indigo-200">3,628</div>
           </div>
-          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3 stat-card">
-            <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
-            <div class="text-xl font-semibold num mt-1 text-emerald-900">3,221</div>
+          <div class="rounded-lg border border-emerald-800 bg-emerald-950/40 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-emerald-400">Drafted</div>
+            <div class="text-xl font-semibold num mt-1 text-emerald-300">3,221</div>
           </div>
-          <div class="rounded-lg border border-rose-200 bg-rose-50 p-3 stat-card">
-            <div class="text-[10px] uppercase tracking-wide text-rose-700">Rejected · quality</div>
-            <div class="text-xl font-semibold num mt-1 text-rose-900">407</div>
+          <div class="rounded-lg border border-rose-800 bg-rose-950/40 p-3 stat-card">
+            <div class="text-[10px] uppercase tracking-wide text-rose-400">Rejected · quality</div>
+            <div class="text-xl font-semibold num mt-1 text-rose-300">407</div>
           </div>
         </div>
       </div>
@@ -139,24 +142,24 @@ tailwind.config = {
   <div class="mx-auto max-w-7xl px-6 py-14">
     <div class="text-xs uppercase tracking-widest text-slate-500 mb-4">What to look at</div>
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <a href="#/funnel" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/funnel" class="block rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-500/60 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">01</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Funnel →</div>
+        <div class="font-semibold text-slate-100 mb-1 group-hover:text-emerald-700">Funnel →</div>
         <div class="text-sm text-slate-600">9k → 8,277 → tier split → 3,221 drafted. The full data journey with charts.</div>
       </a>
-      <a href="#/audience" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/audience" class="block rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-500/60 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">02</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Audience →</div>
+        <div class="font-semibold text-slate-100 mb-1 group-hover:text-emerald-700">Audience →</div>
         <div class="text-sm text-slate-600">Who's in this list — 99.8% India person → US company. Industry + title mix.</div>
       </a>
-      <a href="#/drafts" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/drafts" class="block rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-500/60 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">03</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Drafts →</div>
+        <div class="font-semibold text-slate-100 mb-1 group-hover:text-emerald-700">Drafts →</div>
         <div class="text-sm text-slate-600">3,221 bulk drafts, 100% unique bodies. 10 sample emails to skim.</div>
       </a>
-      <a href="#/ops" class="block rounded-xl border border-slate-200 bg-white p-6 hover:border-ink/40 transition group">
+      <a href="#/ops" class="block rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-500/60 transition group">
         <div class="text-xs font-mono text-slate-500 mb-2">04</div>
-        <div class="font-semibold text-ink mb-1 group-hover:text-emerald-700">Ops →</div>
+        <div class="font-semibold text-slate-100 mb-1 group-hover:text-emerald-700">Ops →</div>
         <div class="text-sm text-slate-600">Pipeline flow, TAT, send pacing, re-run via /outreach-batch skill.</div>
       </a>
     </div>
@@ -174,37 +177,37 @@ tailwind.config = {
 
     <!-- Visual funnel -->
     <div class="mt-10 grid lg:grid-cols-5 gap-3">
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Apollo input</div>
         <div class="text-3xl font-semibold num mt-1">9,000</div>
         <div class="mt-2 text-xs text-slate-500">contacts</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">After dedup</div>
         <div class="text-3xl font-semibold num mt-1">8,277</div>
         <div class="mt-2 text-xs text-slate-500">−716 dupes · −7 in CRM</div>
       </div>
-      <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-5">
-        <div class="text-[10px] uppercase tracking-wide text-indigo-700">Tier A scope</div>
-        <div class="text-3xl font-semibold num mt-1 text-indigo-900">3,628</div>
+      <div class="rounded-xl border border-indigo-800 bg-indigo-950/40 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-indigo-300">Tier A scope</div>
+        <div class="text-3xl font-semibold num mt-1 text-indigo-200">3,628</div>
         <div class="mt-2 text-xs text-indigo-700/80">ICP-scored + EU excluded</div>
       </div>
-      <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-        <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
-        <div class="text-3xl font-semibold num mt-1 text-emerald-900">3,221</div>
-        <div class="mt-2 text-xs text-emerald-700/80">88.8% of Tier A</div>
+      <div class="rounded-xl border border-emerald-800 bg-emerald-950/40 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-emerald-400">Drafted</div>
+        <div class="text-3xl font-semibold num mt-1 text-emerald-300">3,221</div>
+        <div class="mt-2 text-xs text-emerald-400/80">88.8% of Tier A</div>
       </div>
-      <div class="rounded-xl border border-rose-200 bg-rose-50 p-5">
-        <div class="text-[10px] uppercase tracking-wide text-rose-700">Rejected</div>
-        <div class="text-3xl font-semibold num mt-1 text-rose-900">407</div>
-        <div class="mt-2 text-xs text-rose-700/80">data quality</div>
+      <div class="rounded-xl border border-rose-800 bg-rose-950/40 p-5">
+        <div class="text-[10px] uppercase tracking-wide text-rose-400">Rejected</div>
+        <div class="text-3xl font-semibold num mt-1 text-rose-300">407</div>
+        <div class="mt-2 text-xs text-rose-400/80">data quality</div>
       </div>
     </div>
 
     <!-- Tier split donut + numbers -->
     <div class="mt-10 grid lg:grid-cols-2 gap-6">
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Outreach pool by ICP tier</div>
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+        <div class="text-sm font-semibold text-slate-100 mb-1">Outreach pool by ICP tier</div>
         <div class="text-xs text-slate-500 mb-6">All 8,277 candidates were scored 1–10 on title × company size × industry fit × cross-border signal, then bucketed into A (8–10), B (5–7), C (3–4), D (1–2).</div>
         <div class="grid grid-cols-2 gap-6 items-center">
           <div class="flex justify-center">
@@ -214,42 +217,42 @@ tailwind.config = {
         </div>
       </div>
 
-      <div class="rounded-xl border border-slate-200 bg-white p-6">
-        <div class="text-sm font-semibold text-ink mb-1">Why each tier matters</div>
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+        <div class="text-sm font-semibold text-slate-100 mb-1">Why each tier matters</div>
         <div class="text-xs text-slate-500 mb-4">Tranches by tier so partner can stage sends. Tier A is the first push; B follows after pilot reply data; C/D get nurture sequences.</div>
         <div class="space-y-3 text-sm">
           <div class="flex gap-3 items-start">
             <span class="mt-1 size-3 rounded-sm shrink-0 bg-emerald-500"></span>
             <div>
-              <div class="font-medium text-ink">Tier A · 3,628</div>
+              <div class="font-medium text-slate-100">Tier A · 3,628</div>
               <div class="text-xs text-slate-500">ICP 8–10. Founder/CEO/CFO at India-rooted firms with US revenue. First send tranche.</div>
             </div>
           </div>
           <div class="flex gap-3 items-start">
             <span class="mt-1 size-3 rounded-sm shrink-0 bg-sky-500"></span>
             <div>
-              <div class="font-medium text-ink">Tier B · 2,722</div>
+              <div class="font-medium text-slate-100">Tier B · 2,722</div>
               <div class="text-xs text-slate-500">ICP 5–7. Senior but not C-suite, or smaller companies. Standard pool, send after Tier A pilot data.</div>
             </div>
           </div>
           <div class="flex gap-3 items-start">
             <span class="mt-1 size-3 rounded-sm shrink-0 bg-amber-500"></span>
             <div>
-              <div class="font-medium text-ink">Tier C · 520</div>
+              <div class="font-medium text-slate-100">Tier C · 520</div>
               <div class="text-xs text-slate-500">ICP 3–4. Lower fit; nurture sequence, no rep-driven first-touch.</div>
             </div>
           </div>
           <div class="flex gap-3 items-start">
             <span class="mt-1 size-3 rounded-sm shrink-0 bg-rose-500"></span>
             <div>
-              <div class="font-medium text-ink">Tier D · 74</div>
+              <div class="font-medium text-slate-100">Tier D · 74</div>
               <div class="text-xs text-slate-500">ICP 1–2. Hold queue; weekly review only.</div>
             </div>
           </div>
           <div class="flex gap-3 items-start">
             <span class="mt-1 size-3 rounded-sm shrink-0 bg-slate-400"></span>
             <div>
-              <div class="font-medium text-ink">EU holdback · 18</div>
+              <div class="font-medium text-slate-100">EU holdback · 18</div>
               <div class="text-xs text-slate-500">GDPR/UK GDPR — work-email TLD or country signals EU/EEA/UK. Excluded from all tiers.</div>
             </div>
           </div>
@@ -258,10 +261,10 @@ tailwind.config = {
     </div>
 
     <!-- Bulk draft outcome breakdown -->
-    <div class="mt-10 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-1">Tier A draft outcome</div>
+    <div class="mt-10 rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <div class="text-sm font-semibold text-slate-100 mb-1">Tier A draft outcome</div>
       <div class="text-xs text-slate-500 mb-5">Of the 3,628 Tier A rows, 88.8% drafted cleanly. The 407 rejected rows had data-quality issues the research pass caught (dead websites, hijacked domains, parked pages, title noise).</div>
-      <div class="h-12 rounded-md overflow-hidden flex border border-slate-200">
+      <div class="h-12 rounded-md overflow-hidden flex border border-slate-800">
         <div class="bg-emerald-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 73.0%">Drafted with research hook · 2,651 (73%)</div>
         <div class="bg-emerald-400 flex items-center justify-center text-xs text-white font-semibold" style="width: 15.8%">Fallback opener · 570 (16%)</div>
         <div class="bg-rose-500 flex items-center justify-center text-xs text-white font-semibold" style="width: 11.2%">Rejected · 407 (11%)</div>
@@ -274,8 +277,8 @@ tailwind.config = {
     </div>
 
     <!-- Rejection reasons -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-1">Why 407 rows got rejected</div>
+    <div class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <div class="text-sm font-semibold text-slate-100 mb-1">Why 407 rows got rejected</div>
       <div class="text-xs text-slate-500 mb-4">All caught automatically by the WebFetch quality pass. None would have been flagged by templated bulk drafting.</div>
       <div id="reject-reasons" class="space-y-2 text-sm"></div>
     </div>
@@ -298,45 +301,45 @@ tailwind.config = {
       <div>
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">Existing CRM (Zoho)</div>
         <div class="grid grid-cols-2 gap-3 mb-5">
-          <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
             <div class="text-xs text-slate-500">Leads</div>
             <div class="text-2xl font-semibold num mt-1">20,020</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
             <div class="text-xs text-slate-500">Contacts</div>
             <div class="text-2xl font-semibold num mt-1">3,056</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
             <div class="text-xs text-slate-500">Accounts</div>
             <div class="text-2xl font-semibold num mt-1">2,627</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-4">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
             <div class="text-xs text-slate-500">Deals</div>
             <div class="text-2xl font-semibold num mt-1">6,107</div>
           </div>
         </div>
 
-        <div class="rounded-xl border border-slate-200 bg-white p-5">
-          <div class="text-sm font-semibold text-ink mb-1">Lead field-fill rates</div>
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <div class="text-sm font-semibold text-slate-100 mb-1">Lead field-fill rates</div>
           <div class="text-xs text-slate-500 mb-4">% of 20,020 leads with the field populated</div>
           <div id="zoho-fill" class="space-y-2 text-sm"></div>
         </div>
 
         <div class="mt-4 grid grid-cols-3 gap-3 text-center">
-          <div class="rounded-lg border border-slate-200 bg-white p-3">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
             <div class="text-[10px] uppercase tracking-wide text-slate-500">Stale-open</div>
             <div class="text-xl font-semibold num mt-1">6,486</div>
-            <div class="text-[10px] text-slate-400">32% of book</div>
+            <div class="text-[10px] text-slate-500">32% of book</div>
           </div>
-          <div class="rounded-lg border border-slate-200 bg-white p-3">
+          <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
             <div class="text-[10px] uppercase tracking-wide text-slate-500">Contacts w/o Account</div>
             <div class="text-xl font-semibold num mt-1">2,023</div>
-            <div class="text-[10px] text-slate-400">66%</div>
+            <div class="text-[10px] text-slate-500">66%</div>
           </div>
-          <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-            <div class="text-[10px] uppercase tracking-wide text-emerald-700">Duplicate emails</div>
-            <div class="text-xl font-semibold num mt-1 text-emerald-900">0</div>
-            <div class="text-[10px] text-emerald-700/70">Zoho dedup enforced</div>
+          <div class="rounded-lg border border-emerald-800 bg-emerald-950/40 p-3">
+            <div class="text-[10px] uppercase tracking-wide text-emerald-400">Duplicate emails</div>
+            <div class="text-xl font-semibold num mt-1 text-emerald-300">0</div>
+            <div class="text-[10px] text-emerald-400/70">Zoho dedup enforced</div>
           </div>
         </div>
       </div>
@@ -346,14 +349,14 @@ tailwind.config = {
         <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">Apollo prospect list (8,277 outreach pool)</div>
 
         <!-- Geo callout -->
-        <div class="rounded-xl border border-slate-200 bg-white p-5 mb-5">
+        <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 mb-5">
           <div class="flex items-center justify-between mb-3">
-            <div class="text-sm font-semibold text-ink">Geography</div>
+            <div class="text-sm font-semibold text-slate-100">Geography</div>
             <div class="text-[10px] uppercase tracking-wide text-slate-500">audience shape</div>
           </div>
-          <div class="text-3xl font-semibold num text-ink mb-1">98.5%</div>
+          <div class="text-3xl font-semibold num text-slate-100 mb-1">98.5%</div>
           <div class="text-sm text-slate-600 mb-3">India person → US-HQ company</div>
-          <div class="h-2.5 rounded-full bg-slate-100 overflow-hidden">
+          <div class="h-2.5 rounded-full bg-slate-800 overflow-hidden">
             <div class="h-full bg-indigo-500" style="width:98.5%"></div>
           </div>
           <div class="mt-3 text-xs text-slate-500">
@@ -363,16 +366,16 @@ tailwind.config = {
 
         <!-- Branch + Industry pies side-by-side -->
         <div class="grid grid-cols-2 gap-4 mb-5">
-          <div class="rounded-xl border border-slate-200 bg-white p-5">
-            <div class="text-sm font-semibold text-ink mb-1">Title bucket</div>
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <div class="text-sm font-semibold text-slate-100 mb-1">Title bucket</div>
             <div class="text-[10px] text-slate-500 mb-3">drafted rows</div>
             <div class="flex justify-center mb-3">
               <div id="branch-pie"></div>
             </div>
             <div id="branch-legend" class="space-y-1.5 text-xs"></div>
           </div>
-          <div class="rounded-xl border border-slate-200 bg-white p-5">
-            <div class="text-sm font-semibold text-ink mb-1">Industry pain (top 8)</div>
+          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <div class="text-sm font-semibold text-slate-100 mb-1">Industry pain (top 8)</div>
             <div class="text-[10px] text-slate-500 mb-3">drafted rows</div>
             <div class="flex justify-center mb-3">
               <div id="industry-pie"></div>
@@ -381,7 +384,7 @@ tailwind.config = {
           </div>
         </div>
 
-        <div class="rounded-lg border border-amber-200 bg-amber-50/40 p-4 text-xs text-amber-900">
+        <div class="rounded-lg border border-amber-800 bg-amber-950/30 p-4 text-xs text-amber-300">
           <span class="font-semibold">Why 99.8% India→US?</span> The Apollo seed query targeted India-based individuals at US-headquartered companies — exactly USAIndiaCFO's ICP. The remaining 0.2% (US/US, India/India) are edge cases worth verifying before send.
         </div>
       </div>
@@ -401,44 +404,44 @@ tailwind.config = {
 
     <!-- Headline quality cards -->
     <div class="mt-8 grid md:grid-cols-4 gap-3">
-      <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 stat-card">
-        <div class="text-[10px] uppercase tracking-wide text-emerald-700">Drafted</div>
-        <div class="text-2xl font-semibold num mt-1 text-emerald-900">3,221</div>
-        <div class="text-[10px] text-emerald-700/80 mt-1">88.8% of Tier A scope</div>
+      <div class="rounded-xl border border-emerald-800 bg-emerald-950/40 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-emerald-400">Drafted</div>
+        <div class="text-2xl font-semibold num mt-1 text-emerald-300">3,221</div>
+        <div class="text-[10px] text-emerald-400/80 mt-1">88.8% of Tier A scope</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Unique bodies</div>
         <div class="text-2xl font-semibold num mt-1">100%</div>
-        <div class="text-[10px] text-slate-400 mt-1">3,221 distinct</div>
+        <div class="text-[10px] text-slate-500 mt-1">3,221 distinct</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">With research hook</div>
         <div class="text-2xl font-semibold num mt-1">82.3%</div>
-        <div class="text-[10px] text-slate-400 mt-1">2,651 rows</div>
+        <div class="text-[10px] text-slate-500 mt-1">2,651 rows</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Median word count</div>
         <div class="text-2xl font-semibold num mt-1">114</div>
-        <div class="text-[10px] text-slate-400 mt-1">all ≤150 ✓</div>
+        <div class="text-[10px] text-slate-500 mt-1">all ≤150 ✓</div>
       </div>
     </div>
 
     <!-- Word count histogram + audit -->
     <div class="mt-6 grid lg:grid-cols-2 gap-4">
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
-        <div class="text-sm font-semibold text-ink mb-1">Word count distribution</div>
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <div class="text-sm font-semibold text-slate-100 mb-1">Word count distribution</div>
         <div class="text-xs text-slate-500 mb-4">Body length across 3,221 drafted emails. Hard cap from CONTEXT.docx is 150.</div>
         <div id="wc-histogram"></div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
-        <div class="text-sm font-semibold text-ink mb-1">Audit results</div>
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
+        <div class="text-sm font-semibold text-slate-100 mb-1">Audit results</div>
         <div class="text-xs text-slate-500 mb-4">Final checks before partner review</div>
         <ul class="space-y-2 text-sm">
-          <li class="flex items-center justify-between"><span>Bodies over 150 words</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
-          <li class="flex items-center justify-between"><span>Leaders field = "Akshay Nahar" only</span><span class="font-mono num text-emerald-700">3,221/3,221 ✓</span></li>
-          <li class="flex items-center justify-between"><span>"Sony" / "Blackstone" mentions</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
-          <li class="flex items-center justify-between"><span>Other-leader mentions (Naman, Disha, etc.)</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
-          <li class="flex items-center justify-between"><span>"12,000 companies" fabricated stat</span><span class="font-mono num text-emerald-700">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Bodies over 150 words</span><span class="font-mono num text-emerald-400">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Leaders field = "Akshay Nahar" only</span><span class="font-mono num text-emerald-400">3,221/3,221 ✓</span></li>
+          <li class="flex items-center justify-between"><span>"Sony" / "Blackstone" mentions</span><span class="font-mono num text-emerald-400">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>Other-leader mentions (Naman, Disha, etc.)</span><span class="font-mono num text-emerald-400">0 ✓</span></li>
+          <li class="flex items-center justify-between"><span>"12,000 companies" fabricated stat</span><span class="font-mono num text-emerald-400">0 ✓</span></li>
           <li class="flex items-center justify-between"><span>Unique subjects</span><span class="font-mono num">3,214 / 3,221 (99.8%)</span></li>
         </ul>
       </div>
@@ -448,14 +451,14 @@ tailwind.config = {
     <div class="mt-8">
       <div class="flex items-baseline justify-between mb-4">
         <div>
-          <div class="text-sm font-semibold text-ink">10 sample drafts</div>
+          <div class="text-sm font-semibold text-slate-100">10 sample drafts</div>
           <div class="text-xs text-slate-500">Click any card to expand the body. Filter by title branch.</div>
         </div>
         <div class="flex gap-1.5">
-          <button data-filter="all" class="filter-btn active px-2.5 py-1 text-[11px] rounded-md bg-ink text-white">All</button>
-          <button data-filter="founder_ceo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Founder/CEO</button>
-          <button data-filter="cfo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">CFO</button>
-          <button data-filter="other" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Other</button>
+          <button data-filter="all" class="filter-btn active px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-900">All</button>
+          <button data-filter="founder_ceo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">Founder/CEO</button>
+          <button data-filter="cfo" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">CFO</button>
+          <button data-filter="other" class="filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">Other</button>
         </div>
       </div>
       <div id="emails-grid" class="grid md:grid-cols-2 gap-3"></div>
@@ -470,66 +473,66 @@ tailwind.config = {
   <div class="mx-auto max-w-7xl px-6 py-12">
     <div class="flex items-baseline gap-3 mb-1">
       <span class="text-xs uppercase tracking-widest text-slate-500">Pilot v2 / Awaiting approval</span>
-      <span class="text-[10px] uppercase tracking-wide bg-amber-100 text-amber-700 rounded px-1.5 py-0.5">Akshay-spec</span>
+      <span class="text-[10px] uppercase tracking-wide bg-amber-900/40 text-amber-400 rounded px-1.5 py-0.5">Akshay-spec</span>
     </div>
     <h2 class="text-3xl font-semibold tracking-tight">Pilot v2 &middot; rewritten to Akshay's brief</h2>
     <p class="mt-2 text-slate-600 max-w-3xl">10 drafts following the Akshay-authored spec — US-first compliance angle, exactly one US-side term, "two disconnected advisors" USP, CA Co-Founder only (no CPA, no CGO).</p>
 
     <!-- What's different from v1 -->
-    <div class="mt-8 rounded-2xl border border-amber-200 bg-amber-50/40 p-6">
-      <div class="text-xs uppercase tracking-wide text-amber-700 font-semibold mb-3">What's different from v1 (the 3,221 already drafted)</div>
+    <div class="mt-8 rounded-2xl border border-amber-800 bg-amber-950/30 p-6">
+      <div class="text-xs uppercase tracking-wide text-amber-400 font-semibold mb-3">What's different from v1 (the 3,221 already drafted)</div>
       <div class="grid md:grid-cols-2 gap-x-6 gap-y-3 text-sm">
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">USP</span>
-          <span class="text-slate-700">"Two disconnected advisors blind spot" — Indian CA + US CPA who never speak. We're the only firm under one roof. Replaces the geography-based framing.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">USP</span>
+          <span class="text-slate-200">"Two disconnected advisors blind spot" — Indian CA + US CPA who never speak. We're the only firm under one roof. Replaces the geography-based framing.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">ORDER</span>
-          <span class="text-slate-700">US-side compliance issue named first. India is the differentiator ("what a US-only CPA would miss"). v1 led with founder geography.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">ORDER</span>
+          <span class="text-slate-200">US-side compliance issue named first. India is the differentiator ("what a US-only CPA would miss"). v1 led with founder geography.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">TERM</span>
-          <span class="text-slate-700">Exactly ONE US-side term per email. v1 stacked 4-5 (Section 174 + transfer pricing + FEMA + GST + state nexus). One = credibility; multiple = template.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">TERM</span>
+          <span class="text-slate-200">Exactly ONE US-side term per email. v1 stacked 4-5 (Section 174 + transfer pricing + FEMA + GST + state nexus). One = credibility; multiple = template.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">TITLE</span>
-          <span class="text-slate-700">Akshay = "CA, Co-Founder, USAIndiaCFO". Never CPA. Never CGO. CA only. Always exactly once per body.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">TITLE</span>
+          <span class="text-slate-200">Akshay = "CA, Co-Founder, USAIndiaCFO". Never CPA. Never CGO. CA only. Always exactly once per body.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">CTA</span>
-          <span class="text-slate-700">Specific 20-minute call with Akshay. v1 was generic "lighten the compliance load" — softer but less actionable.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">CTA</span>
+          <span class="text-slate-200">Specific 20-minute call with Akshay. v1 was generic "lighten the compliance load" — softer but less actionable.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">OPEN</span>
-          <span class="text-slate-700">Opens with company's specific business detail. v1 opened with "Took a quick look at..." (implicit I) — Akshay's rule forbids any I/We/Hope/firm-name opener.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">OPEN</span>
+          <span class="text-slate-200">Opens with company's specific business detail. v1 opened with "Took a quick look at..." (implicit I) — Akshay's rule forbids any I/We/Hope/firm-name opener.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">SIG</span>
-          <span class="text-slate-700">New "Scheduling a call with: Akshay Nahar | CA · Co-Founder" line. Pre-frames principal on the call without taking body word-count.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">SIG</span>
+          <span class="text-slate-200">New "Scheduling a call with: Akshay Nahar | CA · Co-Founder" line. Pre-frames principal on the call without taking body word-count.</span>
         </div>
         <div class="flex gap-3">
-          <span class="font-mono text-xs text-amber-700 shrink-0 mt-0.5">WORDS</span>
-          <span class="text-slate-700">Body 95-135 words, 4 paragraphs (Hook → Insight → Introduction → CTA). v1 was 78-146 with looser structure.</span>
+          <span class="font-mono text-xs text-amber-400 shrink-0 mt-0.5">WORDS</span>
+          <span class="text-slate-200">Body 95-135 words, 4 paragraphs (Hook → Insight → Introduction → CTA). v1 was 78-146 with looser structure.</span>
         </div>
       </div>
     </div>
 
     <!-- Variety stats -->
     <div class="mt-6 grid md:grid-cols-3 gap-3">
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">US-side terms used</div>
         <div class="text-2xl font-semibold num mt-1">6</div>
-        <div class="text-[10px] text-slate-400 mt-1">unique across 10 drafts</div>
+        <div class="text-[10px] text-slate-500 mt-1">unique across 10 drafts</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Word count range</div>
         <div class="text-2xl font-semibold num mt-1">106–130</div>
-        <div class="text-[10px] text-slate-400 mt-1">all in 95–135 spec ✓</div>
+        <div class="text-[10px] text-slate-500 mt-1">all in 95–135 spec ✓</div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Audit passes</div>
-        <div class="text-2xl font-semibold num mt-1 text-emerald-700">10 / 10</div>
-        <div class="text-[10px] text-slate-400 mt-1">spec compliance</div>
+        <div class="text-2xl font-semibold num mt-1 text-emerald-400">10 / 10</div>
+        <div class="text-[10px] text-slate-500 mt-1">spec compliance</div>
       </div>
     </div>
 
@@ -537,42 +540,42 @@ tailwind.config = {
     <div class="mt-8">
       <div class="flex items-baseline justify-between mb-4">
         <div>
-          <div class="text-sm font-semibold text-ink">10 v2 drafts</div>
+          <div class="text-sm font-semibold text-slate-100">10 v2 drafts</div>
           <div class="text-xs text-slate-500">Filter by US-side compliance term. Click any card to expand the body + see signature.</div>
         </div>
         <div class="flex gap-1.5 flex-wrap">
-          <button data-v2-filter="all" class="v2-filter-btn active px-2.5 py-1 text-[11px] rounded-md bg-ink text-white">All 10</button>
-          <button data-v2-filter="economic nexus" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Economic nexus</button>
-          <button data-v2-filter="Form 5472" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Form 5472</button>
-          <button data-v2-filter="IRC §174" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">§174</button>
-          <button data-v2-filter="FIRPTA" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">FIRPTA</button>
-          <button data-v2-filter="§1446 withholding" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">§1446</button>
-          <button data-v2-filter="Form 5471" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200">Form 5471</button>
+          <button data-v2-filter="all" class="v2-filter-btn active px-2.5 py-1 text-[11px] rounded-md bg-slate-100 text-slate-900">All 10</button>
+          <button data-v2-filter="economic nexus" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">Economic nexus</button>
+          <button data-v2-filter="Form 5472" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">Form 5472</button>
+          <button data-v2-filter="IRC §174" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">§174</button>
+          <button data-v2-filter="FIRPTA" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">FIRPTA</button>
+          <button data-v2-filter="§1446 withholding" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">§1446</button>
+          <button data-v2-filter="Form 5471" class="v2-filter-btn px-2.5 py-1 text-[11px] rounded-md bg-slate-800 text-slate-600 hover:bg-slate-700">Form 5471</button>
         </div>
       </div>
       <div id="v2-emails-grid" class="grid md:grid-cols-2 gap-3"></div>
     </div>
 
     <!-- Decision panel -->
-    <div class="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
+    <div class="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-6">
       <div class="text-xs uppercase tracking-wide text-slate-500 mb-2">For Akshay's decision</div>
       <h3 class="text-lg font-semibold tracking-tight mb-3">If approved, what happens next</h3>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <div class="rounded-lg border border-slate-200 p-4">
-          <div class="text-xs font-mono text-emerald-700 mb-1">IF APPROVED</div>
-          <div class="text-slate-700">All 3,221 Tier A drafts re-drafted to v2 spec. ~1 hour compute. Bulk drafter already supports the 4-paragraph structure and ONE-US-term selection.</div>
+        <div class="rounded-lg border border-slate-800 p-4">
+          <div class="text-xs font-mono text-emerald-400 mb-1">IF APPROVED</div>
+          <div class="text-slate-200">All 3,221 Tier A drafts re-drafted to v2 spec. ~1 hour compute. Bulk drafter already supports the 4-paragraph structure and ONE-US-term selection.</div>
         </div>
-        <div class="rounded-lg border border-slate-200 p-4">
-          <div class="text-xs font-mono text-amber-700 mb-1">IF EDITS</div>
-          <div class="text-slate-700">Inline edits on these 10 → update facts.json or industry-pain templates → regenerate all 3,221 with revised templates.</div>
+        <div class="rounded-lg border border-slate-800 p-4">
+          <div class="text-xs font-mono text-amber-400 mb-1">IF EDITS</div>
+          <div class="text-slate-200">Inline edits on these 10 → update facts.json or industry-pain templates → regenerate all 3,221 with revised templates.</div>
         </div>
-        <div class="rounded-lg border border-slate-200 p-4">
-          <div class="text-xs font-mono text-rose-700 mb-1">IF REJECTED</div>
-          <div class="text-slate-700">v1 drafts (already on the Drafts tab) stay as the campaign artifact. No re-work.</div>
+        <div class="rounded-lg border border-slate-800 p-4">
+          <div class="text-xs font-mono text-rose-400 mb-1">IF REJECTED</div>
+          <div class="text-slate-200">v1 drafts (already on the Drafts tab) stay as the campaign artifact. No re-work.</div>
         </div>
       </div>
-      <div class="mt-5 pt-5 border-t border-slate-100 text-xs text-slate-500">
-        <span class="font-semibold text-ink">On the "Scheduling a call with:" signature element:</span>
+      <div class="mt-5 pt-5 border-t border-slate-800 text-xs text-slate-500">
+        <span class="font-semibold text-slate-100">On the "Scheduling a call with:" signature element:</span>
         recommend keeping. Does real work — pre-frames who's on the call, separates writer (BD) from principal (CA Co-Founder), adds seniority signal without taking body word-count.
         Easy to A/B-test off if reply rates underperform — drop the 2-line block, keep the rest of the sig.
       </div>
@@ -593,44 +596,44 @@ tailwind.config = {
       <div>
         <div class="text-xs uppercase tracking-widest text-slate-500 mb-1 flex items-center gap-2">
           Pilot v3 · API
-          <span class="text-[9px] uppercase tracking-wide bg-indigo-100 text-indigo-700 rounded px-1.5 py-0.5">Haiku 4.5</span>
+          <span class="text-[9px] uppercase tracking-wide bg-indigo-900/40 text-indigo-300 rounded px-1.5 py-0.5">Haiku 4.5</span>
         </div>
         <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">claude-haiku-4-5</h2>
       </div>
       <div class="text-xs text-slate-500 font-mono">188% cheaper than sonnet-4-6</div>
     </div>
     <p class="mt-1 text-slate-600 max-w-3xl text-sm">
-      10 emails rendered by the Anthropic API using prompt_v3.md + workflow appendix (Akshay-only, restrained tone, one compliance term, no locations). Same inputs as Claude Code Pilot v2 — same per-company research hooks fed in as <code class="font-mono text-[11px] bg-slate-100 px-1 rounded">recent_trigger</code> / <code class="font-mono text-[11px] bg-slate-100 px-1 rounded">named_customers</code>.
+      10 emails rendered by the Anthropic API using prompt_v3.md + workflow appendix (Akshay-only, restrained tone, one compliance term, no locations). Same inputs as Claude Code Pilot v2 — same per-company research hooks fed in as <code class="font-mono text-[11px] bg-slate-800 px-1 rounded">recent_trigger</code> / <code class="font-mono text-[11px] bg-slate-800 px-1 rounded">named_customers</code>.
     </p>
 
     <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Total cost</div>
         <div class="text-xl font-semibold num mt-0.5">$0.0388</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Cost / row</div>
         <div class="text-xl font-semibold num mt-0.5">$0.0039</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Latency / row</div>
         <div class="text-xl font-semibold num mt-0.5">6,712 ms</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Output tokens</div>
         <div class="text-xl font-semibold num mt-0.5">4,347</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Cache read tokens</div>
         <div class="text-xl font-semibold num mt-0.5">71,235</div>
-        <div class="text-[10px] text-slate-400 mt-0.5">vs 7,915 written</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">vs 7,915 written</div>
       </div>
     </div>
 
-    <div class="mt-4 rounded-md border border-slate-200 bg-slate-50/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
-      <div class="font-semibold text-ink shrink-0">For 3,646 ready rows →</div>
+    <div class="mt-4 rounded-md border border-slate-800 bg-slate-900/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
+      <div class="font-semibold text-slate-100 shrink-0">For 3,646 ready rows →</div>
       <div>
-        Projected total: <span class="font-mono font-semibold text-ink">$14.13</span>
+        Projected total: <span class="font-mono font-semibold text-slate-100">$14.13</span>
         &middot; wall time at 20-way parallel: <span class="font-mono">20 min</span>
         &middot; wall time serial: <span class="font-mono">407 min</span>
       </div>
@@ -650,44 +653,44 @@ tailwind.config = {
       <div>
         <div class="text-xs uppercase tracking-widest text-slate-500 mb-1 flex items-center gap-2">
           Pilot v3 · API
-          <span class="text-[9px] uppercase tracking-wide bg-violet-100 text-violet-700 rounded px-1.5 py-0.5">Sonnet 4.6</span>
+          <span class="text-[9px] uppercase tracking-wide bg-violet-900/40 text-violet-300 rounded px-1.5 py-0.5">Sonnet 4.6</span>
         </div>
         <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">claude-sonnet-4-6</h2>
       </div>
       <div class="text-xs text-slate-500 font-mono">65% more expensive than haiku-4-5</div>
     </div>
     <p class="mt-1 text-slate-600 max-w-3xl text-sm">
-      10 emails rendered by the Anthropic API using prompt_v3.md + workflow appendix (Akshay-only, restrained tone, one compliance term, no locations). Same inputs as Claude Code Pilot v2 — same per-company research hooks fed in as <code class="font-mono text-[11px] bg-slate-100 px-1 rounded">recent_trigger</code> / <code class="font-mono text-[11px] bg-slate-100 px-1 rounded">named_customers</code>.
+      10 emails rendered by the Anthropic API using prompt_v3.md + workflow appendix (Akshay-only, restrained tone, one compliance term, no locations). Same inputs as Claude Code Pilot v2 — same per-company research hooks fed in as <code class="font-mono text-[11px] bg-slate-800 px-1 rounded">recent_trigger</code> / <code class="font-mono text-[11px] bg-slate-800 px-1 rounded">named_customers</code>.
     </p>
 
     <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Total cost</div>
         <div class="text-xl font-semibold num mt-0.5">$0.1114</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Cost / row</div>
         <div class="text-xl font-semibold num mt-0.5">$0.0111</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Latency / row</div>
         <div class="text-xl font-semibold num mt-0.5">10,672 ms</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Output tokens</div>
         <div class="text-xl font-semibold num mt-0.5">4,025</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Cache read tokens</div>
         <div class="text-xl font-semibold num mt-0.5">71,244</div>
-        <div class="text-[10px] text-slate-400 mt-0.5">vs 7,916 written</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">vs 7,916 written</div>
       </div>
     </div>
 
-    <div class="mt-4 rounded-md border border-slate-200 bg-slate-50/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
-      <div class="font-semibold text-ink shrink-0">For 3,646 ready rows →</div>
+    <div class="mt-4 rounded-md border border-slate-800 bg-slate-900/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
+      <div class="font-semibold text-slate-100 shrink-0">For 3,646 ready rows →</div>
       <div>
-        Projected total: <span class="font-mono font-semibold text-ink">$40.63</span>
+        Projected total: <span class="font-mono font-semibold text-slate-100">$40.63</span>
         &middot; wall time at 20-way parallel: <span class="font-mono">32 min</span>
         &middot; wall time serial: <span class="font-mono">648 min</span>
       </div>
@@ -707,12 +710,12 @@ tailwind.config = {
       <div>
         <div class="text-xs uppercase tracking-widest text-slate-500 mb-1 flex items-center gap-2">
           Bulk Pilot · Sonnet API + Subscription QA
-          <span class="text-[9px] uppercase tracking-wide bg-amber-100 text-amber-700 rounded px-1.5 py-0.5">approval gate</span>
+          <span class="text-[9px] uppercase tracking-wide bg-amber-900/40 text-amber-400 rounded px-1.5 py-0.5">approval gate</span>
         </div>
         <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">50-row Bulk Pilot</h2>
       </div>
       <a id="bulk-pilot-download" download="outreach_ready_pilot_50.csv" href="data:text/csv;base64,ZW1haWwsZmlyc3RfbmFtZSxsYXN0X25hbWUsY29tcGFueV9uYW1lLHRpdGxlLHN1YmplY3QsYm9keSxzZW5kZXJfbWFpbGJveCx0aWVyLGljcF9zY29yZQ0KbmFyZXNoLnNoYWhAYWJjYXJ2YWwuY29tLE5hcmVzaCxTaGFoLEFCIENhclZhbCwiVmljZSBQcmVzaWRlbnQsIENMTyIsQUIgQ2FyVmFsJ3MgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjaywiSGkgTmFyZXNoLAoKQUIgQ2FyVmFsIG9wZXJhdGluZyBhY3Jvc3MgSW5kaWEgYW5kIHRoZSBVUyB1bmRlciBhbiBpbnZlc3RtZW50IG1hbmFnZW1lbnQgc3RydWN0dXJlIHVzdWFsbHkgY3JlYXRlcyBjb21wbGlhbmNlIHBvaW50cyB0aGF0IHNpdCBiZXR3ZWVuIHR3byBhZHZpc29ycyDigJQgdGhlIFVTIHNpZGUgYW5kIHRoZSBJbmRpYSBzaWRlIOKAlCB3aXRob3V0IGVpdGhlciBmdWxseSBjb3ZlcmluZyBib3RoLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBlbnRpdHkncyBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGZpbGluZ3MgYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zIHdpdGggdGhlIFVTIGVudGl0eQrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyBpcyBhbGlnbmVkIHdpdGggdGhlIEluZGlhLXRvLVVTIG93bmVyc2hpcCBhbmQgaW52ZXN0bWVudCB0cmFpbArigKIgaG93IFVTIGJvb2tzIGFuZCBJbmRpYS1zaWRlIHJlY29yZHMgYXJlIG1hdGNoZWQgYWNyb3NzIHRoZSBzdHJ1Y3R1cmUK4oCiIGlmIHRoZSBVUyBmZWRlcmFsIHJldHVybiBpcyBmaWxlZCBjb3JyZWN0bHkgZXZlbiB3aGVyZSBubyBkaXN0cmlidXRhYmxlIGluY29tZSBpcyByZXBvcnRlZAoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiwgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBBQiBDYXJWYWw/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1NCIsc2FkaGFuYS5iQGF1ZGl0cmVhZHlocS5jb20sQSw5DQpyYXZpdGVqYS5rb3BwYWxsaUBhY3J1eG9yZy5jb20sUmF2aXRlamEsS29wcGFsbGksQUNSVVgsQ0VPLEFDUlVYJ3MgVVMgZmlsaW5nIHJldmlldywiSGkgUmF2aXRlamEsCgpBQ1JVWCB3b3JraW5nIGFjcm9zcyBhY2Nlc3NpYmlsaXR5LCBlLXB1Ymxpc2hpbmcsIGFuZCBwcm9kdWN0IGRldmVsb3BtZW50IOKAlCB3aXRoIEluZGlhIG93bmVyc2hpcCBiZWhpbmQgYSBVUyBEZWxhd2FyZSBlbnRpdHkg4oCUIHVzdWFsbHkgY3JlYXRlcyBhIGZldyBjb21wbGlhbmNlIHBvaW50cyB0aGF0IHNpdCBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycyBhbmQgZ2V0IG1pc3NlZCB1bnRpbCBmaWxpbmcgdGltZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgVVMgZmVkZXJhbCByZXR1cm4gaGFzIGJlZW4gZmlsZWQsIGV2ZW4gaWYgbm8gdGF4IGlzIGR1ZQrigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gSW5kaWEtb3duZXIgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIGhvdyB0aGUgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGludGVyY29tcGFueSBlbnRyaWVzCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBlbnRpdHkncyBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50CgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBmaWxpbmcgc2lkZSBhbmQgdGhlIEluZGlhLXNpZGUgcmVwb3J0aW5nIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcsIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gYWR2aXNvcnMgd29ya2luZyBzZXBhcmF0ZWx5LgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEFDUlVYPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDkiLHNhZGhhbmEuYkByZW1vdGVjZm9kZXNrLmNvbSxBLDkNCmhlbWFuc2hpQGFjdG93aXouY29tLEhlbWFuc2hpLE1pc3RyeSxBY3Rvd2l6IFNvbHV0aW9ucyxGb3VuZGVyLEFjdG93aXoncyBVUyBmaWxpbmcgYW5kIEluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIEhlbWFuc2hpLAoKQWN0b3dpeiBzZXJ2aW5nIDQsMDAwKyBidXNpbmVzc2VzIHRocm91Z2ggd2ViIHNjcmFwaW5nIGFuZCBkYXRhIGV4dHJhY3Rpb24g4oCUIHdpdGggYSBVUyBEZWxhd2FyZSBDLUNvcnAgYW5kIEluZGlhLXNpZGUgb3duZXJzaGlwIOKAlCB1c3VhbGx5IG1lYW5zIHRoZSBjb21wbGlhbmNlIHRyYWlsIGJldHdlZW4gYm90aCBzaWRlcyBpcyB3b3J0aCBjaGVja2luZyBiZWZvcmUgaXQgYmVjb21lcyBhIGNsZWFudXAgaXNzdWUuCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIFVTIGZlZGVyYWwgcmV0dXJuIGlzIGZpbGVkIGNvcnJlY3RseSBmb3IgdGhlIERlbGF3YXJlIGVudGl0eSwgZXZlbiBpbiBhIGxvdy1yZXZlbnVlIHllYXIK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucyBvciBpbnRlcmNvbXBhbnkgZmxvd3MK4oCiIGhvdyB0aGUgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGludm9pY2luZwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudAoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZmlsaW5nIHNpZGUgYW5kIEluZGlhLXNpZGUgcmVwb3J0aW5nIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcg4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgQWN0b3dpej8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0KYW51ai5wYXJpaGFyQGFkdmFpeWEuY29tLEFudWosUGFyaWhhciwiQWR2YWl5YSBTb2x1dGlvbnMsIEluYyIsIkZ1bGwgc3RhY2sgRGV2ZWxvcGVyIHx8IENvcmUtSmF2YSB8fCBWSVQnMjYgLSBNQ0EgfHwgTUxTVScyNCAtIEJDQSB8fCBQcm9ibGVtIFNvbHZpbmcgfHwgQWRhcHRhYmlsaXR5IHx8IEZvdW5kZXIgb2YgSVNEQyBDbHViLCIsQWR2YWl5YSdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIEFudWosCgpBZHZhaXlhIFNvbHV0aW9ucyBkZWxpdmVyaW5nIGRpZ2l0YWwgdHJhbnNmb3JtYXRpb24gYW5kIE1pY3Jvc29mdC1zdGFjayBzZXJ2aWNlcyB0byBVUyBjbGllbnRzIHRocm91Z2ggYSBEZWxhd2FyZSBDLUNvcnAgd2l0aCBJbmRpYS1iYXNlZCBvd25lcnNoaXAgaXMgZXhhY3RseSB0aGUgc3RydWN0dXJlIHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgY29tcGxpYW5jZSBzaWRlcyB0ZW5kIHRvIHJ1biBpbmRlcGVuZGVudGx5IOKAlCBhbmQgY3JlYXRlIGdhcHMgYmVmb3JlIGFueW9uZSBub3RpY2VzLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSBpbnRlcmNvbXBhbnkgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgb3IgZnVuZGluZyB0cmFpbArigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSByZWNvcmRzLCBlc3BlY2lhbGx5IGZvciBzZXJ2aWNlIGJpbGxpbmcgYW5kIHJlaW1idXJzZW1lbnRzCuKAoiB3aGV0aGVyIFVTIGZlZGVyYWwgcmV0dXJuIGZpbGluZyBvYmxpZ2F0aW9ucyBhcmUgbWV0IGV2ZW4gaWYgbm8gVVMgdGF4IGlzIGR1ZQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBBZHZhaXlhPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNTgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb3NvbHV0aW9ucy5jb20sQSw5DQp1ZGl0Z0BhZHZhbnRhZ2VjbHViLmFpLFVkaXQsR3VwdGEsQWR2YW50YWdlQ2x1Yi5haSxHcm93dGggLSBGb3VuZGVycyBPZmZpY2UsQWR2YW50YWdlQ2x1Yi5haSdzIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2ssIkhpIFVkaXQsCgpBZHZhbnRhZ2VDbHViLmFpIHJ1bm5pbmcgYW4gZW1wbG95ZWUgcmVjb2duaXRpb24gcGxhdGZvcm0gb3V0IG9mIEluZGlhIHdpdGggYSBVUyBEZWxhd2FyZSBDLUNvcnAgc3RydWN0dXJlIHVzdWFsbHkgbWVhbnMgdGhlIGNvbXBsaWFuY2UgdHJhaWwgcnVucyBhY3Jvc3MgYm90aCBzaWRlcyDigJQgYW5kIHRoZSB0d28gZG9uJ3QgYWx3YXlzIGNvbm5lY3QgY2xlYW5seSB3aXRob3V0IHNvbWVvbmUgd2F0Y2hpbmcgYm90aCBhdCBvbmNlLgoKVGhlIGJhc2ljIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBVUyBmZWRlcmFsIHJldHVybiBpcyByZXF1aXJlZCBldmVuIGlmIG5vIHRheCBpcyBkdWUK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyBpcyBwcm9wZXJseSBkb2N1bWVudGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudArigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSByZWNvcmRzIGJlZm9yZSB0aGUgbmV4dCBmaWxpbmcgY3ljbGUK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggdGhlIFVTIGFuZCBJbmRpYSBzaWRlcyBvZiB0aGlzIHN0cnVjdHVyZSBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3IOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIGFkdmlzb3JzIHdvcmtpbmcgc2VwYXJhdGVseS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBBZHZhbnRhZ2VDbHViLmFpPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkBmaXhteXVzZmlsaW5ncy5jb20sQSw5DQpzdXJiaGkudGl3YXJpQGFsZ29ub215LmNvbSxTdXJiaGksVGl3YXJpLEFsZ29ub215LEFzc29jaWF0ZSBEaXJlY3RvciAtIE1hcmtldGluZyBTb2x1dGlvbiAmIEFJIFN0cmF0ZWd5IFRlYW0gfHwgIEZvdW5kZXIgLSBBZnNhYW5lIHx8IFRyYWluZWUgUHN5Y2hvZHJhbWF0aXN0IHx8IE1JQ0FuLEluZGlhLVVTIGZpbGluZyBjaGVjayBmb3IgQWxnb25vbXksIkhpIFN1cmJoaSwKCkFsZ29ub215IGRlbGl2ZXJpbmcgQUktcG93ZXJlZCBzb2x1dGlvbnMgZm9yIHJldGFpbCBlLWNvbW1lcmNlIGFuZCBtZXJjaGFuZGlzaW5nIGFjcm9zcyBVUyBhbmQgSW5kaWEgbWFya2V0cyB1c3VhbGx5IG1lYW5zIHRoZXJlIGFyZSBjb21wbGlhbmNlIHRocmVhZHMgcnVubmluZyBvbiBib3RoIHNpZGVzIHRoYXQgbmVlZCB0byBjb25uZWN0IOKAlCBVUyBlbnRpdHkgZmlsaW5ncywgSW5kaWEtc2lkZSBvd25lcnNoaXAgcmVwb3J0aW5nLCBhbmQgdGhlIGNyb3NzLWJvcmRlciB0cmFuc2FjdGlvbiB0cmFpbCBiZXR3ZWVuIHRoZW0uCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIFVTIGZlZGVyYWwgcmV0dXJuIGlzIGZpbGVkIGFuZCBjdXJyZW50IGZvciB0aGUgRGVsYXdhcmUgZW50aXR5CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zIGJldHdlZW4gdGhlIFVTIGFuZCBJbmRpYSBzaWRlcwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudCBvciBmdW5kaW5nIHRyYWlsCuKAoiBob3cgVVMgYm9va3MgYW5kIEluZGlhLXNpZGUgcmVjb3JkcyBtYXRjaCBhY3Jvc3MgaW50ZXJjb21wYW55IGZsb3dzCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdvcmtpbmcgd2l0aG91dCBmdWxsIGNvbnRleHQuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgQWxnb25vbXk/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1NSIsc2FkaGFuYS5iQGZpeG15dXNmaWxpbmdzLmNvbSxBLDkNCmF5dXNoQGFtZXJpY2FuY2hhc2UuY29tLEF5dXNoLEphaW4sQW1lcmljYW4gQ2hhc2UsQ28tRm91bmRlcixBbWVyaWNhbiBDaGFzZSdzIFVTIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBBeXVzaCwKCkFtZXJpY2FuIENoYXNlIG9wZXJhdGluZyBhcyBhIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBvd25lcnNoaXAgYW5kIGFuIElUIHNlcnZpY2VzIG1vZGVsIGNyZWF0ZXMgYSBmZXcgY3Jvc3MtYm9yZGVyIGNvbXBsaWFuY2UgcG9pbnRzIHRoYXQgYXJlIHdvcnRoIGNoZWNraW5nIGJlZm9yZSB0aGV5IGJlY29tZSBhIGNsZWFudXAgaXNzdWUg4oCUIHBhcnRpY3VsYXJseSBhcm91bmQgaG93IHRoZSBVUyBhbmQgSW5kaWEgc2lkZXMgYXJlIHJlcG9ydGVkIHRvZ2V0aGVyLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIGFueSBJbmRpYS1vd25lciBmdW5kaW5nLCByZWltYnVyc2VtZW50cywgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBvbiB0aGUgSW5kaWEgc2lkZSBmb3IgdGhlIFVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBhbmQgaW50ZXJjb21wYW55IGVudHJpZXMK4oCiIGlmIHRyYW5zZmVyIHByaWNpbmcgaXMgZG9jdW1lbnRlZCBmb3IgYW55IEluZGlhLXRvLVVTIHNlcnZpY2UgZmxvd3MKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggdGhlIFVTIGZpbGluZyBzaWRlIGFuZCBJbmRpYS1zaWRlIGNvbXBsaWFuY2UgaW4gb25lIGNvb3JkaW5hdGVkIHJldmlldywgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBBbWVyaWNhbiBDaGFzZT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTU4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0Kc3llZC5qYXdhZEBiZXlvbmRwcmljaW5nLmNvbSxTeWVkLEphd2FkLEJleW9uZCxQcmluY2lwYWwgQXJjaGl0ZWN0IHwgRm91bmRlcixCZXlvbmQncyBVUyBhbmQgSW5kaWEgY29tcGxpYW5jZSBjaGVjaywiSGkgU3llZCwKCkJleW9uZCBvZmZlcmluZyBkeW5hbWljIHByaWNpbmcgdG9vbHMgdG8gQWlyYm5iLCBWcmJvLCBhbmQgQm9va2luZy5jb20gaG9zdHMgYWNyb3NzIHRoZSBVUyDigJQgd2l0aCBhIERlbGF3YXJlIEMtQ29ycCBhbmQgYW4gSW5kaWEtYmFzZWQgZm91bmRlciDigJQgbWVhbnMgdGhlIFVTIGFuZCBJbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpcyB3b3J0aCByZXZpZXdpbmcgdG9nZXRoZXIgYmVmb3JlIHRoZSBuZXh0IGZpbGluZyBjeWNsZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgVVMgZmVkZXJhbCByZXR1cm4gaXMgZmlsZWQgZXZlbiBpZiBubyB0YXggaXMgZHVlCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIGFuZCBhbnkgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIGhvdyBVUyBib29rcyByZWZsZWN0IG93bmVyIGZ1bmRpbmcgb3IgaW50ZXJjb21wYW55IHJlaW1idXJzZW1lbnRzCuKAoiB3aGV0aGVyIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50IHRyYWlsIGlzIGNvdmVyZWQgdW5kZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMgd29ya2luZyBpbiBpc29sYXRpb24uCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgQmV5b25kPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb2NvbXBsaWFuY2UuY29tLEEsOQ0KdGhlLmhvZGxlcnNAYmxvZ2dlci5jb20sVGhlLEhvZGxlcnMsQmxvZ2dlcixDaGllZiBFeGVjdXRpdmUgT2ZmaWNlcixCbG9nZ2VyJ3MgVVMgY29tcGxpYW5jZSBjaGVjayB3b3J0aCByZXZpZXdpbmcsIkhpIFRoZSwKCkJsb2dnZXIgb3BlcmF0aW5nIGFzIGEgVVMgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIG93bmVyc2hpcCB1c3VhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBnYXBzIHRoYXQgc2l0IGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIOKAlCBvbmUgaGFuZGxpbmcgdGhlIFVTIHNpZGUgYW5kIG9uZSBvbiB0aGUgSW5kaWEgc2lkZSwgd2l0aCBuZWl0aGVyIHNlZWluZyB0aGUgZnVsbCBwaWN0dXJlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGZpbGluZ3MgYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIHRoZSBJbmRpYS1zaWRlIG93bmVyc2hpcCBhbmQgYW55IHJlbGF0ZWQtcGFydHkgZnVuZGluZyBvciB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgdHJhaWwK4oCiIGhvdyBVUyBib29rcyBhcmUgcmVjb3JkZWQgYW5kIHdoZXRoZXIgdGhleSBtYXRjaCBJbmRpYS1zaWRlIHJlY29yZHMKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gYWR2aXNvcnMgd29ya2luZyBzZXBhcmF0ZWx5LgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEJsb2dnZXI/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE0OCIsc2FkaGFuYS5iQHVzYWluZGlhY2ZvY29tcGxpYW5jZS5jb20sQSw5DQphcnBhbi5wYWxAYmxvZ2dlci5jb20sQXJwYW4sUGFsLEJsb2dnZXIsR3JvdXAgQ0VPLEJsb2dnZXIncyBVUyBEZWxhd2FyZSBjb21wbGlhbmNlIGNoZWNrLCJIaSBBcnBhbiwKClJ1bm5pbmcgYSBmaW5hbmNpYWwgc2VydmljZXMgYnVzaW5lc3MgdGhyb3VnaCBhIFVTIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBvd25lcnNoaXAgdXN1YWxseSBjcmVhdGVzIGEgZmV3IGNvbXBsaWFuY2UgZ2FwcyB3b3J0aCBjaGVja2luZyBvbiBib3RoIHNpZGVzIOKAlCBlc3BlY2lhbGx5IHdoZXJlIHRoZSBVUyBlbnRpdHkgYW5kIEluZGlhLXNpZGUgcmVjb3JkcyBuZWVkIHRvIHN0YXkgYWxpZ25lZC4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIG9yIGFueSBJbmRpYS10by1VUyBmdW5kaW5nIG9yIHJlbGF0ZWQtcGFydHkgZmxvd3MK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgb24gdGhlIEluZGlhIHNpZGUgcmVmbGVjdHMgdGhlIFVTIGludmVzdG1lbnQgY29ycmVjdGx5CuKAoiBob3cgVVMgYm9va3MgYXJlIHJlY29uY2lsZWQgYWdhaW5zdCBJbmRpYS1zaWRlIHJlY29yZHMgZm9yIHRoZSBzYW1lIHBlcmlvZArigKIgaWYgdGhlIFVTIGZlZGVyYWwgcmV0dXJuIGhhcyBiZWVuIGZpbGVkIGV2ZW4gaWYgbm8gdGF4IGlzIGR1ZSBmb3IgdGhlIHllYXIKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggdGhlIFVTIGZpbGluZyBzaWRlIGFuZCBJbmRpYS1zaWRlIHJlcG9ydGluZyBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3LCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEJsb2dnZXI/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE0OCIsc2FkaGFuYS5iQHVzYWluZGlhY2ZvY29tcGxpYW5jZS5jb20sQSw5DQphYmlkLm1vaGFtbWVkQGNvZ25pZGEuYWksQWJpZCxNb2hhbW1lZCxDb2duaWRhLmFpLCJDby1Gb3VuZGVyLCBUZWNobm9sb2d5IixDb2duaWRhLmFpJ3MgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjaywiSGkgQWJpZCwKCkNvZ25pZGEuYWkgYnVpbGRpbmcgZW50ZXJwcmlzZSBBSSBzb2x1dGlvbnMgYWNyb3NzIGhlYWx0aGNhcmUsIGZpbmFuY2UsIGFuZCBtYW51ZmFjdHVyaW5nIOKAlCB3aXRoIGEgVVMgRGVsYXdhcmUgZW50aXR5IGFuZCBhbiBJbmRpYS1sZWQgZm91bmRpbmcgdGVhbSDigJQgdXN1YWxseSBtZWFucyB0aGUgY29tcGxpYW5jZSB0cmFpbCBydW5zIGFjcm9zcyB0d28gZGlmZmVyZW50IHN5c3RlbXMgdGhhdCBkb24ndCBhbHdheXMgdGFsayB0byBlYWNoIG90aGVyLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGZpbGluZ3MgYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMgd2l0aCB0aGUgVVMgZW50aXR5CuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBhZHZpc29ycwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gdGhlIFVTIGZpbGluZyBwb3NpdGlvbiBhbmQgSW5kaWEtc2lkZSByZXBvcnRpbmcgc3RheSBjb25uZWN0ZWQuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgQ29nbmlkYS5haT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0KdmhpcmVrYWVAY3liZXJzb3VyY2UuY29tLFZpa2FzLEhpcmVrYWUsQ3liZXJzb3VyY2UsQnVzaW5lc3MgT3duZXIsQ3liZXJzb3VyY2UncyBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrLCJIaSBWaWthcywKClJ1bm5pbmcgYW4gSVQgc2VydmljZXMgYnVzaW5lc3MgdGhyb3VnaCBhIFVTIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhLXNpZGUgb3duZXJzaGlwIGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBwb2ludHMgdGhhdCBvZnRlbiBzaXQgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMg4oCUIHdvcnRoIGNoZWNraW5nIHRoYXQgYm90aCBzaWRlcyBhcmUgY292ZXJlZCBwcm9wZXJseS4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgYW5udWFsIERlbGF3YXJlIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYS1zaWRlIG93bmVyc2hpcCBvciBhbnkgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgb3IgZnVuZGluZyBmbG93CuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYmVmb3JlIHRoZSBuZXh0IGZpbGluZyBjeWNsZQrigKIgaWYgdHJhbnNmZXIgcHJpY2luZyBkb2N1bWVudGF0aW9uIHN1cHBvcnRzIGFueSBJbmRpYS1VUyBzZXJ2aWNlIG9yIGJpbGxpbmcgYXJyYW5nZW1lbnQKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgc3RheXMgaW4gYSBnYXAgYmV0d2VlbiB5b3VyIFVTIGFuZCBJbmRpYSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBDeWJlcnNvdXJjZT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0Kc3VyYmhpcmF3YXRAY3ludGV4YS5jb20sU3VyYmhpLFJhd2F0LEN5bnRleGEsIkIyQiBNYXJrZXRpbmcgU3BlY2lhbGlzdCwgRm91bmRlciIsQ3ludGV4YSdzIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBTdXJiaGksCgpDeW50ZXhhIG9wZXJhdGluZyBhcyBhIFVTIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBvd25lcnNoaXAgYW5kIGFuIElUIHNlcnZpY2VzIGRlbGl2ZXJ5IG1vZGVsIGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBwb2ludHMgdGhhdCBvZnRlbiBzaXQgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMg4oCUIG9uZSBoYW5kbGluZyBVUyBmaWxpbmdzLCB0aGUgb3RoZXIgaGFuZGxpbmcgSW5kaWEtc2lkZSByZXBvcnRpbmcg4oCUIHdpdGhvdXQgZWl0aGVyIHNlZWluZyB0aGUgZnVsbCBwaWN0dXJlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBVUyBmZWRlcmFsIHJldHVybiBpcyBmaWxlZCBldmVuIGlmIG5vIHRheCBpcyBkdWUgZm9yIHRoZSBlbnRpdHkK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBzdGFuZGluZyBsb29rcyBjdXJyZW50bHkK4oCiIHdoZXRoZXIgSW5kaWEtdG8tVVMgc2VydmljZSBiaWxsaW5nIGlzIGJhY2tlZCBieSBpbnRlcmNvbXBhbnkgYWdyZWVtZW50cwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZW50aXR5IHNpZGUgYW5kIEluZGlhLXNpZGUgcmVwb3J0aW5nIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcsIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgQ3ludGV4YT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTU4IixzYWRoYW5hLmJAYXVkaXRyZWFkeWhxLmNvbSxBLDkNCnNoYW50ZXNoQGVtZXJnZW50LnNoLFNoYW50ZXNoLFBhdGlsLEVtZXJnZW50LEZvdW5kZXJzIE9mZmljZSxFbWVyZ2VudCdzIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2ssIkhpIFNoYW50ZXNoLAoKRW1lcmdlbnQgb3BlcmF0aW5nIGFzIGEgVVMgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIG93bmVyc2hpcCBhbmQgYW4gSW5kaWEtYmFzZWQgZm91bmRpbmcgdGVhbSBtYWtlcyB0aGUgY3Jvc3MtYm9yZGVyIGNvbXBsaWFuY2UgdHJhaWwgd29ydGggcmV2aWV3aW5nIGVhcmx5IOKAlCBiZWZvcmUgZmlsaW5ncyBvciBkaWxpZ2VuY2UgY3JlYXRlIGEgY2xlYW51cCBzaXR1YXRpb24uCgpUaGUgYmFzaWMgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQgYW5kIHRoZSBlbnRpdHkgaXMgaW4gZ29vZCBzdGFuZGluZwrigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gSW5kaWEtb3duZXIgZnVuZGluZyBvciBhbnkgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMgYmV0d2VlbiB0aGUgVVMgYW5kIEluZGlhIHNpZGUK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhbmQgaW50ZXJjb21wYW55IGVudHJpZXMgbWF0Y2ggdGhlIEluZGlhLXNpZGUgcmVjb3JkcwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBFbWVyZ2VudD8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTUzIixzYWRoYW5hLmJAYXVkaXRyZWFkeWhxLmNvbSxBLDkNCnNlZW1hQGVzdHVhdGUuY29tLFNlZW1ha2lyYW4sVXBhZGh5YSwiRXN0dWF0ZSwgSW5jLiIsTWFuYWdpbmcgRGlyZWN0b3IgJiBDaGllZiBEZWxpdmVyeSBPZmZpY2VyLEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgZm9yIEVzdHVhdGUsIkhpIFNlZW1ha2lyYW4sCgpFc3R1YXRlIGRlbGl2ZXJpbmcgQUktZW5hYmxlZCB0ZWNobm9sb2d5IHNlcnZpY2VzIHRvIGVudGVycHJpc2UgY2xpZW50cyBhY3Jvc3MgdGhlIFVTLCB3aXRoIEluZGlhbiBvd25lcnNoaXAgYmVoaW5kIGEgRGVsYXdhcmUgQy1Db3JwLCB1c3VhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBnYXBzIHdvcnRoIHJldmlld2luZyBiZWZvcmUgdGhleSBiZWNvbWUgYSBjbGVhbnVwIGV4ZXJjaXNlIOKAlCBlc3BlY2lhbGx5IHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgc2lkZXMgYXJlIGhhbmRsZWQgc2VwYXJhdGVseS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyBpcyBhbGlnbmVkIHdpdGggdGhlIFVTIG93bmVyc2hpcCBhbmQgaW52ZXN0bWVudCByZWNvcmRzCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBmdW5kaW5nIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zIHdpdGggdGhlIFVTIGVudGl0eQrigKIgaG93IFVTIGJvb2tzIGFuZCBpbnRlcmNvbXBhbnkgcmVjb3JkcyBtYXRjaCBJbmRpYS1zaWRlIGVudHJpZXMK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggZmlsaW5ncyBhcmUgY3VycmVudArigKIgaWYgdHJhbnNmZXIgcHJpY2luZyBkb2N1bWVudGF0aW9uIHN1cHBvcnRzIHRoZSBJbmRpYS1VUyBzZXJ2aWNlIGRlbGl2ZXJ5IHN0cnVjdHVyZQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBFc3R1YXRlPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkBmaXhteXVzZmlsaW5ncy5jb20sQSw5DQpubWFkaGVrYXJAZXhwcmVzc2lvbnNzdG9yZXMuY29tLE5hbXJhdGEsTWFkaGVrYXIsRXhwcmVzc2lvbnMsQnVzaW5lc3MgT3duZXIsRXhwcmVzc2lvbnMnIFVTIERlbGF3YXJlIGZpbGluZyBjaGVjaywiSGkgTmFtcmF0YSwKClJ1bm5pbmcgYSByZXRhaWwgYnVzaW5lc3MgbGlrZSBFeHByZXNzaW9ucyB0aHJvdWdoIGEgVVMgRGVsYXdhcmUgZW50aXR5IHdoaWxlIGJlaW5nIEluZGlhLWJhc2VkIHVzdWFsbHkgY3JlYXRlcyBhIGZldyBjb21wbGlhbmNlIGdhcHMgYmV0d2VlbiB0aGUgdHdvIHNpZGVzIOKAlCBhbmQgdGhleSB0ZW5kIHRvIHN1cmZhY2UgYXQgdGhlIHdyb25nIG1vbWVudC4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIG9yIGFueSBJbmRpYS10by1VUyBmdW5kaW5nCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBob3cgVVMgYm9va3MgYW5kIEluZGlhLXNpZGUgcmVjb3JkcyBhcmUgbWF0Y2hlZCBhbmQgbWFpbnRhaW5lZCBjbGVhbmx5CuKAoiBpZiBVUyBmZWRlcmFsIHJldHVybiBmaWxpbmcgaXMgcmVxdWlyZWQgZXZlbiB3aGVyZSBubyB0YXggaXMgZHVlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBmaWxpbmcgb2JsaWdhdGlvbnMgYW5kIHRoZSBJbmRpYS1zaWRlIHJlcG9ydGluZyBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3IOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdvcmtpbmcgaW4gaXNvbGF0aW9uLgoKV29ydGggYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBmb3IgRXhwcmVzc2lvbnM/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1MiIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDkNCmdvcGFsLnNoYXJtYUBmaW5hZHZhbnRhZ2UuY29tLEdvcGFsLFNoYXJtYSxGaW5BZHZhbnRhZ2UsIkNvLWZvdW5kZXIsIENoaWVmIE9wZXJhdGluZyBPZmZpY2UiLEZpbkFkdmFudGFnZSdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIEdvcGFsLAoKRmluQWR2YW50YWdlIGhlbHBpbmcgQ1BBcyBhbmQgQ0ZPcyBzY2FsZSB0aGVpciBhY2NvdW50aW5nIGFuZCBib29ra2VlcGluZyBvcGVyYXRpb25zIGZyb20gSW5kaWEgaXMgYSBzdHJvbmcgY3Jvc3MtYm9yZGVyIHNldHVwIOKAlCBhbmQgb25lIHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgY29tcGxpYW5jZSB0cmFpbHMgYXJlIHdvcnRoIGtlZXBpbmcgYWxpZ25lZCwgZXNwZWNpYWxseSBhcyBjbGllbnQgdm9sdW1lcyBhbmQgaW50ZXJjb21wYW55IGZsb3dzIGdyb3cuCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMgd2l0aCB0aGUgVVMgZW50aXR5CuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBob3cgVVMgYm9va3MgYW5kIEluZGlhLXNpZGUgcmVjb3JkcyBhcmUgcmVjb25jaWxlZCBhY3Jvc3MgYmlsbGluZyBjeWNsZXMKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgc2l0cyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycyB3b3JraW5nIGluZGVwZW5kZW50bHkuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgRmluQWR2YW50YWdlPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb2NvbXBsaWFuY2UuY29tLEEsOQ0Kc2JAZm9yZ2VnbG9iYWwuY29tLFN3YXRpLEIsRm9yZ2UsQ28tRm91bmRlcixGb3JnZSdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIFN3YXRpLAoKRm9yZ2Ugb3BlcmF0aW5nIGFzIGEgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIGZvdW5kZXIgb3duZXJzaGlwIGluIGZpbmFuY2lhbCBzZXJ2aWNlcyBtYWtlcyB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSB0cmFpbCB3b3J0aCByZXZpZXdpbmcgY2FyZWZ1bGx5IOKAlCBmaW5hbmNpYWwgc2VydmljZXMgc3RydWN0dXJlcyB0ZW5kIHRvIGNhcnJ5IG1vcmUgcmVwb3J0aW5nIGxheWVycyB0aGFuIG1vc3QgZm91bmRlcnMgZXhwZWN0LCBhbmQgdGhlIHR3byBzaWRlcyBvZnRlbiBydW4gc2VwYXJhdGVseSB3aXRob3V0IGEgZnVsbCBwaWN0dXJlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYW4gb3duZXIgdHJhbnNhY3Rpb25zIG9yIGludGVyY29tcGFueSBmbG93cwrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSByZWNvcmRzIGZvciB0aGUgZmlsaW5nIHBvc2l0aW9uCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIHNpdHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMgd29ya2luZyBpbiBpc29sYXRpb24uCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgRm9yZ2U/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1MiIsc2FkaGFuYS5iQHVzYWluZGlhY2ZvY29tcGxpYW5jZS5jb20sQSw5DQptcGludG9AZ2V0Z2VuZWEuY29tLE1lbHRvbixQaW50byxHZW5lYSxBTUZJIFJlZ2lzdGVyZWQgTXV0dWFsIEZ1bmQgRGlzdHJpYnV0b3IgfCBGb3VuZGVyIG9mLFVTIGZpbGluZyBjaGVjayBmb3IgR2VuZWEgdGhpcyBjeWNsZSwiSGkgTWVsdG9uLAoKR2VuZWEgb3BlcmF0aW5nIGFzIGEgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIG93bmVyc2hpcCBtYWtlcyBhIGZldyBiYXNpYyBjb21wbGlhbmNlIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGJlZm9yZSB0aGUgbmV4dCBmaWxpbmcgY3ljbGUg4oCUIHRoZSBraW5kIHRoYXQgb2Z0ZW4gc2l0IGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdpdGhvdXQgZWl0aGVyIG9uZSBjb3ZlcmluZyB0aGUgZnVsbCBwaWN0dXJlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBmdW5kaW5nIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zCuKAoiBob3cgVVMgYm9va3MgYXJlIHJlY29yZGVkIGFuZCB3aGV0aGVyIHRoZXkgYXJlIHJlYWR5IGZvciB0YXggZmlsaW5nCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIG9uIHRoZSBJbmRpYSBzaWRlIG1hdGNoZXMgdGhlIFVTIG93bmVyc2hpcCBzdHJ1Y3R1cmUKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSB3b3JrcyB0aHJvdWdoIGJvdGggdGhlIFVTIGFuZCBJbmRpYSBzaWRlcyBpbiBvbmUgY29udmVyc2F0aW9uLCBzbyBub3RoaW5nIGdldHMgbWlzc2VkIGJldHdlZW4gdHdvIGRpc2Nvbm5lY3RlZCBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBHZW5lYT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0KYW5raXQuYWdhcndhbEBoZXhhdmlld3RlY2guY29tLEFua2l0LEFnYXJ3YWwsSGV4YXZpZXcgVGVjaG5vbG9naWVzIEluYy4sRm91bmRlciAmIENUTyxJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGZvciBIZXhhdmlldywiSGkgQW5raXQsCgpIZXhhdmlldyBUZWNobm9sb2dpZXMgd29ya2luZyBhY3Jvc3MgdGhlIFVTIGFuZCBJbmRpYSDigJQgd2l0aCBlbnRlcnByaXNlIGNsaWVudHMsIGEgRGVsYXdhcmUgZW50aXR5LCBhbmQgYW4gSW5kaWEtYmFzZWQgZGVsaXZlcnkgdGVhbSDigJQgdXN1YWxseSBjcmVhdGVzIGEgZmV3IGNvbXBsaWFuY2UgZ2FwcyBiZXR3ZWVuIHRoZSB0d28gc2lkZXMgdGhhdCBhcmUgd29ydGggY2hlY2tpbmcgYmVmb3JlIHRoZSBuZXh0IGZpbGluZyBjeWNsZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiB0aGUgSW5kaWEtc2lkZSBvd25lcnNoaXAgYW5kIGFueSBpbnRlcmNvbXBhbnkgdHJhbnNhY3Rpb25zCuKAoiBob3cgVVMgYm9va3MgYXJlIHJlY29uY2lsZWQgYWdhaW5zdCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGRlbGl2ZXJ5IGNvc3RzCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIGlzIGFsaWduZWQgd2l0aCB0aGUgVVMgb3duZXJzaGlwIGFuZCBmdW5kaW5nIHRyYWlsCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEhleGF2aWV3PyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb3NvbHV0aW9ucy5jb20sQSw5DQpkaGFpcnlhQGhleWdlbi5jb20sRGhhaXJ5YSxQcmFqYXBhdGksSGV5R2VuLEZvdW5kZXIsSGV5R2VuJ3MgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjaywiSGkgRGhhaXJ5YSwKCkhleUdlbiBvcGVyYXRpbmcgYXMgYSBEZWxhd2FyZSBDLUNvcnAgd2l0aCBJbmRpYW4gb3duZXJzaGlwIGJlaGluZCBhbiBBSSB2aWRlbyBwbGF0Zm9ybSBpcyBleGFjdGx5IHRoZSBzdHJ1Y3R1cmUgd2hlcmUgVVMgYW5kIEluZGlhLXNpZGUgZmlsaW5ncyBuZWVkIHRvIHN0YXkgaW4gc3luYyDigJQgYW5kIG9mdGVuIGRvbid0LgoKVGhlIGJhc2ljIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhbiBvd25lciBmdW5kaW5nLCByZWltYnVyc2VtZW50cywgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhcmUgcmVjb3JkZWQgYW5kIHdoZXRoZXIgdGhleSBtYXRjaCBJbmRpYS1zaWRlIHJlY29yZHMK4oCiIGlmIHRoZSBVUyBmZWRlcmFsIHJldHVybiBoYXMgYmVlbiBmaWxlZCBmb3IgdGhlIGVudGl0eSwgZXZlbiBpZiBubyB0YXggaXMgZHVlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEhleUdlbj8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0Kaml5YS5oYXFAaWduaXRldGVjaC5jb20sSml5YSxIYXEsSWduaXRlVGVjaCwiRm91bmRlciwgQ1RPIixJZ25pdGVUZWNoJ3MgVVMgYW5kIEluZGlhIGZpbGluZyBjaGVjaywiSGkgSml5YSwKClJ1bm5pbmcgSWduaXRlVGVjaCBhcyBhbiBJbmRpYW4gZm91bmRlciB0aHJvdWdoIGEgVVMgRGVsYXdhcmUgQy1Db3JwIGNyZWF0ZXMgYSB0d28tc2lkZWQgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgdGhhdCBpcyB3b3J0aCBjaGVja2luZyBlbmQgdG8gZW5kIOKAlCBlc3BlY2lhbGx5IHdoZW4gYm90aCBVUyBmaWxpbmdzIGFuZCBJbmRpYS1zaWRlIHJlcG9ydGluZyBuZWVkIHRvIHN0YXkgYWxpZ25lZC4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gYW55IEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBtYXRjaCBJbmRpYS1zaWRlIHJlY29yZHMgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBhZHZpc29ycwrigKIgaWYgdGhlIFVTIGZlZGVyYWwgcmV0dXJuIGlzIHJlcXVpcmVkIGV2ZW4gd2l0aCBubyB0YXggZHVlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyB0aGUgVVMgYW5kIEluZGlhIHBpY3R1cmUgc3RheXMgY29ubmVjdGVkLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIElnbml0ZVRlY2g/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE0OCIsc2FkaGFuYS5iQHJlbW90ZWNmb2Rlc2suY29tLEEsOQ0KYWRpdHlhLm1vbnlAaW5ub3ZhcHB0aXZlLmNvbSxBZGl0eWEsTW9ueSxJbm5vdmFwcHRpdmUgSW5jLEluZGlhIE1hbmFnaW5nIERpcmVjdG9yICYgQ1RPLElubm92YXBwdGl2ZSdzIEluZGlhLVVTIGZpbGluZyBjaGVjayB3b3J0aCByZXZpZXdpbmcsIkhpIEFkaXR5YSwKCklubm92YXBwdGl2ZSBvcGVyYXRpbmcgdGhyb3VnaCBhIFVTIERlbGF3YXJlIGVudGl0eSB3aXRoIEluZGlhLXNpZGUgb3duZXJzaGlwIGFuZCBlbmdpbmVlcmluZyBiZWhpbmQgaXRzIEFJLXBvd2VyZWQgcGxhdGZvcm0gbWFrZXMgdGhlIGNyb3NzLWJvcmRlciBjb21wbGlhbmNlIHRyYWlsIHdvcnRoIHJldmlld2luZyBiZWZvcmUgdGhlIG5leHQgZmlsaW5nIGN5Y2xlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBvd25lciBmdW5kaW5nIG9yIEluZGlhLXJlbGF0ZWQgcGFydHkgdHJhbnNhY3Rpb25zCuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGludGVyY29tcGFueSBmbG93cwrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaWYgSW5kaWEgZGV2ZWxvcG1lbnQgY29zdHMgYXJlIGNvcnJlY3RseSByZWZsZWN0ZWQgaW4gdGhlIFVTIHJldHVybgoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZmlsaW5nIHNpZGUgYW5kIEluZGlhLXNpZGUgY29tcGxpYW5jZSBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3IOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIElubm92YXBwdGl2ZT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAYXVkaXRyZWFkeWhxLmNvbSxBLDkNCmpheWVzaC5iaGF3YXJlQGludGVjaC1zeXN0ZW1zLmNvbSxKYXllc2gsQmhhd2FyZSxJbnRlY2ggU3lzdGVtcyA6IE1pY3Jvc29mdCBTb2x1dGlvbnMgUGFydG5lcixBc3Npc3RhbnQgTWFuYWdlciAtIE1pY3Jvc29mdCBBbGxpYW5jZSB8IE9mZmljZSBvZiBNZC9jZW8sSW50ZWNoIFN5c3RlbXMnIFVTIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBKYXllc2gsCgpJbnRlY2ggU3lzdGVtcyBvcGVyYXRpbmcgYXMgYSBNaWNyb3NvZnQgU29sdXRpb25zIFBhcnRuZXIgaW4gdGhlIFVTIOKAlCBkZWxpdmVyaW5nIEVSUCwgQ1JNLCBhbmQgQXp1cmUgc2VydmljZXMgdG8gVVMgY2xpZW50cyBmcm9tIGFuIEluZGlhLWxlZCBzdHJ1Y3R1cmUg4oCUIGlzIGV4YWN0bHkgdGhlIHNldHVwIHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgY29tcGxpYW5jZSBzaWRlcyBuZWVkIHRvIG1vdmUgdG9nZXRoZXIuCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIFVTIERlbGF3YXJlIHJldHVybiBoYXMgYmVlbiBmaWxlZCwgZXZlbiBpZiBubyB0YXggaXMgZHVlCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBvciByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucyB3aXRoIHRoZSBVUyBlbnRpdHkK4oCiIGhvdyBVUyBib29rcyBhbmQgSW5kaWEtc2lkZSByZWNvcmRzIG1hdGNoIGFjcm9zcyBpbnRlcmNvbXBhbnkgc2VydmljZSBmbG93cwrigKIgd2hldGhlciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudCB0cmFpbCBpcyBjb3ZlcmVkIHVuZGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIEludGVjaCBTeXN0ZW1zPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb2NvbXBsaWFuY2UuY29tLEEsOQ0Kc3VtYW50aC5jaGFuZHJhc2hla2FyQGp1bWlvLmNvbSxTdW1hbnRoLENoYW5kcmFzaGVrYXIsSnVtaW8gQ29ycG9yYXRpb24sQ2hpZWYgb2YgU3RhZmYgdG8gQ0VPLEp1bWlvJ3MgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayB3b3J0aCByZXZpZXdpbmcsIkhpIFN1bWFudGgsCgpKdW1pbyBvcGVyYXRpbmcgYXMgYSBVUyBEZWxhd2FyZSBDLUNvcnAgd2l0aCBJbmRpYW4gb3duZXJzaGlwIGNyZWF0ZXMgYSBjb21wbGlhbmNlIHN0cnVjdHVyZSB3aGVyZSB0aGUgVVMgYW5kIEluZGlhIHNpZGVzIG9mdGVuIG1vdmUgaW5kZXBlbmRlbnRseSDigJQgYW5kIHNtYWxsIGdhcHMgYmV0d2VlbiB0aGUgdHdvIGNhbiBiZWNvbWUgY2xlYW51cCBpdGVtcyBsYXRlci4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBvciByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucyB3aXRoIHRoZSBVUyBlbnRpdHkK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgb24gdGhlIEluZGlhIHNpZGUgYWxpZ25zIHdpdGggVVMgb3duZXJzaGlwIHJlY29yZHMK4oCiIGhvdyBVUyBib29rcyBhbmQgaW50ZXJjb21wYW55IGVudHJpZXMgbWF0Y2ggSW5kaWEtc2lkZSByZWNvcmRzCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdvcmtpbmcgaW5kZXBlbmRlbnRseS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBKdW1pbz8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0Kc2Fuaml2Lm1laHRhQGxjYXR0ZXJ0b24uY29tLFNhbmppdixNZWh0YSxMIENhdHRlcnRvbixDaGllZiBFeGVjdXRpdmUgT2ZmaWNlcixMIENhdHRlcnRvbidzIEluZGlhLVVTIG93bmVyc2hpcCBjb21wbGlhbmNlIGNoZWNrLCJIaSBTYW5qaXYsCgpMIENhdHRlcnRvbiBvcGVyYXRpbmcgYWNyb3NzIHRoZSBVUyBhbmQgSW5kaWEgdGhyb3VnaCBhIERlbGF3YXJlIGVudGl0eSBtYWtlcyB0aGUgY3Jvc3MtYm9yZGVyIG93bmVyc2hpcCBhbmQgcmVwb3J0aW5nIHRyYWlsIHdvcnRoIHJldmlld2luZyB0b2dldGhlciDigJQgZXNwZWNpYWxseSB3aGVyZSBJbmRpYW4gb3duZXJzaGlwIG9yIEluZGlhLXRvLVVTIGZ1bmRpbmcgZmxvd3MgYXJlIGludm9sdmVkLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIGFueSBJbmRpYS10by1VUyBpbnZlc3RtZW50IG9yIG93bmVyc2hpcCBzdGFrZQrigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gSW5kaWEtb3duZXIgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMgdGhyb3VnaCB0aGUgRGVsYXdhcmUgZW50aXR5CuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBhY3Jvc3MgcmVwb3J0aW5nIHBlcmlvZHMK4oCiIHdoZXRoZXIgdGhlIGZlZGVyYWwgcmV0dXJuIHBvc2l0aW9uIG1hdGNoZXMgdGhlIEluZGlhLXNpZGUgb3duZXJzaGlwIGFuZCBmdW5kaW5nIGRvY3VtZW50YXRpb24KCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMgd29ya2luZyBpbiBpc29sYXRpb24uCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgTCBDYXR0ZXJ0b24/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1NiIsc2FkaGFuYS5iQGZpeG15dXNmaWxpbmdzLmNvbSxBLDkNCndpbnRlcndhcnJpb3JAbWFyYXRob25zcG9ydHMuY29tLE1hcmF0aG9uLFNwb3J0cyxNYXJhdGhvbiBTcG9ydHMsQ0VPL0Vjb21tZXJjZSxNYXJhdGhvbiBTcG9ydHMnIFVTIGZpbGluZyBhbmQgc2FsZXMgdGF4IGNoZWNrLCJIaSBNYXJhdGhvbiwKCk1hcmF0aG9uIFNwb3J0cyBtb3ZpbmcgaW52ZW50b3J5IGFuZCBlbWVyZ2luZyBicmFuZHMgaW50byB0aGUgVVMgbWFya2V0IHRocm91Z2ggYSBEZWxhd2FyZSBlbnRpdHkgY3JlYXRlcyBhIGZldyBjb21wbGlhbmNlIGl0ZW1zIHRoYXQgYXJlIHdvcnRoIGNoZWNraW5nIGJlZm9yZSB0aGV5IHN0YWNrIHVwIOKAlCBlc3BlY2lhbGx5IGFyb3VuZCBzYWxlcyB0YXgsIHBoeXNpY2FsIHByZXNlbmNlLCBhbmQgZW50aXR5LWxldmVsIGZpbGluZ3MuCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQK4oCiIGlmIHByb2R1Y3Qgc2FsZXMgaW4gYW55IHN0YXRlIHJlcXVpcmUgc2FsZXMgdGF4IHJlZ2lzdHJhdGlvbiBvciBjb2xsZWN0aW9uCuKAoiBob3cgd2FyZWhvdXNlIG9yIGludmVudG9yeSBsb2NhdGlvbiBtYXkgYWZmZWN0IHBoeXNpY2FsIG5leHVzIG9ibGlnYXRpb25zCuKAoiB3aGV0aGVyIHRoZSBVUyBlbnRpdHkncyBib29rcyBhcmUgY2xlYW4gYW5kIHJlYWR5IGZvciBmZWRlcmFsIGZpbGluZwrigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgZ2l2ZW4gSW5kaWFuIG93bmVyc2hpcCBhbmQgYW55IHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUy1zaWRlIGVudGl0eSBjb21wbGlhbmNlIGFuZCB0aGUgSW5kaWEtc2lkZSByZXBvcnRpbmcgaW4gb25lIGNvb3JkaW5hdGVkIHJldmlldyDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBNYXJhdGhvbiBTcG9ydHM/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1MiIsc2FkaGFuYS5iQHVzYWluZGlhY2ZvY29tcGxpYW5jZS5jb20sQSw5DQpyaXNoaXRhLm1haGVzaHdhcmlAbnVjbGV1c3RlcS5jb20sUmlzaGl0YSxNYWhlc2h3YXJpLE51Y2xldXNUZXEsU0RFIEBOdWNsZXVzIFRlcSB8fCBBV1MgQ2VydGlmaWVkIEFJIFByYWN0aXRpb25lciB8fCBBbWF6b24gTUwgU3VtbWVyIFNjaG9vbCAyMDI0IHx8IENvLUZvdW5kZXIsTnVjbGV1c1RlcSdzIFVTIGFuZCBJbmRpYSBjb21wbGlhbmNlIGNoZWNrLCJIaSBSaXNoaXRhLAoKTnVjbGV1c1RlcSBkZWxpdmVyaW5nIEFJIGFuZCBkYXRhIHNvbHV0aW9ucyBhY3Jvc3MgYmFua2luZywgcmV0YWlsLCBhbmQgaW5zdXJhbmNlIGZyb20gYW4gSW5kaWEtbGVkIHRlYW0gYmVoaW5kIGEgVVMgZW50aXR5IGNyZWF0ZXMgYSBjcm9zcy1ib3JkZXIgY29tcGxpYW5jZSBwaWN0dXJlIHdvcnRoIGNoZWNraW5nIGJlZm9yZSBpdCBidWlsZHMgdXAgcXVpZXRseSBvbiBlaXRoZXIgc2lkZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudCBvciBvd25lcnNoaXAK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIG93bmVyIGZ1bmRpbmcgb3IgSW5kaWEtcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBhbmQgaW50ZXJjb21wYW55IGZsb3dzCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGZpbGluZ3MgYXJlIGN1cnJlbnQK4oCiIGlmIHRyYW5zZmVyIHByaWNpbmcgZG9jdW1lbnRhdGlvbiBzdXBwb3J0cyB0aGUgSW5kaWEgZGVsaXZlcnkgYW5kIFVTIGJpbGxpbmcgc3RydWN0dXJlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdvcmtpbmcgaW5kZXBlbmRlbnRseS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBOdWNsZXVzVGVxPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNTIiLHNhZGhhbmEuYkBhdWRpdHJlYWR5aHEuY29tLEEsOQ0KYWtzaGF5QG9rYXlhaW5jLmNvbSxBa3NoYXksR3VwdGEsT0tBWUEgSU5GT0NPTSxDaGllZiBFeGVjdXRpdmUgT2ZmaWNlcixPS0FZQSdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBBa3NoYXksCgpPS0FZQSBvcGVyYXRpbmcgYXMgYSB0YWxlbnQgYWNxdWlzaXRpb24gYW5kIHRlY2ggc29sdXRpb25zIGZpcm0gYWNyb3NzIEluZGlhIGFuZCB0aGUgVVMg4oCUIHdpdGggYSBEZWxhd2FyZSBDLUNvcnAgc3RydWN0dXJlIGFuZCBJbmRpYW4gb3duZXJzaGlwIOKAlCB1c3VhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBnYXBzIGJldHdlZW4gdGhlIHR3byBzaWRlcyB0aGF0IGFyZSB3b3J0aCBjaGVja2luZyBiZWZvcmUgdGhleSBiZWNvbWUgYSBjbGVhbnVwIGlzc3VlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50IG9yIGZ1bmRpbmcgZmxvdwrigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gYW55IG93bmVyIGZ1bmRpbmcsIHJlaW1idXJzZW1lbnRzLCBvciBJbmRpYS10by1VUyBzZXJ2aWNlIHRyYW5zYWN0aW9ucwrigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSByZWNvcmRzIGFuZCBpbnRlcmNvbXBhbnkgYmlsbGluZwrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBVUyBmZWRlcmFsIHJldHVybiBmaWxpbmcgb2JsaWdhdGlvbnMgYXJlIG1ldCBldmVuIHdoZXJlIG5vIHRheCBpcyBkdWUKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMgd29ya2luZyBpbiBpc29sYXRpb24uCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgT0tBWUE/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1OCIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDkNCmFua2l0YXBhbmRhQHBhcmFtb3VudHNvZnQubmV0LEFua2l0YSxQYW5kYSwiUGFyYW1vdW50IFNvZnR3YXJlIFNvbHV0aW9ucywgSW5jIixGb3VuZGVyLFBhcmFtb3VudCBTb2Z0d2FyZSdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIEFua2l0YSwKClBhcmFtb3VudCBTb2Z0d2FyZSBTb2x1dGlvbnMgaGFzIGJlZW4gcnVubmluZyBVUy1JbmRpYSBvcGVyYXRpb25zIHNpbmNlIDE5OTgg4oCUIHRoYXQga2luZCBvZiBsb25nLXN0YW5kaW5nIGNyb3NzLWJvcmRlciBzdHJ1Y3R1cmUgdXN1YWxseSBtZWFucyB0aGUgVVMgYW5kIEluZGlhIGNvbXBsaWFuY2Ugc2lkZXMgaGF2ZSBncm93biBzZXBhcmF0ZWx5IG92ZXIgdGltZSwgYW5kIGEgZmV3IGJhc2ljIGl0ZW1zIGFyZSB3b3J0aCBjaGVja2luZyB0byBtYWtlIHN1cmUgYm90aCBzaWRlcyBhcmUgc3RpbGwgYWxpZ25lZC4KClRoZSBiYXNpYyBpdGVtcyB3ZSB3b3VsZCBjaGVjayBmaXJzdCBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBmaWxpbmdzIGFyZSBjdXJyZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIGFuZCBhbnkgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgb24gdGhlIEluZGlhLXRvLVVTIG93bmVyc2hpcCBzaWRlIGlzIHByb3Blcmx5IGRvY3VtZW50ZWQK4oCiIGhvdyBVUyBib29rcyBhbmQgSW5kaWEtc2lkZSByZWNvcmRzIG1hdGNoIGFjcm9zcyBpbnRlcmNvbXBhbnkgZmxvd3MK4oCiIGlmIFVTIGZlZGVyYWwgYW5kIHN0YXRlIHJldHVybnMgYXJlIGZpbGVkIGFuZCBjb21wbGV0ZSBmb3IgdGhlIGN1cnJlbnQgZW50aXR5IHN0cnVjdHVyZQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZmlsaW5nIHNpZGUgYW5kIEluZGlhLXNpZGUgcmVwb3J0aW5nIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcg4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMuCgpXb3J0aCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGZvciBQYXJhbW91bnQgU29mdHdhcmU/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1OCIsc2FkaGFuYS5iQHJlbW90ZWNmb2Rlc2suY29tLEEsOQ0KcGRAcmFwaWRpbm5vdmF0aW9uLmlvLFByYXNhbmppdCxEZXksUmFwaWQgSW5ub3ZhdGlvbixDby1Gb3VuZGVyLFJhcGlkIElubm92YXRpb24ncyBVUyBjb21wbGlhbmNlIGNoZWNrLCJIaSBQcmFzYW5qaXQsCgpSYXBpZCBJbm5vdmF0aW9uIG9wZXJhdGluZyBhcyBhIFVTIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBmb3VuZGVyIG93bmVyc2hpcCBpcyBleGFjdGx5IHRoZSBzdHJ1Y3R1cmUgd2hlcmUgdGhlIFVTIGFuZCBJbmRpYSBjb21wbGlhbmNlIHNpZGVzIG9mdGVuIHJ1biBpbmRlcGVuZGVudGx5IOKAlCBhbmQgYSBmZXcgYmFzaWMgaXRlbXMgY2FuIGZhbGwgdGhyb3VnaCB0aGUgZ2FwLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBhbm51YWwgRGVsYXdhcmUgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYS1zaWRlIG93bmVyc2hpcCBhbmQgYW55IGludGVyY29tcGFueSBmbG93cwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudArigKIgaG93IFVTIGJvb2tzIGFuZCBJbmRpYS1zaWRlIHJlY29yZHMgYWxpZ24gZm9yIHRoZSBzYW1lIHRyYW5zYWN0aW9ucwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZW50aXR5IHNpZGUgYW5kIEluZGlhLXNpZGUgcmVwb3J0aW5nIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcg4oCUIHNvIG5vdGhpbmcgc2l0cyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBSYXBpZCBJbm5vdmF0aW9uPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkBmaXhteXVzZmlsaW5ncy5jb20sQSw5DQpqYW1lcy53YWx0ZXJAb2JqZWN0ZnJvbnRpZXIuY29tLEphbWVzLFdhbHRlcixSZWxldmFudHogRGF0YSBhbmQgQUksQ2hpZWYgRXhlY3V0aXZlIE9mZmljZXIsUmVsZXZhbnR6J3MgVVMtSW5kaWEgY29tcGxpYW5jZSBjaGVjaywiSGkgSmFtZXMsCgpSZWxldmFudHogb3BlcmF0aW5nIGFzIGEgVVMgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIG93bmVyc2hpcCBiZWhpbmQgaXQgcHV0cyBhIGZldyBjcm9zcy1ib3JkZXIgY29tcGxpYW5jZSBpdGVtcyB3b3J0aCByZXZpZXdpbmcgYmVmb3JlIHRoZXkgYmVjb21lIGNsZWFudXAgd29yayDigJQgcGFydGljdWxhcmx5IHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgc2lkZXMgb2Z0ZW4gcnVuIG9uIHNlcGFyYXRlIGFkdmlzb3JzIHdobyBkb24ndCBmdWxseSBzZWUgZWFjaCBvdGhlcidzIHBpY3R1cmUuCgpUaGUgYmFzaWMgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgb3Igb3duZXJzaGlwCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBmdW5kaW5nIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zIHdpdGggdGhlIFVTIGVudGl0eQrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYWNyb3NzIHRoZSB0d28gZW50aXRpZXMK4oCiIHdoZXRoZXIgdHJhbnNmZXIgcHJpY2luZyBkb2N1bWVudGF0aW9uIGNvdmVycyBhbnkgSW5kaWEtc2lkZSBkZWxpdmVyeSBvciBzZXJ2aWNlIGNvc3RzIGJpbGxlZCB0byB0aGUgVVMgY29tcGFueQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBSZWxldmFudHo/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1OCIsc2FkaGFuYS5iQHVzYWluZGlhY2ZvY29tcGxpYW5jZS5jb20sQSw5DQpnYXVyYXZAc2RsY2NvcnAuY29tLEdhdXJhdixTb2xhbmtlLFNETEMgQ29ycCxGb3VuZGVyLFNETEMgQ29ycCdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIEdhdXJhdiwKClNETEMgQ29ycCBvZmZlcmluZyBkaWdpdGFsIHRyYW5zZm9ybWF0aW9uLCBjbG91ZCwgQUksIGFuZCBzb2Z0d2FyZSBzZXJ2aWNlcyBnbG9iYWxseSDigJQgd2l0aCBhbiBJbmRpYW4gZm91bmRlciBiZWhpbmQgYSBVUyBEZWxhd2FyZSBlbnRpdHkg4oCUIHVzdWFsbHkgY3JlYXRlcyBhIGZldyBjb21wbGlhbmNlIGdhcHMgd29ydGggY2hlY2tpbmcgYmVmb3JlIHRoZSBuZXh0IGZpbGluZyBjeWNsZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgVVMgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gYW55IEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgaW50ZXJjb21wYW55IHRyYW5zYWN0aW9ucwrigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSBiaWxsaW5nIGFuZCBzZXJ2aWNlIGRlbGl2ZXJ5IHJlY29yZHMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgaXMgaW4gcGxhY2UgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBpZiBVUyBzdGF0ZSByZWdpc3RyYXRpb25zIG1hdGNoIHdoZXJlIFNETEMgQ29ycCBpcyBhY3RpdmVseSBkb2luZyBidXNpbmVzcwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycyB3b3JraW5nIHdpdGhvdXQgdGhlIGZ1bGwgcGljdHVyZS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBTRExDIENvcnA/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE0OCIsc2FkaGFuYS5iQGF1ZGl0cmVhZHlocS5jb20sQSw5DQpzcmloYXJpLnNyaW5pdmFzYW5Ac2Fhc2xhYnMuY28sU3JpaGFyaSxTcmluaXZhc2FuLFNhYVMgTGFicyxDRU/igJlzIE9mZmljZSxTYWFTIExhYnMnIFVTIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBTcmloYXJpLAoKU2FhUyBMYWJzIGJ1aWxkaW5nIGEgZ2xvYmFsIGJ1c2luZXNzIHByb2Nlc3MgYXV0b21hdGlvbiBwbGF0Zm9ybSBmcm9tIEluZGlhIOKAlCB3aXRoIGEgVVMgRGVsYXdhcmUgQy1Db3JwIGluIHBsYWNlIOKAlCB1c3VhbGx5IG1lYW5zIHRoZSBJbmRpYS1VUyBjb21wbGlhbmNlIHN0cnVjdHVyZSBuZWVkcyBib3RoIHNpZGVzIGxvb2tlZCBhdCB0b2dldGhlciwgbm90IGp1c3QgdGhlIFVTIGZpbGluZyBhbG9uZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgVVMgZmVkZXJhbCByZXR1cm4gaXMgcmVxdWlyZWQgZm9yIHRoZSBEZWxhd2FyZSBlbnRpdHksIGV2ZW4gaWYgbm8gcHJvZml0IGlzIGR1ZSB0aGlzIHllYXIK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSBJbmRpYS10by1VUyBmdW5kaW5nIG9yIHJlaW1idXJzZW1lbnRzCuKAoiBob3cgdGhlIERlbGF3YXJlIGFubnVhbCByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggc3RhbmRpbmcgYXJlIGN1cnJlbnRseSB0cmFja2VkCuKAoiB3aGV0aGVyIEluZGlhLXNpZGUgT0RJIC8gRkVNQSByZXBvcnRpbmcgaXMgYWxpZ25lZCB3aXRoIHRoZSBVUyBvd25lcnNoaXAgcmVjb3JkcwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCB0aGUgVVMgZW50aXR5IHNpZGUgYW5kIHRoZSBJbmRpYS1zaWRlIHJlcG9ydGluZyBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3LCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV291bGQgYSAyMC1taW51dGUgSW5kaWEtVVMgY29tcGxpYW5jZSBjaGVjayBiZSB1c2VmdWwgZm9yIFNhYVMgTGFicz8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTUyIixzYWRoYW5hLmJAYXVkaXRyZWFkeWhxLmNvbSxBLDkNCnN5ZWxtYXJAc2FpY29uaW5jLmNvbSxTYWNoaW4sWWVsbWFyLFNhaWNvbixGb3VuZGVyICYgUHJlc2lkZW50LFNhaWNvbidzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIFNhY2hpbiwKClJ1bm5pbmcgYW4gSVQgc2VydmljZXMgYnVzaW5lc3MgdGhyb3VnaCBhIFVTIERlbGF3YXJlIGVudGl0eSB3aXRoIEluZGlhLWJhc2VkIG93bmVyc2hpcCB1c3VhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBnYXBzIGJldHdlZW4gdGhlIHR3byBzaWRlcyDigJQgdGhlIGtpbmQgdGhhdCBzdXJmYWNlIGR1cmluZyBkaWxpZ2VuY2Ugb3IgYXQgeWVhci1lbmQgd2hlbiBib3RoIGFkdmlzb3JzIGFyZSB3b3JraW5nIHNlcGFyYXRlbHkuCgpUaGUgYmFzaWMgaXRlbXMgd29ydGggY2hlY2tpbmcgZmlyc3QgYXJlOgoK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgb3Igb3duZXJzaGlwIHRyYWlsCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBhbnkgb3duZXIgZnVuZGluZywgcmVpbWJ1cnNlbWVudHMsIG9yIEluZGlhLXRvLVVTIHNlcnZpY2UgZmxvd3MK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBhbmQgaW50ZXJjb21wYW55IGludm9pY2VzCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGZpbGluZ3MgYXJlIGN1cnJlbnQK4oCiIGlmIFVTIGZlZGVyYWwgcmV0dXJuIG9ibGlnYXRpb25zIGFwcGx5IGV2ZW4gaW4gbG93LXJldmVudWUgb3IgZWFybHkgcGVyaW9kcwoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBhZHZpc29ycyB3b3JraW5nIHNlcGFyYXRlbHkuCgpXb3J0aCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGZvciBTYWljb24/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1OCIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDkNCnZpbml0Lm1pc2hyYUBzbWFydGVycC5jb20sVmluaXQsTWlzaHJhLFNtYXJ0IEVSUCBTb2x1dGlvbnMgSW5jLixGb3VuZGVyLFNtYXJ0IEVSUCdzIFVTLUluZGlhIGNvbXBsaWFuY2UgY2hlY2ssIkhpIFZpbml0LAoKU21hcnQgRVJQIFNvbHV0aW9ucyBvcGVyYXRpbmcgYXMgYSBEZWxhd2FyZSBDLUNvcnAgd2l0aCBhbiBJbmRpYS1iYXNlZCBmb3VuZGVyIGFuZCBPcmFjbGUgcGFydG5lcnNoaXAgd29yayBmbG93aW5nIGFjcm9zcyBib3RoIHNpZGVzIG1ha2VzIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSB3b3J0aCByZXZpZXdpbmcgYmVmb3JlIGFueXRoaW5nIGdldHMgbWlzc2VkIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKVGhlIGJhc2ljIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSByZWxhdGVkLXBhcnR5IG9yIGludGVyY29tcGFueSB0cmFuc2FjdGlvbnMK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBmb3IgdGhlIE9yYWNsZSBwYXJ0bmVyc2hpcCBiaWxsaW5nCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50IHRyYWlsCuKAoiBpZiBVUyBmZWRlcmFsIHJldHVybiBmaWxpbmcgb2JsaWdhdGlvbnMgYXJlIGJlaW5nIG1ldCBldmVuIHdoZXJlIHRheCBpcyBtaW5pbWFsCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBmaWxpbmcgc2lkZSBhbmQgSW5kaWEtc2lkZSByZXBvcnRpbmcgaW4gb25lIGNvb3JkaW5hdGVkIHJldmlldywgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBhZHZpc29ycyB3b3JraW5nIGluZGVwZW5kZW50bHkuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgU21hcnQgRVJQIFNvbHV0aW9ucz8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTU4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9jb21wbGlhbmNlLmNvbSxBLDkNCnN5ZWQuZ291c2VAc29mdHN1YXZlLmNvbSxTeWVkLEdvdXNlLFNvZnQgU3VhdmUgVGVjaG5vbG9naWVzLEJ1c2luZXNzIE93bmVyLFNvZnQgU3VhdmUncyBVUy1JbmRpYSBjb21wbGlhbmNlIGNoZWNrLCJIaSBTeWVkLAoKU29mdCBTdWF2ZSBUZWNobm9sb2dpZXMgb3BlcmF0aW5nIGFzIGFuIElUIHNlcnZpY2VzIGZpcm0gdGhyb3VnaCBhIFVTIERlbGF3YXJlIGVudGl0eSB3aXRoIEluZGlhbiBvd25lcnNoaXAgY3JlYXRlcyBhIGZldyBjcm9zcy1ib3JkZXIgY29tcGxpYW5jZSBwb2ludHMgd29ydGggcmV2aWV3aW5nIOKAlCBwYXJ0aWN1bGFybHkgd2hlcmUgdGhlIFVTIGFuZCBJbmRpYSBzaWRlcyBuZWVkIHRvIHN0YXkgYWxpZ25lZC4KClRoZSBiYXNpYyBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudCBhbmQgdGhlIGVudGl0eSBpcyBpbiBnb29kIHN0YW5kaW5nCuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyBnaXZlbiBJbmRpYW4gb3duZXJzaGlwIG9yIGFueSByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucyBiZXR3ZWVuIHRoZSBVUyBhbmQgSW5kaWEgc2lkZXMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQgb3Igb3duZXJzaGlwIHRyYWlsCuKAoiBob3cgVVMgYm9va3MgbWF0Y2ggSW5kaWEtc2lkZSByZWNvcmRzIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gYWR2aXNvcnMKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIHRoZSBVUyBmaWxpbmdzIGFuZCBJbmRpYS1zaWRlIHJlcG9ydGluZyBhcmUgcmV2aWV3ZWQgdG9nZXRoZXIgcmF0aGVyIHRoYW4gc2VwYXJhdGVseS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBTb2Z0IFN1YXZlPyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb2NvbXBsaWFuY2UuY29tLEEsOQ0KcmFodWwubmFpckBzcG90ZHJhZnQuY29tLFJhaHVsLE5haXIsU3BvdERyYWZ0LENoaWVmIG9mIFN0YWZmIChDRU8pLFNwb3REcmFmdCdzIFVTIGZpbGluZyBhbmQgSW5kaWEgY29tcGxpYW5jZSBjaGVjaywiSGkgUmFodWwsCgpTcG90RHJhZnQgaGVscGluZyBmYXN0LWdyb3dpbmcgYnVzaW5lc3NlcyBtYW5hZ2UgY29udHJhY3RzIGFjcm9zcyB0aGUgVVMgYW5kIEluZGlhIG1lYW5zIHRoZXJlIGlzIGxpa2VseSBhIGNyb3NzLWJvcmRlciBjb21wbGlhbmNlIHN0cnVjdHVyZSBydW5uaW5nIHVuZGVybmVhdGgg4oCUIFVTIGVudGl0eSwgSW5kaWEgb3duZXJzaGlwLCBhbmQgaW50ZXJjb21wYW55IGZsb3dzIHRoYXQgdHdvIHNlcGFyYXRlIGFkdmlzb3JzIG1heSBub3QgYmUgcmV2aWV3aW5nIHRvZ2V0aGVyLgoKVGhlIGJhc2ljIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIGdpdmVuIEluZGlhbiBvd25lcnNoaXAgYW5kIGFueSByZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucyBiZXR3ZWVuIHRoZSBVUyBhbmQgSW5kaWEgZW50aXRpZXMK4oCiIGhvdyBVUyBib29rcyBhcmUgbWF0Y2hpbmcgSW5kaWEtc2lkZSByZWNvcmRzIGFuZCBpbnRlcmNvbXBhbnkgYmlsbGluZwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudCB0cmFpbAoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBhZHZpc29ycyB3b3JraW5nIHNlcGFyYXRlbHkuCgpXb3VsZCBhIDIwLW1pbnV0ZSBJbmRpYS1VUyBjb21wbGlhbmNlIGNoZWNrIGJlIHVzZWZ1bCBmb3IgU3BvdERyYWZ0PyBZb3UgY2FuIGJvb2sgZGlyZWN0bHkgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkBhdWRpdHJlYWR5aHEuY29tLEEsOQ0KYmFsYXN1YnJhbWFuaWFuLmJoYXZhbmFyYXlhbmFuQHRwZnNvZnR3YXJlLmNvbSxCYWxhc3VicmFtYW5pYW4sQixUUEYgU29mdHdhcmUsQ2hpZWYgRXhlY3V0aXZlIE9mZmljZXIsVFBGIFNvZnR3YXJlJ3MgVVMtSW5kaWEgY29tcGxpYW5jZSBjaGVjaywiSGkgQmFsYXN1YnJhbWFuaWFuLAoKVFBGIFNvZnR3YXJlIHdvcmtpbmcgd2l0aCBGb3J0dW5lIDUwMCBjbGllbnRzIHRocm91Z2ggSUJNIFRQRiBhbmQgei9TZXJpZXMtYmFzZWQgcHJvZHVjdHMg4oCUIHdoaWxlIGJlaW5nIEluZGlhLW93bmVkIGFuZCBvcGVyYXRpbmcgdGhyb3VnaCBhIFVTIERlbGF3YXJlIGVudGl0eSDigJQgbWFrZXMgdGhlIGNyb3NzLWJvcmRlciBjb21wbGlhbmNlIHRyYWlsIHdvcnRoIHJldmlld2luZyBjYXJlZnVsbHkuIEJvdGggc2lkZXMgdGVuZCB0byBtb3ZlIGluZGVwZW5kZW50bHkgdW5sZXNzIHNvbWVvbmUgaXMgbG9va2luZyBhdCB0aGVtIHRvZ2V0aGVyLgoKVGhlIGJhc2ljIGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBVUyBmZWRlcmFsIHJldHVybiBpcyBmaWxlZCBjb3JyZWN0bHkgZm9yIHRoZSBEZWxhd2FyZSBlbnRpdHksIGV2ZW4gd2hlcmUgdGF4IGxpYWJpbGl0eSBpcyBsb3cK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIHRyYW5zYWN0aW9ucywgZnVuZGluZyBmbG93cywgb3IgaW50ZXJjb21wYW55IHBheW1lbnRzCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIG9uIHRoZSBJbmRpYSBzaWRlIHJlZmxlY3RzIHRoZSBVUyBvd25lcnNoaXAgc3RydWN0dXJlIGFjY3VyYXRlbHkK4oCiIGhvdyBVUyBib29rcyBtYXRjaCBJbmRpYS1zaWRlIHJlY29yZHMsIGVzcGVjaWFsbHkgZm9yIHNlcnZpY2UgYmlsbGluZyBhbmQgY29zdCBhbGxvY2F0aW9ucwrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudAoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBzdGF5cyB1bmFkZHJlc3NlZCBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBUUEYgU29mdHdhcmU/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1MSIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDkNCmFuc2h1bWFuLnNpbmdhbEB0dGNvbnN1bHRhbnRzLmNvbSxBbnNodW1hbixTaW5nYWwsVFQgQ29uc3VsdGFudHMsQWRkaXRpb25hbCBDaGllZiBFeGVjdXRpdmUgT2ZmaWNlcixUVCBDb25zdWx0YW50cycgVVMgY29tcGxpYW5jZSBjaGVjaywiSGkgQW5zaHVtYW4sCgpUVCBDb25zdWx0YW50cyBvcGVyYXRpbmcgYXMgYW4gSW5kaWFuLW93bmVkIERlbGF3YXJlIEMtQ29ycCBpbiB0aGUgbWFuYWdlbWVudCBjb25zdWx0aW5nIHNwYWNlIHVzdWFsbHkgbWVhbnMgY29tcGxpYW5jZSBvYmxpZ2F0aW9ucyBvbiBib3RoIHNpZGVzIG9mIHRoZSBzdHJ1Y3R1cmUg4oCUIGFuZCB0aGUgdHdvIHNpZGVzIGRvbid0IGFsd2F5cyBnZXQgcmV2aWV3ZWQgdG9nZXRoZXIuCgpUaGUgYmFzaWMgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIGFubnVhbCBEZWxhd2FyZSByZXBvcnQgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhcmUgcmVjb3JkZWQgYW5kIHdoZXRoZXIgdGhleSBtYXRjaCBJbmRpYS1zaWRlIHJlY29yZHMK4oCiIGlmIHRoZSBmZWRlcmFsIHJldHVybiBpcyByZXF1aXJlZCBldmVuIGlmIG5vIFVTIHRheCBpcyBkdWUKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggdGhlIFVTIGZpbGluZyBzaWRlIGFuZCB0aGUgSW5kaWEgcmVwb3J0aW5nIHNpZGUgaW4gb25lIGNvb3JkaW5hdGVkIHJldmlldyDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBUVCBDb25zdWx0YW50cz8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9zb2x1dGlvbnMuY29tLEEsOQ0Kc2Fuam95LnJveUB0bWRjLmlvLFNhbmpveSxSb3ksVGhlIE1vZGVybiBEYXRhIENvbXBhbnksVGVjaCBGb3VuZGVyLFRoZSBNb2Rlcm4gRGF0YSBDb21wYW55J3MgVVMgZmlsaW5nIGNoZWNrLCJIaSBTYW5qb3ksCgpSdW5uaW5nIGFuIElUIHNlcnZpY2VzIGFuZCBkYXRhIHBsYXRmb3JtIGJ1c2luZXNzIHRocm91Z2ggYSBVUyBEZWxhd2FyZSBDLUNvcnAgd2l0aCBhbiBJbmRpYS1iYXNlZCBmb3VuZGluZyB0ZWFtIHVzdWFsbHkgY3JlYXRlcyBhIGZldyBjb21wbGlhbmNlIGdhcHMgdGhhdCBzaXQgYmV0d2VlbiB0aGUgdHdvIHNpZGVzIOKAlCB3b3J0aCBjaGVja2luZyBiZWZvcmUgdGhlIG5leHQgZmlsaW5nIGN5Y2xlLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgcmVsYXRlZC1wYXJ0eSB0cmFuc2FjdGlvbnMgd2l0aCB0aGUgVVMgZW50aXR5CuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGludGVyY29tcGFueSBmbG93cwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudArigKIgaWYgdHJhbnNmZXIgcHJpY2luZyBkb2N1bWVudGF0aW9uIHN1cHBvcnRzIHRoZSBJbmRpYS1VUyBzZXJ2aWNlIG9yIGRlbGl2ZXJ5IHN0cnVjdHVyZQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBnZXRzIG1pc3NlZCBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBUaGUgTW9kZXJuIERhdGEgQ29tcGFueT8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTU4IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9jb21wbGlhbmNlLmNvbSxBLDkNCnZpcHVsQHZlZXJzYXRlY2guY29tLFZpcHVsLFRhbmVqYSxWZWVyc2EgVGVjaG5vbG9naWVzLENvLWZvdW5kZXIgRGlyZWN0b3IsVmVlcnNhIFRlY2hub2xvZ2llcycgVVMgY29tcGxpYW5jZSBjaGVjaywiSGkgVmlwdWwsCgpWZWVyc2EgVGVjaG5vbG9naWVzIG9wZXJhdGluZyBhcyBhIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBmb3VuZGVyIG93bmVyc2hpcCBhbmQgYW4gSVQgc2VydmljZXMgZGVsaXZlcnkgbW9kZWwgbWFrZXMgdGhlIEluZGlhLVVTIGNvbXBsaWFuY2Ugc3RydWN0dXJlIHdvcnRoIHJldmlld2luZyB0b2dldGhlciDigJQgYmVmb3JlIHRoZSB0d28gc2lkZXMgZHJpZnQgYXBhcnQgYWNyb3NzIGRpZmZlcmVudCBhZHZpc29ycy4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudArigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gYW55IG93bmVyIGZ1bmRpbmcsIHJlaW1idXJzZW1lbnRzLCBvciBJbmRpYS1zaWRlIHNlcnZpY2UgZmxvd3MgaW50byB0aGUgVVMgZW50aXR5CuKAoiBob3cgVVMgYm9va3MgcmVmbGVjdCBpbnRlcmNvbXBhbnkgdHJhbnNhY3Rpb25zIGFnYWluc3QgSW5kaWEtc2lkZSByZWNvcmRzCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50CuKAoiBpZiB0aGUgZmVkZXJhbCByZXR1cm4gaXMgZmlsZWQgZXZlbiB3aGVyZSBubyB0YXggaXMgZHVlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIGFkdmlzb3JzIHdvcmtpbmcgc2VwYXJhdGVseS4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBWZWVyc2E/IFlvdSBjYW4gYm9vayBkaXJlY3RseSBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE1OCIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDkNCmF0aWtAdmVyaWZpY2llbnQuY29tLEF0aWssTWFoZXNod2FyaSxWZXJpZmljaWVudCBUZWNobm9sb2dpZXMsT3duZXIsVmVyaWZpY2llbnQncyBVUy1JbmRpYSBjb21wbGlhbmNlIGNoZWNrLCJIaSBBdGlrLAoKVmVyaWZpY2llbnQncyB3b3JrIGluIGJpb21ldHJpYyBpZGVudGl0eSB2ZXJpZmljYXRpb24gYW5kIHJlbW90ZSBtb25pdG9yaW5nIOKAlCBidWlsdCBvbiBJbmRpYS1zaWRlIGVuZ2luZWVyaW5nIGFuZCBkZWxpdmVyZWQgdG8gVVMgY3VzdG9tZXJzIOKAlCB1c3VhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSB0b3VjaCBwb2ludHMgYmV0d2VlbiB0aGUgdHdvIHNpZGVzIHRoYXQgYXJlIHdvcnRoIGNoZWNraW5nIHRvZ2V0aGVyLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBDLUNvcnAgZmlsaW5ncywgYW5udWFsIHJlcG9ydCwgYW5kIGZyYW5jaGlzZSB0YXggYXJlIGN1cnJlbnQK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIEluZGlhLW93bmVyIGZ1bmRpbmcgb3IgaW50ZXJjb21wYW55IHRyYW5zYWN0aW9ucwrigKIgaG93IFVTIGJvb2tzIHJlZmxlY3QgSW5kaWEtc2lkZSBkZWxpdmVyeSBjb3N0cyBhbmQgd2hldGhlciBpbnRlcmNvbXBhbnkgaW52b2ljZXMgYXJlIGluIHBsYWNlCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50CuKAoiBpZiBVUyBzdGF0ZS1sZXZlbCBvYmxpZ2F0aW9ucyBoYXZlIGJlZW4gcmV2aWV3ZWQgYmFzZWQgb24gd2hlcmUgY3VzdG9tZXJzIGFyZSBsb2NhdGVkCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBmaWxpbmcgc2lkZSBhbmQgSW5kaWEtc2lkZSByZXBvcnRpbmcgaW4gb25lIGNvb3JkaW5hdGVkIHJldmlldyDigJQgc28gbm90aGluZyBnZXRzIG1pc3NlZCBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycy4KCldvdWxkIGEgMjAtbWludXRlIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgYmUgdXNlZnVsIGZvciBWZXJpZmljaWVudD8gWW91IGNhbiBib29rIGRpcmVjdGx5IGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTU3IixzYWRoYW5hLmJAdXNhaW5kaWFjZm9jb21wbGlhbmNlLmNvbSxBLDkNCmxva2VzaEA3NXdheS5jb20sTG9rZXNoLEJhbnNhbCw3NXdheSBUZWNobm9sb2dpZXMgUHZ0LiBMdGQuLEZvdW5kZXIgJiBDRU8sNzV3YXkncyBVUyBjb21wbGlhbmNlIGNoZWNrIHdvcnRoIHJldmlld2luZywiSGkgTG9rZXNoLAoKNzV3YXkgVGVjaG5vbG9naWVzIGRlbGl2ZXJpbmcgQUktcG93ZXJlZCBzb2Z0d2FyZSBhbmQgY3VzdG9tIGRldmVsb3BtZW50IHRvIFVTIHN0YXJ0dXBzIGFuZCBlbnRlcnByaXNlcyBmcm9tIGFuIEluZGlhLWxlZCB0ZWFtIGNyZWF0ZXMgYSBjcm9zcy1ib3JkZXIgc3RydWN0dXJlIHdoZXJlIHRoZSBVUyBhbmQgSW5kaWEgZmlsaW5nIG9ibGlnYXRpb25zIG5lZWQgdG8gbWF0Y2gg4oCUIGFuZCB0aGV5IG9mdGVuIGRvbid0IHdoZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIGFyZSBoYW5kbGluZyBlYWNoIHNpZGUuCgpUaGUgZmlyc3QgaXRlbXMgd29ydGggY2hlY2tpbmcgYXJlOgoK4oCiIHdoZXRoZXIgdGhlIERlbGF3YXJlIEMtQ29ycCBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50CuKAoiBpZiBGb3JtIDU0NzIgYXBwbGllcyB0byBJbmRpYS1vd25lciBmdW5kaW5nIG9yIHJlbGF0ZWQtcGFydHkgdHJhbnNhY3Rpb25zIHdpdGggdGhlIFVTIGVudGl0eQrigKIgaG93IFVTIGJvb2tzIHJlZmxlY3QgSW5kaWEtc2lkZSBzZXJ2aWNlIGRlbGl2ZXJ5IGFuZCBpbnRlcmNvbXBhbnkgYmlsbGluZwrigKIgd2hldGhlciBJbmRpYS10by1VUyBpbnZlc3RtZW50IG9yIG93bmVyc2hpcCB3YXMgY292ZXJlZCB1bmRlciBPREkgLyBGRU1BIHJlcG9ydGluZwrigKIgd2hlcmUgVVMgY3VzdG9tZXIgcmV2ZW51ZSBtYXkgdHJpZ2dlciBzdGF0ZSB0YXggcmVnaXN0cmF0aW9uCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBlbnRpdHkgb2JsaWdhdGlvbnMgYW5kIHRoZSBJbmRpYS1zaWRlIHJlcG9ydGluZyBpbiBvbmUgY29vcmRpbmF0ZWQgcmV2aWV3IOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzLgoKV29ydGggYSBxdWljayByZXZpZXcgYmVmb3JlIHRoaXMgYmVjb21lcyBhIGNsZWFudXAgaXRlbSBsYXRlcj8gWW91IGNhbiBib29rIDIwIG1pbnV0ZXMgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNTIiLHNhZGhhbmEuYkBhdWRpdHJlYWR5aHEuY29tLEEsOA0Kc2FuQGFkZGEuaW8sU2FuLEJhbmVyamVlLEFEREEuaW8sQ0VPLEFEREEuaW8ncyBVUyBEZWxhd2FyZSBmaWxpbmcgY2hlY2ssIkhpIFNhbiwKCkFEREEuaW8gc2NhbGluZyB0byAyLjFNKyB1c2VycyBhY3Jvc3Mgc29jaWV0eSBtYW5hZ2VtZW50IHNvZnR3YXJlIGluIEluZGlhLCB3aGlsZSBvcGVyYXRpbmcgdGhyb3VnaCBhIFVTIERlbGF3YXJlIEMtQ29ycCwgdXN1YWxseSBjcmVhdGVzIGEgY29tcGxpYW5jZSBnYXAgYmV0d2VlbiB3aGF0IHRoZSBVUyBlbnRpdHkgbmVlZHMgdG8gZmlsZSBhbmQgd2hhdCB0aGUgSW5kaWEgc2lkZSBoYXMgZG9jdW1lbnRlZC4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciB0aGUgYW5udWFsIERlbGF3YXJlIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgZ2l2ZW4gSW5kaWFuIG93bmVyc2hpcCBhbmQgYW55IEluZGlhLXRvLVVTIGZ1bmRpbmcgb3IgcmVpbWJ1cnNlbWVudHMK4oCiIHdoZXRoZXIgT0RJIC8gRkVNQSByZXBvcnRpbmcgd2FzIGNvbXBsZXRlZCBmb3IgdGhlIEluZGlhLXRvLVVTIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhbGlnbiB3aXRoIEluZGlhLXNpZGUgcmVjb3JkcyBiZWZvcmUgdGhlIG5leHQgZmlsaW5nIGN5Y2xlCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHNpZGVzIG9mIHRoZSBVUy1JbmRpYSBjb21wbGlhbmNlIHN0cnVjdHVyZSBpbiBvbmUgY29udmVyc2F0aW9uIOKAlCBzbyBub3RoaW5nIGZhbGxzIGJldHdlZW4gdHdvIHNlcGFyYXRlIGFkdmlzb3JzIHdvcmtpbmcgaW5kZXBlbmRlbnRseS4KCldvcnRoIGEgcXVpY2sgcmV2aWV3IGJlZm9yZSB0aGlzIGJlY29tZXMgYSBjbGVhbnVwIGl0ZW0gbGF0ZXI/IFlvdSBjYW4gYm9vayAyMCBtaW51dGVzIGhlcmUg4oCUIGNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8uCgpCZXN0LApTYWRoYW5hIEIKQnVzaW5lc3MgRGV2ZWxvcG1lbnQgwrcgVVNBSW5kaWFDRk8KQk5HIEFkdmlzb3JzIFByaXZhdGUgTGltaXRlZApjb250YWN0QHVzYWluZGlhY2ZvLmNvbQp3d3cudXNhaW5kaWFjZm8uY29tCgpTY2hlZHVsaW5nIGEgY2FsbCB3aXRoOgpBa3NoYXkgTmFoYXIgfCBDQSDCtyBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTyDCtyBCTkcgQWR2aXNvcnMKY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmbwoKV09SRCBDT1VOVDogMTQ4IixzYWRoYW5hLmJAZml4bXl1c2ZpbGluZ3MuY29tLEEsOA0KZGl2eWFua2FAaGVuc29uZ3JvdXAuY29tLERpdnlhbmthLEdhbmd1cmRlLEFMSUFORE8sTWljcm9zb2Z0IENsYWltIFBhcnRuZXIgRXhlY3V0aXZlLEFMSUFORE8ncyBVUy1JbmRpYSBjb21wbGlhbmNlIGNoZWNrLCJIaSBEaXZ5YW5rYSwKCkFMSUFORE8gb3BlcmF0aW5nIGFzIGEgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWFuIG93bmVyc2hpcCBhbmQgSVQgc2VydmljZXMgZGVsaXZlcnkgYWNyb3NzIGJvdGggc2lkZXMgbWFrZXMgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIHdvcnRoIHJldmlld2luZyDigJQgcGFydGljdWxhcmx5IGJlZm9yZSBmaWxpbmcgY3ljbGVzIG9yIGFueSBwYXJ0bmVyLWxldmVsIGRpbGlnZW5jZS4KClRoZSBmaXJzdCBpdGVtcyB3b3J0aCBjaGVja2luZyBhcmU6CgrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgaW52ZXN0bWVudArigKIgaWYgRm9ybSA1NDcyIGFwcGxpZXMgdG8gb3duZXIgZnVuZGluZyBvciBJbmRpYS1yZWxhdGVkLXBhcnR5IHRyYW5zYWN0aW9ucwrigKIgaG93IFVTIGJvb2tzIGFsaWduIHdpdGggSW5kaWEtc2lkZSByZWNvcmRzIGFuZCBpbnRlcmNvbXBhbnkgYmlsbGluZwrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBhcmUgY3VycmVudArigKIgaWYgdHJhbnNmZXIgcHJpY2luZyBkb2N1bWVudGF0aW9uIHN1cHBvcnRzIHRoZSBJbmRpYS1VUyBzZXJ2aWNlIGZsb3cKCkFrc2hheSBOYWhhciAoQ0EsIENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPKSBoYW5kbGVzIGJvdGggc2lkZXMgb2YgdGhlIFVTLUluZGlhIGNvbXBsaWFuY2Ugc3RydWN0dXJlIGluIG9uZSBjb252ZXJzYXRpb24g4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMgd29ya2luZyB3aXRob3V0IGZ1bGwgdmlzaWJpbGl0eSBvZiBlYWNoIG90aGVyLgoKV29ydGggYSBxdWljayByZXZpZXcgYmVmb3JlIHRoaXMgYmVjb21lcyBhIGNsZWFudXAgaXRlbSBsYXRlcj8gWW91IGNhbiBib29rIDIwIG1pbnV0ZXMgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkB1c2FpbmRpYWNmb3NvbHV0aW9ucy5jb20sQSw4DQpwcmFrYXNoQGF2cmwuaW8sUHJha2FzaCxEZXksQVZSTCxTREUgfCBDb21wZXRpdGl2ZSBDb2RlcnwgQ28tZm91bmRlcixBVlJMJ3MgVVMtSW5kaWEgY29tcGxpYW5jZSBpdGVtcyB3b3J0aCBjaGVja2luZywiSGkgUHJha2FzaCwKCkFWUkwgb3BlcmF0aW5nIGFzIGEgRGVsYXdhcmUgQy1Db3JwIHdpdGggSW5kaWEtYmFzZWQgZm91bmRlcnMgdHlwaWNhbGx5IGNyZWF0ZXMgYSBmZXcgY29tcGxpYW5jZSBnYXBzIGJldHdlZW4gdGhlIHR3byBzaWRlcyDigJQgbm90IGJlY2F1c2UgYW55dGhpbmcgd2FzIGRvbmUgd3JvbmcsIGJ1dCBiZWNhdXNlIHRoZSBVUyBhbmQgSW5kaWEgcmVwb3J0aW5nIHN5c3RlbXMgZG9uJ3QgYXV0b21hdGljYWxseSBjb25uZWN0LgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIHRoZSBEZWxhd2FyZSBhbm51YWwgcmVwb3J0IGFuZCBmcmFuY2hpc2UgdGF4IGFyZSBjdXJyZW50IGFuZCB0aGUgZW50aXR5IGlzIGluIGdvb2Qgc3RhbmRpbmcK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIGFueSBJbmRpYS1vd25lciBmdW5kaW5nLCByZWltYnVyc2VtZW50cywgb3IgcmVsYXRlZC1wYXJ0eSBmbG93cwrigKIgd2hldGhlciBPREkgLyBGRU1BIHJlcG9ydGluZyB3YXMgY29tcGxldGVkIGZvciB0aGUgSW5kaWEtdG8tVVMgb3duZXJzaGlwIG9yIGludmVzdG1lbnQK4oCiIGhvdyBVUyBib29rcyBhcmUgcmVjb3JkZWQgYW5kIHdoZXRoZXIgdGhleSBtYXRjaCB0aGUgSW5kaWEtc2lkZSByZWNvcmRzCgpBa3NoYXkgTmFoYXIgKENBLCBDby1Gb3VuZGVyLCBVU0FJbmRpYUNGTykgaGFuZGxlcyBib3RoIHRoZSBVUyBmaWxpbmcgc2lkZSBhbmQgSW5kaWEtc2lkZSBjb21wbGlhbmNlIGluIG9uZSBjb29yZGluYXRlZCByZXZpZXcg4oCUIHNvIG5vdGhpbmcgZmFsbHMgYmV0d2VlbiB0d28gc2VwYXJhdGUgYWR2aXNvcnMuCgpXb3J0aCBhIHF1aWNrIHJldmlldyBiZWZvcmUgdGhpcyBiZWNvbWVzIGEgY2xlYW51cCBpdGVtIGxhdGVyPyBZb3UgY2FuIGJvb2sgMjAgbWludXRlcyBoZXJlIOKAlCBjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvLgoKQmVzdCwKU2FkaGFuYSBCCkJ1c2luZXNzIERldmVsb3BtZW50IMK3IFVTQUluZGlhQ0ZPCkJORyBBZHZpc29ycyBQcml2YXRlIExpbWl0ZWQKY29udGFjdEB1c2FpbmRpYWNmby5jb20Kd3d3LnVzYWluZGlhY2ZvLmNvbQoKU2NoZWR1bGluZyBhIGNhbGwgd2l0aDoKQWtzaGF5IE5haGFyIHwgQ0EgwrcgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8gwrcgQk5HIEFkdmlzb3JzCmNhbGVuZGx5LmNvbS9ha3NoYXktdXNhaW5kaWFjZm8KCldPUkQgQ09VTlQ6IDE0OCIsc2FkaGFuYS5iQHVzYWluZGlhY2Zvc29sdXRpb25zLmNvbSxBLDgNCnJhakBhY2FsdmlvLmNvbSxSYWosR29wYWxha3Jpc2huYSxBY2FsdmlvIFRlY2hub2xvZ2llcywiTUQsIENvLUZvdW5kZXIgJiBDaGllZiBQcm9kdWN0IEFyY2hpdGVjdCIsQWNhbHZpbydzIEluZGlhLVVTIGNvbXBsaWFuY2UgY2hlY2sgd29ydGggcmV2aWV3aW5nLCJIaSBSYWosCgpBY2FsdmlvIG9wZXJhdGluZyBhcyBhIERlbGF3YXJlIEMtQ29ycCB3aXRoIEluZGlhbiBmb3VuZGluZyBhbmQgb3duZXJzaGlwIGJlaGluZCBpdCB1c3VhbGx5IGNyZWF0ZXMgY29tcGxpYW5jZSBnYXBzIGJldHdlZW4gdGhlIFVTIGFuZCBJbmRpYSBzaWRlIOKAlCB0aGUga2luZCB0aGF0IHNpdCBxdWlldGx5IHVudGlsIGEgZGlsaWdlbmNlIHJlcXVlc3Qgb3IgZmlsaW5nIGRlYWRsaW5lIGJyaW5ncyB0aGVtIHVwLgoKVGhlIGZpcnN0IGl0ZW1zIHdvcnRoIGNoZWNraW5nIGFyZToKCuKAoiB3aGV0aGVyIE9ESSAvIEZFTUEgcmVwb3J0aW5nIHdhcyBjb21wbGV0ZWQgZm9yIHRoZSBJbmRpYS10by1VUyBpbnZlc3RtZW50IGFuZCBvd25lcnNoaXAgdHJhaWwK4oCiIGlmIEZvcm0gNTQ3MiBhcHBsaWVzIHRvIG93bmVyIGZ1bmRpbmcsIHJlaW1idXJzZW1lbnRzLCBvciBJbmRpYS1yZWxhdGVkIHRyYW5zYWN0aW9ucyBmbG93aW5nIHRocm91Z2ggdGhlIFVTIGVudGl0eQrigKIgd2hldGhlciB0aGUgRGVsYXdhcmUgYW5udWFsIHJlcG9ydCBhbmQgZnJhbmNoaXNlIHRheCBmaWxpbmdzIGFyZSBjdXJyZW50CuKAoiBob3cgVVMgYm9va3MgYWxpZ24gd2l0aCBJbmRpYS1zaWRlIHJlY29yZHMgYW5kIGludGVyY29tcGFueSBlbnRyaWVzCuKAoiBpZiB0aGUgVVMgZmVkZXJhbCByZXR1cm4gaGFzIGJlZW4gZmlsZWQgY29ycmVjdGx5IGdpdmVuIHRoZSBjcm9zcy1ib3JkZXIgb3duZXJzaGlwIHN0cnVjdHVyZQoKQWtzaGF5IE5haGFyIChDQSwgQ28tRm91bmRlciwgVVNBSW5kaWFDRk8pIGhhbmRsZXMgYm90aCBzaWRlcyBvZiB0aGUgVVMtSW5kaWEgY29tcGxpYW5jZSBzdHJ1Y3R1cmUgaW4gb25lIGNvbnZlcnNhdGlvbiDigJQgc28gbm90aGluZyBmYWxscyBiZXR3ZWVuIHR3byBzZXBhcmF0ZSBhZHZpc29ycyB3b3JraW5nIHdpdGhvdXQgZnVsbCB2aXNpYmlsaXR5IG9mIGVhY2ggb3RoZXIncyBzaWRlLgoKV29ydGggYSBxdWljayByZXZpZXcgYmVmb3JlIHRoaXMgYmVjb21lcyBhIGNsZWFudXAgaXRlbSBsYXRlcj8gWW91IGNhbiBib29rIDIwIG1pbnV0ZXMgaGVyZSDigJQgY2FsZW5kbHkuY29tL2Frc2hheS11c2FpbmRpYWNmby4KCkJlc3QsClNhZGhhbmEgQgpCdXNpbmVzcyBEZXZlbG9wbWVudCDCtyBVU0FJbmRpYUNGTwpCTkcgQWR2aXNvcnMgUHJpdmF0ZSBMaW1pdGVkCmNvbnRhY3RAdXNhaW5kaWFjZm8uY29tCnd3dy51c2FpbmRpYWNmby5jb20KClNjaGVkdWxpbmcgYSBjYWxsIHdpdGg6CkFrc2hheSBOYWhhciB8IENBIMK3IENvLUZvdW5kZXIsIFVTQUluZGlhQ0ZPIMK3IEJORyBBZHZpc29ycwpjYWxlbmRseS5jb20vYWtzaGF5LXVzYWluZGlhY2ZvCgpXT1JEIENPVU5UOiAxNDgiLHNhZGhhbmEuYkBhdWRpdHJlYWR5aHEuY29tLEEsOA0K"
-         class="inline-flex items-center gap-2 rounded-md bg-ink text-white px-4 py-2 text-sm font-medium hover:bg-ink/85 transition">
+         class="inline-flex items-center gap-2 rounded-md bg-emerald-500 text-slate-950 px-4 py-2 text-sm font-semibold hover:bg-emerald-400 transition">
         <svg class="size-4" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Download CSV (50 rows)
       </a>
@@ -722,31 +725,31 @@ tailwind.config = {
     </p>
 
     <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-3">
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Drafted</div>
         <div class="text-xl font-semibold num mt-0.5">50</div>
       </div>
-      <div class="rounded-lg border border-emerald-200 bg-emerald-50/40 p-3">
-        <div class="text-[10px] uppercase tracking-wide text-emerald-700">QA passed</div>
-        <div class="text-xl font-semibold num mt-0.5 text-emerald-900">48 <span class="text-[11px] text-emerald-700">(96%)</span></div>
+      <div class="rounded-lg border border-emerald-800 bg-emerald-950/30 p-3">
+        <div class="text-[10px] uppercase tracking-wide text-emerald-400">QA passed</div>
+        <div class="text-xl font-semibold num mt-0.5 text-emerald-300">48 <span class="text-[11px] text-emerald-400">(96%)</span></div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Draft cost (API)</div>
         <div class="text-xl font-semibold num mt-0.5">$0.389</div>
       </div>
-      <div class="rounded-lg border border-slate-200 bg-white p-3">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-3">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Per-row time</div>
         <div class="text-xl font-semibold num mt-0.5">18.4 s</div>
       </div>
-      <div class="rounded-lg border border-indigo-200 bg-indigo-50/40 p-3">
-        <div class="text-[10px] uppercase tracking-wide text-indigo-700">Projected 3,217 run</div>
-        <div class="text-xl font-semibold num mt-0.5 text-indigo-900">$25</div>
-        <div class="text-[10px] text-indigo-700/70 mt-0.5">~123 min wall</div>
+      <div class="rounded-lg border border-indigo-800 bg-indigo-950/30 p-3">
+        <div class="text-[10px] uppercase tracking-wide text-indigo-300">Projected 3,217 run</div>
+        <div class="text-xl font-semibold num mt-0.5 text-indigo-200">$25</div>
+        <div class="text-[10px] text-indigo-300/70 mt-0.5">~123 min wall</div>
       </div>
     </div>
 
-    <div class="mt-4 rounded-md border border-slate-200 bg-slate-50/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
-      <div class="font-semibold text-ink shrink-0">If approved →</div>
+    <div class="mt-4 rounded-md border border-slate-800 bg-slate-900/60 px-4 py-3 text-xs text-slate-600 flex items-start gap-3">
+      <div class="font-semibold text-slate-100 shrink-0">If approved →</div>
       <div>
         Resume drafting from row 51, append to these 50, produce the final 3,217-row CSV. No re-drafting. QA via subscription = $0 out-of-pocket; only ~$25 Sonnet API spend.
       </div>
@@ -764,101 +767,101 @@ tailwind.config = {
 
     <!-- TAT headline cards -->
     <div class="mt-8 grid md:grid-cols-4 gap-3">
-      <div class="rounded-xl border border-slate-200 bg-white p-4 stat-card">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-4 stat-card">
         <div class="text-[10px] uppercase tracking-wide text-slate-500">Compute time</div>
         <div class="text-2xl font-semibold num mt-1">~1 hour</div>
-        <div class="text-[10px] text-slate-400 mt-1">dedup + analyze + draft</div>
+        <div class="text-[10px] text-slate-500 mt-1">dedup + analyze + draft</div>
       </div>
-      <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 stat-card">
-        <div class="text-[10px] uppercase tracking-wide text-amber-700">Human review</div>
-        <div class="text-2xl font-semibold num mt-1 text-amber-900">1–3 days</div>
-        <div class="text-[10px] text-amber-700/80 mt-1">partner + marketing</div>
+      <div class="rounded-xl border border-amber-800 bg-amber-950/40 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-amber-400">Human review</div>
+        <div class="text-2xl font-semibold num mt-1 text-amber-300">1–3 days</div>
+        <div class="text-[10px] text-amber-400/80 mt-1">partner + marketing</div>
       </div>
-      <div class="rounded-xl border border-sky-200 bg-sky-50 p-4 stat-card">
-        <div class="text-[10px] uppercase tracking-wide text-sky-700">Clay enrichment</div>
-        <div class="text-2xl font-semibold num mt-1 text-sky-900">3–6 hours</div>
+      <div class="rounded-xl border border-sky-800 bg-sky-950/40 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-sky-300">Clay enrichment</div>
+        <div class="text-2xl font-semibold num mt-1 text-sky-200">3–6 hours</div>
         <div class="text-[10px] text-sky-700/80 mt-1">parallel to sending</div>
       </div>
-      <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 stat-card">
-        <div class="text-[10px] uppercase tracking-wide text-rose-700">Send window</div>
-        <div class="text-2xl font-semibold num mt-1 text-rose-900">14–21 days</div>
-        <div class="text-[10px] text-rose-700/80 mt-1">5 mailboxes × ~100/day</div>
+      <div class="rounded-xl border border-rose-800 bg-rose-950/40 p-4 stat-card">
+        <div class="text-[10px] uppercase tracking-wide text-rose-400">Send window</div>
+        <div class="text-2xl font-semibold num mt-1 text-rose-300">14–21 days</div>
+        <div class="text-[10px] text-rose-400/80 mt-1">5 mailboxes × ~100/day</div>
       </div>
     </div>
 
     <!-- Flow + Timeline -->
-    <div class="mt-8 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-1">Pipeline flow</div>
+    <div class="mt-8 rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <div class="text-sm font-semibold text-slate-100 mb-1">Pipeline flow</div>
       <div class="text-xs text-slate-500 mb-6">Five stages from CSV to staged-for-send. Re-runnable on any future CSV.</div>
       <ol class="grid md:grid-cols-5 gap-3 text-sm">
-        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+        <li class="rounded-lg border border-slate-800 p-4 bg-slate-900/40">
           <div class="text-[10px] font-mono text-slate-500 mb-1">01 · INPUT</div>
-          <div class="font-semibold text-ink mb-1">CSV + CRM dump</div>
+          <div class="font-semibold text-slate-100 mb-1">CSV + CRM dump</div>
           <div class="text-xs text-slate-600">Apollo export + Zoho official backup.</div>
         </li>
-        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+        <li class="rounded-lg border border-slate-800 p-4 bg-slate-900/40">
           <div class="text-[10px] font-mono text-slate-500 mb-1">02 · DEDUP</div>
-          <div class="font-semibold text-ink mb-1">3-key match</div>
+          <div class="font-semibold text-slate-100 mb-1">3-key match</div>
           <div class="text-xs text-slate-600">Email · phone · name+company.</div>
         </li>
-        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+        <li class="rounded-lg border border-slate-800 p-4 bg-slate-900/40">
           <div class="text-[10px] font-mono text-slate-500 mb-1">03 · SCORE</div>
-          <div class="font-semibold text-ink mb-1">ICP &middot; EU exclude</div>
+          <div class="font-semibold text-slate-100 mb-1">ICP &middot; EU exclude</div>
           <div class="text-xs text-slate-600">Title × size × industry × cross-border → tier A/B/C/D. EU rows holdback.</div>
         </li>
-        <li class="rounded-lg border border-emerald-200 p-4 bg-emerald-50/40">
-          <div class="text-[10px] font-mono text-emerald-700 mb-1">04 · DRAFT</div>
-          <div class="font-semibold text-ink mb-1">Research-targeted</div>
+        <li class="rounded-lg border border-emerald-800 p-4 bg-emerald-950/30">
+          <div class="text-[10px] font-mono text-emerald-400 mb-1">04 · DRAFT</div>
+          <div class="font-semibold text-slate-100 mb-1">Research-targeted</div>
           <div class="text-xs text-slate-600">WebFetch each company site → unique hook → Akshay-only body.</div>
         </li>
-        <li class="rounded-lg border border-slate-200 p-4 bg-slate-50/40">
+        <li class="rounded-lg border border-slate-800 p-4 bg-slate-900/40">
           <div class="text-[10px] font-mono text-slate-500 mb-1">05 · STAGE</div>
-          <div class="font-semibold text-ink mb-1">Apollo Sequences</div>
+          <div class="font-semibold text-slate-100 mb-1">Apollo Sequences</div>
           <div class="text-xs text-slate-600">Tranches by per-mailbox daily cap. Never auto-send.</div>
         </li>
       </ol>
     </div>
 
     <!-- TAT timeline -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
-      <div class="text-sm font-semibold text-ink mb-1">Calendar timeline (CSV received → list fully sent)</div>
+    <div class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-6">
+      <div class="text-sm font-semibold text-slate-100 mb-1">Calendar timeline (CSV received → list fully sent)</div>
       <div class="text-xs text-slate-500 mb-5">Bars positioned by start day. Reply window opens around Day 5; closes ~Day 28.</div>
       <div id="tat-timeline" class="space-y-3 text-xs"></div>
     </div>
 
     <!-- Re-run + Sender mailboxes -->
     <div class="mt-6 grid md:grid-cols-2 gap-4">
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
         <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-2">Re-run on next list</div>
-        <div class="font-mono text-base text-ink mb-2">/outreach-batch</div>
+        <div class="font-mono text-base text-slate-100 mb-2">/outreach-batch</div>
         <p class="text-sm text-slate-600">
           Available in Claude Code. Mention "Apollo CSV", "dedup against CRM", or "draft cold emails" and the skill activates. Always asks for the prospect CSV path before starting.
         </p>
         <div class="mt-3 text-[11px] text-slate-500">
-          Scripts at <code class="font-mono bg-slate-100 px-1 rounded">scripts/{dedup,analyze,categorize,fetch_hooks,draft_targeted_bulk}.py</code>
+          Scripts at <code class="font-mono bg-slate-800 px-1 rounded">scripts/{dedup,analyze,categorize,fetch_hooks,draft_targeted_bulk}.py</code>
         </div>
       </div>
-      <div class="rounded-xl border border-slate-200 bg-white p-5">
+      <div class="rounded-xl border border-slate-800 bg-slate-900 p-5">
         <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-2">Sender mailboxes (Apollo)</div>
-        <div class="text-sm text-slate-700 mb-2">Round-robin assigned across 3,221 drafts (~640 each).</div>
+        <div class="text-sm text-slate-200 mb-2">Round-robin assigned across 3,221 drafts (~640 each).</div>
         <ul class="space-y-1 font-mono text-[11px] text-slate-600">
-          <li>sadhana.b@usaindiacfocompliance.com <span class="text-slate-400 ml-1">656</span></li>
-          <li>sadhana.b@auditreadyhq.com <span class="text-slate-400 ml-1">647</span></li>
-          <li>sadhana.b@remotecfodesk.com <span class="text-slate-400 ml-1">641</span></li>
-          <li>sadhana.b@fixmyusfilings.com <span class="text-slate-400 ml-1">639 (default)</span></li>
-          <li>sadhana.b@usaindiacfosolutions.com <span class="text-slate-400 ml-1">638</span></li>
+          <li>sadhana.b@usaindiacfocompliance.com <span class="text-slate-500 ml-1">656</span></li>
+          <li>sadhana.b@auditreadyhq.com <span class="text-slate-500 ml-1">647</span></li>
+          <li>sadhana.b@remotecfodesk.com <span class="text-slate-500 ml-1">641</span></li>
+          <li>sadhana.b@fixmyusfilings.com <span class="text-slate-500 ml-1">639 (default)</span></li>
+          <li>sadhana.b@usaindiacfosolutions.com <span class="text-slate-500 ml-1">638</span></li>
         </ul>
       </div>
     </div>
 
     <!-- Hard guardrails -->
-    <div class="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+    <div class="mt-6 rounded-xl border border-slate-800 bg-slate-900 p-5">
       <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-3">Hard guardrails — always on</div>
       <div class="grid md:grid-cols-2 gap-2 text-sm">
-        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Pilot before bulk &middot; partner sign-off mandatory</div>
-        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> EU/EEA/UK rows split to holdback (GDPR)</div>
-        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Only verified USAIndiaCFO facts &middot; no fabrication</div>
-        <div class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span> Akshay Nahar only as leader reference</div>
+        <div class="flex gap-2"><span class="text-emerald-400 font-bold">✓</span> Pilot before bulk &middot; partner sign-off mandatory</div>
+        <div class="flex gap-2"><span class="text-emerald-400 font-bold">✓</span> EU/EEA/UK rows split to holdback (GDPR)</div>
+        <div class="flex gap-2"><span class="text-emerald-400 font-bold">✓</span> Only verified USAIndiaCFO facts &middot; no fabrication</div>
+        <div class="flex gap-2"><span class="text-emerald-400 font-bold">✓</span> Akshay Nahar only as leader reference</div>
         <div class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never auto-send &middot; only stage to Apollo Sequences</div>
         <div class="flex gap-2"><span class="text-rose-600 font-bold">✗</span> Never call Clay on data already in the CSV</div>
       </div>
@@ -1041,7 +1044,7 @@ tailwind.config = {
   // data = [{label, value, color}], thickness=0 → solid pie, thickness>0 → donut
   function svgPie(data, size=160, thickness=32) {
     const total = data.reduce((s,d)=>s+d.value, 0);
-    if (total === 0) return '<div class="text-xs text-slate-400">no data</div>';
+    if (total === 0) return '<div class="text-xs text-slate-500">no data</div>';
     const cx = size/2, cy = size/2;
     const r_outer = size/2 - 2;
     const r_inner = thickness > 0 ? r_outer - thickness : 0;
@@ -1083,7 +1086,7 @@ tailwind.config = {
       <div class="flex items-center justify-between gap-2 text-xs">
         <div class="flex items-center gap-2 min-w-0">
           <span class="size-2.5 rounded-sm shrink-0" style="background:${d.color}"></span>
-          <span class="truncate text-slate-700">${d.label}</span>
+          <span class="truncate text-slate-200">${d.label}</span>
         </div>
         <div class="font-mono num text-slate-500 whitespace-nowrap">${d.value.toLocaleString()} · ${(d.value/total*100).toFixed(0)}%</div>
       </div>
@@ -1112,10 +1115,10 @@ tailwind.config = {
     return `
       <div>
         <div class="flex items-center justify-between text-xs">
-          <div class="min-w-0"><span class="font-medium text-ink">${label}</span> <span class="text-slate-400">— ${hint}</span></div>
-          <span class="font-mono text-slate-700 whitespace-nowrap">${pct.toFixed(1)}%</span>
+          <div class="min-w-0"><span class="font-medium text-slate-100">${label}</span> <span class="text-slate-500">— ${hint}</span></div>
+          <span class="font-mono text-slate-200 whitespace-nowrap">${pct.toFixed(1)}%</span>
         </div>
-        <div class="mt-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div class="mt-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
           <div class="h-full bg-${colorBase}-500" style="width:${Math.max(pct, 0.5)}%"></div>
         </div>
       </div>`;
@@ -1127,10 +1130,10 @@ tailwind.config = {
   $("#reject-reasons").innerHTML = rejData.map(d => `
     <div>
       <div class="flex items-center justify-between text-xs">
-        <span class="text-ink">${d.label}</span>
-        <span class="font-mono text-slate-700">${d.value}</span>
+        <span class="text-slate-100">${d.label}</span>
+        <span class="font-mono text-slate-200">${d.value}</span>
       </div>
-      <div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+      <div class="mt-1 h-2 bg-slate-800 rounded-full overflow-hidden">
         <div class="h-full" style="width:${(d.value/rejMax*100).toFixed(1)}%; background:${d.color}"></div>
       </div>
     </div>`).join('');
@@ -1151,27 +1154,27 @@ tailwind.config = {
     <div class="flex justify-around text-[10px] text-slate-500 mt-1">
       ${wc.buckets.map(b => `<div class="flex-1 text-center">${b.label}</div>`).join('')}
     </div>
-    <div class="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between">
-      <span>Min: <span class="font-mono text-ink">${wc.stats.min}</span></span>
-      <span>Median: <span class="font-mono text-ink">${wc.stats.median}</span></span>
-      <span>Mean: <span class="font-mono text-ink">${wc.stats.mean}</span></span>
-      <span>Max: <span class="font-mono text-ink">${wc.stats.max}</span></span>
+    <div class="mt-3 pt-3 border-t border-slate-800 text-xs text-slate-500 flex justify-between">
+      <span>Min: <span class="font-mono text-slate-100">${wc.stats.min}</span></span>
+      <span>Median: <span class="font-mono text-slate-100">${wc.stats.median}</span></span>
+      <span>Mean: <span class="font-mono text-slate-100">${wc.stats.mean}</span></span>
+      <span>Max: <span class="font-mono text-slate-100">${wc.stats.max}</span></span>
     </div>`;
 
   // -------- TAT TIMELINE (28-day axis) --------
   const tl = JSON.parse($("#tat-timeline-data").textContent);
   const TL_DAYS = 28;
   const axis = `
-    <div class="flex items-center text-[10px] text-slate-400 mb-1">
+    <div class="flex items-center text-[10px] text-slate-500 mb-1">
       <div class="w-44 shrink-0"></div>
       <div class="flex-1 grid grid-cols-7 gap-0">
-        ${[0,4,8,12,16,20,24].map(d=>`<div class="border-l border-slate-200 pl-1">D${d}</div>`).join('')}
+        ${[0,4,8,12,16,20,24].map(d=>`<div class="border-l border-slate-800 pl-1">D${d}</div>`).join('')}
       </div>
     </div>`;
   const bars = tl.map(b => `
     <div class="flex items-center">
-      <div class="w-44 shrink-0 text-slate-700 truncate pr-3">${b.label}</div>
-      <div class="flex-1 relative h-5 bg-slate-50 rounded">
+      <div class="w-44 shrink-0 text-slate-200 truncate pr-3">${b.label}</div>
+      <div class="flex-1 relative h-5 bg-slate-950 rounded">
         <div class="absolute top-0 bottom-0 rounded bg-${b.color}-500 ${b.color==='slate'?'opacity-30':'opacity-90'}"
              style="left:${(b.start/TL_DAYS)*100}%; width:${(b.len/TL_DAYS)*100}%"
              title="Day ${b.start}–${b.start+b.len}"></div>
@@ -1184,33 +1187,33 @@ tailwind.config = {
   const emails = JSON.parse($("#emails-data").textContent);
   const grid = $("#emails-grid");
 
-  const branchClass = b => b === 'founder_ceo' ? 'bg-indigo-100 text-indigo-700 border-indigo-200'
-                          : b === 'cfo' ? 'bg-violet-100 text-violet-700 border-violet-200'
-                          : 'bg-slate-100 text-slate-700 border-slate-200';
+  const branchClass = b => b === 'founder_ceo' ? 'bg-indigo-900/40 text-indigo-300 border-indigo-800'
+                          : b === 'cfo' ? 'bg-violet-900/40 text-violet-300 border-violet-800'
+                          : 'bg-slate-800 text-slate-200 border-slate-800';
   const branchLabel = b => b === 'founder_ceo' ? 'Founder/CEO' : (b === 'cfo' ? 'CFO' : 'Other');
 
   function renderEmails(filter) {
     const items = emails.filter(e => filter === 'all' || e.branch === filter);
     grid.innerHTML = items.map(e => `
-      <details class="group rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition" data-branch="${e.branch}">
+      <details class="group rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-600 transition" data-branch="${e.branch}">
         <summary class="cursor-pointer">
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-xs font-mono text-slate-400">#${String(e.i).padStart(2,'0')}</span>
+                <span class="text-xs font-mono text-slate-500">#${String(e.i).padStart(2,'0')}</span>
                 <span class="text-[10px] px-2 py-0.5 rounded border ${branchClass(e.branch)}">${branchLabel(e.branch)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500">${e.industry}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-500">${e.industry}</span>
               </div>
-              <div class="font-semibold text-ink truncate">${e.name}</div>
+              <div class="font-semibold text-slate-100 truncate">${e.name}</div>
               <div class="text-xs text-slate-500 truncate">${e.title} · ${e.company}</div>
             </div>
-            <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev shrink-0 mt-1 size-4 text-slate-500" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-400 uppercase tracking-wide text-[9px] mr-1">Research</span>${e.research_hook}</div>
-          <div class="mt-3 text-sm font-medium text-ink">${e.subject}</div>
+          <div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-500 uppercase tracking-wide text-[9px] mr-1">Research</span>${e.research_hook}</div>
+          <div class="mt-3 text-sm font-medium text-slate-100">${e.subject}</div>
         </summary>
-        <div class="mt-3 pt-3 border-t border-slate-100">
-          <pre class="font-mono text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3 max-h-80 overflow-y-auto">${e.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        <div class="mt-3 pt-3 border-t border-slate-800">
+          <pre class="font-mono text-[11px] leading-relaxed text-slate-200 whitespace-pre-wrap bg-slate-950 border border-slate-800 rounded-md p-3 max-h-80 overflow-y-auto">${e.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
         </div>
       </details>
     `).join("");
@@ -1219,11 +1222,11 @@ tailwind.config = {
 
   $$('.filter-btn').forEach(b => b.addEventListener('click', () => {
     $$('.filter-btn').forEach(x => {
-      x.classList.remove('active','bg-ink','text-white');
-      x.classList.add('bg-slate-100','text-slate-600');
+      x.classList.remove('active','bg-slate-100','text-slate-900');
+      x.classList.add('bg-slate-800','text-slate-600');
     });
-    b.classList.add('active','bg-ink','text-white');
-    b.classList.remove('bg-slate-100','text-slate-600');
+    b.classList.add('active','bg-slate-100','text-slate-900');
+    b.classList.remove('bg-slate-800','text-slate-600');
     renderEmails(b.dataset.filter);
   }));
 
@@ -1232,14 +1235,14 @@ tailwind.config = {
   const v2Grid = $("#v2-emails-grid");
 
   const usTermChip = (t) => ({
-    "IRC §174":                    "bg-violet-100 text-violet-700 border-violet-200",
-    "Form 5472":                   "bg-rose-100 text-rose-700 border-rose-200",
-    "Form 5471":                   "bg-rose-100 text-rose-700 border-rose-200",
-    "FIRPTA":                      "bg-amber-100 text-amber-700 border-amber-200",
+    "IRC §174":                    "bg-violet-900/40 text-violet-300 border-violet-800",
+    "Form 5472":                   "bg-rose-900/40 text-rose-400 border-rose-800",
+    "Form 5471":                   "bg-rose-900/40 text-rose-400 border-rose-800",
+    "FIRPTA":                      "bg-amber-900/40 text-amber-400 border-amber-800",
     "§1446 withholding":           "bg-cyan-100 text-cyan-700 border-cyan-200",
-    "Branch Profits Tax":          "bg-indigo-100 text-indigo-700 border-indigo-200",
-    "Multi-state economic nexus":  "bg-emerald-100 text-emerald-700 border-emerald-200",
-  }[t] || "bg-slate-100 text-slate-700 border-slate-200");
+    "Branch Profits Tax":          "bg-indigo-900/40 text-indigo-300 border-indigo-800",
+    "Multi-state economic nexus":  "bg-emerald-900/40 text-emerald-400 border-emerald-800",
+  }[t] || "bg-slate-800 text-slate-200 border-slate-800");
 
   const v2Sig = `
 
@@ -1261,27 +1264,27 @@ calendly.com/akshay-usaindiacfo`;
       return;
     }
     v2Grid.innerHTML = items.map(e => `
-      <details class="group rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition">
+      <details class="group rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-600 transition">
         <summary class="cursor-pointer">
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
-                <span class="text-xs font-mono text-slate-400">#${String(e.i).padStart(2,'0')}</span>
+                <span class="text-xs font-mono text-slate-500">#${String(e.i).padStart(2,'0')}</span>
                 <span class="text-[10px] px-2 py-0.5 rounded border ${usTermChip(e.us_term)} font-medium">${e.us_term}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500">${e.industry}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-500">${e.industry}</span>
               </div>
-              <div class="font-semibold text-ink truncate">${e.name}</div>
+              <div class="font-semibold text-slate-100 truncate">${e.name}</div>
               <div class="text-xs text-slate-500 truncate">${e.title} · ${e.company}</div>
             </div>
-            <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev shrink-0 mt-1 size-4 text-slate-500" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-400 uppercase tracking-wide text-[9px] mr-1">Research</span>${e.research_hook}</div>
+          <div class="mt-3 text-[11px] text-slate-600 leading-relaxed"><span class="text-slate-500 uppercase tracking-wide text-[9px] mr-1">Research</span>${e.research_hook}</div>
           <div class="mt-2 text-[11px] text-slate-500"><span class="uppercase tracking-wide text-[9px]">India angle</span> &middot; ${e.india_differentiator}</div>
-          <div class="mt-3 text-sm font-medium text-ink">${e.subject}</div>
-          <div class="mt-2 text-[10px] font-mono text-slate-400">${e.wc} words</div>
+          <div class="mt-3 text-sm font-medium text-slate-100">${e.subject}</div>
+          <div class="mt-2 text-[10px] font-mono text-slate-500">${e.wc} words</div>
         </summary>
-        <div class="mt-3 pt-3 border-t border-slate-100">
-          <pre class="font-mono text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3 max-h-96 overflow-y-auto">${(e.body + v2Sig).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        <div class="mt-3 pt-3 border-t border-slate-800">
+          <pre class="font-mono text-[11px] leading-relaxed text-slate-200 whitespace-pre-wrap bg-slate-950 border border-slate-800 rounded-md p-3 max-h-96 overflow-y-auto">${(e.body + v2Sig).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
         </div>
       </details>
     `).join("");
@@ -1290,11 +1293,11 @@ calendly.com/akshay-usaindiacfo`;
 
   $$('.v2-filter-btn').forEach(b => b.addEventListener('click', () => {
     $$('.v2-filter-btn').forEach(x => {
-      x.classList.remove('active','bg-ink','text-white');
-      x.classList.add('bg-slate-100','text-slate-600');
+      x.classList.remove('active','bg-slate-100','text-slate-900');
+      x.classList.add('bg-slate-800','text-slate-600');
     });
-    b.classList.add('active','bg-ink','text-white');
-    b.classList.remove('bg-slate-100','text-slate-600');
+    b.classList.add('active','bg-slate-100','text-slate-900');
+    b.classList.remove('bg-slate-800','text-slate-600');
     renderV2(b.dataset.v2Filter);
   }));
 
@@ -1321,26 +1324,26 @@ calendly.com/akshay-usaindiacfo`;
       const tokensLabel = `in ${(e.input_tokens||0).toLocaleString()} · out ${(e.output_tokens||0).toLocaleString()} · cache ${cacheTotal.toLocaleString()}`;
       const bodyOut = (e.body || '').includes('Best,') ? e.body : e.body + sigBlock;
       return `
-      <details class="group rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition">
+      <details class="group rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-600 transition">
         <summary class="cursor-pointer">
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
-                <span class="text-xs font-mono text-slate-400">#${String(e.i).padStart(2,'0')}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono">$${(e.cost_usd||0).toFixed(4)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono">${Math.round(e.latency_ms||0)}ms</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono">${e.wc_actual ?? '?'}w</span>
+                <span class="text-xs font-mono text-slate-500">#${String(e.i).padStart(2,'0')}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800 text-emerald-400 font-mono">$${(e.cost_usd||0).toFixed(4)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-500 font-mono">${Math.round(e.latency_ms||0)}ms</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-500 font-mono">${e.wc_actual ?? '?'}w</span>
               </div>
-              <div class="font-semibold text-ink truncate">${e.name}</div>
+              <div class="font-semibold text-slate-100 truncate">${e.name}</div>
               <div class="text-xs text-slate-500 truncate">${e.title} · ${e.company}</div>
             </div>
-            <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev shrink-0 mt-1 size-4 text-slate-500" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="mt-2 text-[10px] font-mono text-slate-400">${tokensLabel}</div>
-          <div class="mt-2 text-sm font-medium text-ink">${e.subject || '(no subject)'}</div>
+          <div class="mt-2 text-[10px] font-mono text-slate-500">${tokensLabel}</div>
+          <div class="mt-2 text-sm font-medium text-slate-100">${e.subject || '(no subject)'}</div>
         </summary>
-        <div class="mt-3 pt-3 border-t border-slate-100">
-          <pre class="font-mono text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3 max-h-[28rem] overflow-y-auto">${(bodyOut).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        <div class="mt-3 pt-3 border-t border-slate-800">
+          <pre class="font-mono text-[11px] leading-relaxed text-slate-200 whitespace-pre-wrap bg-slate-950 border border-slate-800 rounded-md p-3 max-h-[28rem] overflow-y-auto">${(bodyOut).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
         </div>
       </details>`;
     }).join("");
@@ -1355,37 +1358,37 @@ calendly.com/akshay-usaindiacfo`;
     try { rows = JSON.parse(document.getElementById('bulk-pilot-data').textContent); } catch (e) { return; }
     grid.innerHTML = rows.map(e => {
       const status = e.qa_pass
-        ? '<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 font-medium">QA pass</span>'
-        : `<span class="text-[10px] px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-medium">QA fail · ${(e.qa_issues||[]).length} issue${(e.qa_issues||[]).length===1?'':'s'}</span>`;
+        ? '<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800 text-emerald-400 font-medium">QA pass</span>'
+        : `<span class="text-[10px] px-2 py-0.5 rounded bg-rose-950/40 border border-rose-800 text-rose-400 font-medium">QA fail · ${(e.qa_issues||[]).length} issue${(e.qa_issues||[]).length===1?'':'s'}</span>`;
       const issuesHtml = (!e.qa_pass && (e.qa_issues||[]).length)
-        ? `<div class="mt-2 text-[10px] text-rose-700">${(e.qa_issues||[]).map(x=>'• '+x).join('<br/>')}</div>`
+        ? `<div class="mt-2 text-[10px] text-rose-400">${(e.qa_issues||[]).map(x=>'• '+x).join('<br/>')}</div>`
         : '';
-      const tierBadge = e.tier ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono">${e.tier}${e.icp_score?' · '+e.icp_score:''}</span>` : '';
+      const tierBadge = e.tier ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-200 font-mono">${e.tier}${e.icp_score?' · '+e.icp_score:''}</span>` : '';
       return `
-      <details class="group rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition">
+      <details class="group rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-600 transition">
         <summary class="cursor-pointer">
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
-                <span class="text-xs font-mono text-slate-400">#${String(e.i+1).padStart(3,'0')}</span>
+                <span class="text-xs font-mono text-slate-500">#${String(e.i+1).padStart(3,'0')}</span>
                 ${tierBadge}
                 ${status}
               </div>
-              <div class="font-semibold text-ink truncate">${e.full_name||(e.first_name+' '+e.last_name)} · ${e.company}</div>
+              <div class="font-semibold text-slate-100 truncate">${e.full_name||(e.first_name+' '+e.last_name)} · ${e.company}</div>
               <div class="text-xs text-slate-500 truncate">${e.title} · ${e.industry}</div>
-              <div class="text-[11px] text-slate-400 truncate font-mono">${e.email}</div>
+              <div class="text-[11px] text-slate-500 truncate font-mono">${e.email}</div>
             </div>
-            <svg class="chev shrink-0 mt-1 size-4 text-slate-400" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev shrink-0 mt-1 size-4 text-slate-500" viewBox="0 0 16 16" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="mt-2 text-[10px] font-mono text-slate-400">
+          <div class="mt-2 text-[10px] font-mono text-slate-500">
             $${(e.draft_cost||0).toFixed(4)} · draft ${Math.round(e.draft_ms||0)}ms · QA ${Math.round(e.qa_ms||0)}ms · wc ${e.wc_model??'?'}
           </div>
-          <div class="mt-2 text-sm font-medium text-ink">${e.subject||'(no subject)'}</div>
+          <div class="mt-2 text-sm font-medium text-slate-100">${e.subject||'(no subject)'}</div>
           ${issuesHtml}
         </summary>
-        <div class="mt-3 pt-3 border-t border-slate-100">
-          <pre class="font-mono text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap bg-slate-50 border border-slate-100 rounded-md p-3 max-h-[28rem] overflow-y-auto">${(e.body||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
-          <div class="mt-2 text-[10px] text-slate-400 font-mono">Send from: ${e.sender||'(unassigned)'}</div>
+        <div class="mt-3 pt-3 border-t border-slate-800">
+          <pre class="font-mono text-[11px] leading-relaxed text-slate-200 whitespace-pre-wrap bg-slate-950 border border-slate-800 rounded-md p-3 max-h-[28rem] overflow-y-auto">${(e.body||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+          <div class="mt-2 text-[10px] text-slate-500 font-mono">Send from: ${e.sender||'(unassigned)'}</div>
         </div>
       </details>`;
     }).join("");
