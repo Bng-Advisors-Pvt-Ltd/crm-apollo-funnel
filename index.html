@@ -1454,29 +1454,6 @@ calendly.com/akshay-usaindiacfo`;
     });
   }
   __bpAttachFilters();
-  renderBulkPilot(); });
-    document.querySelectorAll('.filter-qa').forEach(b => {
-      b.addEventListener('click', () => {
-        __bpState.qa = b.getAttribute('data-filter-qa');
-        document.querySelectorAll('.filter-qa').forEach(x => {
-          x.className = 'filter-qa text-[11px] px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:bg-slate-700 transition';
-        });
-        b.className = 'filter-qa text-[11px] px-2.5 py-1 rounded bg-slate-100 text-slate-900 font-semibold transition';
-        renderBulkPilot();
-      });
-    });
-    document.querySelectorAll('.filter-chip').forEach(b => {
-      b.addEventListener('click', () => {
-        __bpState.industry = b.getAttribute('data-filter-industry');
-        document.querySelectorAll('.filter-chip').forEach(x => {
-          x.className = 'filter-chip text-[10px] px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
-        });
-        b.className = 'filter-chip text-[10px] px-2 py-0.5 rounded border border-slate-700 bg-slate-100 text-slate-900 font-semibold transition';
-        renderBulkPilot();
-      });
-    });
-  }
-  __bpAttachFilters();
   renderBulkPilot();
 })();
 </script>
